@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
+import SignUpViewModel from "@/view-model/SignupViewModel";
 
 const BASE_API = "111.11.11:8000";
 
@@ -36,6 +37,12 @@ const SignupComponent = () => {
 
   const isValidCheck = isEmailValid && isPwValid && isPwChkValid;
 
+  const signUpVM = new SignUpViewModel(
+    userInfo.email,
+    userInfo.password,
+    userInfo.passwordCheck
+  );
+
   const postSignin = () => {
     // fetch(`${BASE_API}/users/`, {
     //   method: "POST",
@@ -62,7 +69,6 @@ const SignupComponent = () => {
     //   .catch((error) => {
     //     console.log(error);
     //   });
-    alert("회원가입완료");
   };
 
   const handleSignUp = (e: React.FormEvent) => {
@@ -88,7 +94,12 @@ const SignupComponent = () => {
             </InputBox>
           ))}
         </SignupInputWrap>
-        <SignupBtn onClick={handleSignUp} disabled={!isValidCheck}>
+        <SignupBtn
+          onClick={() => {
+            signUpVM.showAlert();
+          }}
+          // disabled={!isValidCheck}
+        >
           회원가입
         </SignupBtn>
       </SignupWrap>
