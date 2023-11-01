@@ -1,3 +1,5 @@
+import PostSignUp from "@/model/signup/PostSignup";
+
 class SignUpViewModel {
   private email: string;
   private password: string;
@@ -25,7 +27,7 @@ class SignUpViewModel {
     return this.password === this.passwordCheck;
   }
 
-  showAlert(): void {
+  async showAlert(): Promise<void> {
     if (!this.isEmailValid()) {
       alert("이메일이 유효하지 않습니다.");
     } else if (!this.isPasswordValid()) {
@@ -33,7 +35,9 @@ class SignUpViewModel {
     } else if (!this.doPasswordsMatch()) {
       alert("비밀번호 확인이 일치하지 않습니다.");
     } else {
-      alert("회원가입 성공!");
+      const postSignUp = new PostSignUp(this.email, this.password);
+      const response = await postSignUp.signUp();
+      response;
     }
   }
 }
