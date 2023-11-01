@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import LoginViewModel from "@/view-model/login/page";
 
 const LoginComponent: React.FC = () => {
   const [emailInfo, setEmailInfo] = useState<string>("");
   const [passwordInfo, setPasswordInfo] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
+  const vm = new LoginViewModel();
 
   const handleNavigate = () => {
     router.push("/");
@@ -31,35 +33,7 @@ const LoginComponent: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // if (emailInfo === "") {
-    //   alert("이메일을 입력해주세요");
-    //   return;
-    // } else if (passwordInfo === "") {
-    //   alert("비밀번호를 입력해주세요");
-    //   return;
-    // }
-    // fetch(`api주소`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=utf-8",
-    //   },
-    //   body: JSON.stringify({
-    //     email: emailInfo,
-    //     password: passwordInfo,
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     if (data.message === "LOGIN_SUCCESS") {
-    alert("로그인이 성공했습니다");
-    handleNavigate();
-    //       localStorage.setItem("loginToken", data.token);
-    //     } else if (data.message === "NOT_REGISTERED") {
-    //       alert("이메일이 존재하지않습니다");
-    //     } else if (data.message === "WRONG_PASSWORD") {
-    //       alert("비밀번호가 틀렷습니다");
-    //     }
-    //   });
+    vm.handleLogin(emailInfo, passwordInfo);
   };
 
   return (
@@ -67,24 +41,26 @@ const LoginComponent: React.FC = () => {
       <Wrapper>
         <Logo>CareMind</Logo>
         <Title>로그인</Title>
-        <EmailInput
-          type="text"
-          placeholder="이메일을 입력하세요"
-          onChange={saveUserEmail}
-          value={emailInfo}
-        ></EmailInput>
-        <PasswordWrapper>
-          <PasswordInput
-            type={showPassword ? "text" : "password"}
-            placeholder="비밀번호를 입력하세요"
-            onChange={saveUserPassword}
-            value={passwordInfo}
-          ></PasswordInput>
-          <ShowButton onClick={handleShowPassword}>
-            {showPassword ? "숨기기" : "보기"}
-          </ShowButton>
-        </PasswordWrapper>
-        <LoginButton onClick={handleLogin}>로그인</LoginButton>
+        <FormWrapper onSubmit={handleLogin}>
+          <EmailInput
+            type="text"
+            placeholder="이메일을 입력하세요"
+            onChange={saveUserEmail}
+            value={emailInfo}
+          ></EmailInput>
+          <PasswordWrapper>
+            <PasswordInput
+              type={showPassword ? "text" : "password"}
+              placeholder="비밀번호를 입력하세요"
+              onChange={saveUserPassword}
+              value={passwordInfo}
+            ></PasswordInput>
+            <ShowButton onClick={handleShowPassword}>
+              {showPassword ? "숨기기" : "보기"}
+            </ShowButton>
+          </PasswordWrapper>
+          <LoginButton type="submit">로그인</LoginButton>
+        </FormWrapper>
         <SignUpLetter onClick={handleGoToSignUp}>
           회원이 아니신가요?
         </SignUpLetter>
@@ -93,7 +69,7 @@ const LoginComponent: React.FC = () => {
   );
 };
 
-const Wrapper = styled.form`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,6 +78,7 @@ const Wrapper = styled.form`
   height: 100vh;
 `;
 
+const FormWrapper = styled.form``;
 const Logo = styled.h1`
   color: #8bc34a;
 `;
