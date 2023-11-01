@@ -10,11 +10,11 @@ const LoginComponent: React.FC = () => {
   const [passwordInfo, setPasswordInfo] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
-  const vm = new LoginViewModel();
+  const loginViewModel = new LoginViewModel();
 
-  const handleNavigate = () => {
-    router.push("/");
-  };
+  //   const handleNavigate = () => {
+  //     router.push("/");
+  //   };
 
   const handleGoToSignUp = () => {
     router.push("/signup");
@@ -33,7 +33,9 @@ const LoginComponent: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    vm.handleLogin(emailInfo, passwordInfo);
+    loginViewModel.handleLogin(emailInfo, passwordInfo, () => {
+      router.push("/");
+    });
   };
 
   return (
