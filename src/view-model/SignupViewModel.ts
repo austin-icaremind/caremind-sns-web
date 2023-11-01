@@ -1,22 +1,3 @@
-// class SignUpViewModel {
-//   email: string;
-//   password: string;
-//   passwordCheck: string;
-
-//   constructor(email: string, password: string, passwordCheck: string) {
-//     this.email = email;
-//     this.password = password;
-//     this.passwordCheck = passwordCheck;
-//   }
-
-//   showAlert() {
-//     const message = `Email: ${this.email}\nPassword: ${this.password}\nPassword Check: ${this.passwordCheck}`;
-//     alert(message);
-//   }
-// }
-
-// export default SignUpViewModel;
-
 class SignUpViewModel {
   private email: string;
   private password: string;

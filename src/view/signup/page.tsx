@@ -5,8 +5,6 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import SignUpViewModel from "@/view-model/SignupViewModel";
 
-const BASE_API = "111.11.11:8000";
-
 const SignupComponent = () => {
   const router = useRouter();
 
@@ -42,39 +40,6 @@ const SignupComponent = () => {
     userInfo.password,
     userInfo.passwordCheck
   );
-
-  const postSignin = () => {
-    // fetch(`${BASE_API}/users/`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: userInfo.email,
-    //     password: userInfo.password,
-    //   }),
-    // })
-    //   .then((response) => {
-    //     if (response.status === 201) {
-    //       return response.json();
-    //     }
-    //     throw new Error("communication failure");
-    //   })
-    //   .then((result) => {
-    //     if (result.message === "USER_CREATED") {
-    //       alert("회원가입 완료");
-    //       router.push("/login");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-  };
-
-  const handleSignUp = (e: React.FormEvent) => {
-    e.preventDefault();
-    postSignin();
-  };
 
   return (
     <SignupStyle>
