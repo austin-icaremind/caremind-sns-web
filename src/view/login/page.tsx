@@ -78,7 +78,11 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const FormWrapper = styled.form``;
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
 const Logo = styled.h1`
   color: #8bc34a;
 `;
