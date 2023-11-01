@@ -34,7 +34,6 @@ class SignUpViewModel {
       alert("비밀번호 확인이 일치하지 않습니다.");
     } else {
       alert("회원가입 성공!");
-      // You can add logic here to submit the form or navigate to the next page.
     }
   }
 }
