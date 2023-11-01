@@ -20,26 +20,29 @@ const SignupComponent = () => {
     passwordCheck: "",
   });
 
+  const [signupCheck, setSignupCheck] = useState<string>("");
+
   const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
-
-  const emailRegex =
-    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-  const pwRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{4,16}$/;
-
-  const isEmailValid = emailRegex.test(userInfo.email);
-  const isPwValid = pwRegex.test(userInfo.password);
-  const isPwChkValid = userInfo.password === userInfo.passwordCheck;
-
-  const isValidCheck = isEmailValid && isPwValid && isPwChkValid;
 
   const signUpVM = new SignUpViewModel(
     userInfo.email,
     userInfo.password,
     userInfo.passwordCheck
   );
+
+  const onClcikAlert = async () => {
+    const alertCheck = await signUpVM.showAlert();
+    setSignupCheck(alertCheck);
+
+    if (alertCheck === "success") {
+      alert("회원가입 성공!");
+    } else if (alertCheck === "duplicated") {
+      alert("중복된 이메일");
+    }
+  };
 
   return (
     <SignupStyle>
@@ -62,7 +65,7 @@ const SignupComponent = () => {
         <SignupBtn
           onClick={(e: React.FormEvent) => {
             e.preventDefault;
-            signUpVM.showAlert();
+            onClcikAlert();
           }}
           // disabled={!isValidCheck}
         >

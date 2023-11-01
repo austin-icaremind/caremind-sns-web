@@ -12,19 +12,10 @@ class PostSignUp {
   }
 
   async signUp(): Promise<any> {
-    try {
-      const response = await axios.post(this.apiUrl, {
-        email: this.email,
-        password: this.password,
-      });
-      const message = response.data.message;
-      if (message === "KEY ERROR(password)") {
-        alert("비밀번호를 다시 확인해주세욧");
-      }
-    } catch (error) {
-      console.error("Sign-up failed:", error);
-      throw error;
-    }
+    return axios.post(this.apiUrl, {
+      email: this.email,
+      password: this.password,
+    });
   }
 }
 

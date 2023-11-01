@@ -27,25 +27,24 @@ class SignUpViewModel {
     return this.password === this.passwordCheck;
   }
 
-  async showAlert(): Promise<void> {
-    // if (!this.isEmailValid()) {
-    //   alert("이메일이 유효하지 않습니다.");
-    // } else if (!this.isPasswordValid()) {
-    //   alert("비밀번호가 유효하지 않습니다.");
-    // } else if (!this.doPasswordsMatch()) {
-    //   alert("비밀번호 확인이 일치하지 않습니다.");
-    // } else {
-    const postSignUp = new PostSignUp(this.email, this.password);
-    try {
-      const response = await postSignUp.signUp();
-      console.log(response);
-      // if (response.message === "KEY ERROR(password)") {
-      //   alert("비밀번호를 다시 확인해주세요");
-      // }
-    } catch (error) {
-      // alert("회원가입 중 오류가 발생했습니다.");
+  async showAlert(): Promise<any> {
+    if (!this.isEmailValid()) {
+      alert("이메일이 유효하지 않습니다.");
+    } else if (!this.isPasswordValid()) {
+      alert("비밀번호가 유효하지 않습니다.");
+    } else if (!this.doPasswordsMatch()) {
+      alert("비밀번호 확인이 일치하지 않습니다.");
+    } else {
+      try {
+        const postSignUp = new PostSignUp(this.email, this.password);
+        const response = await postSignUp.signUp();
+        console.log(response.status);
+        return "success";
+      } catch (error) {
+        console.log("중복된 이메일");
+        return "duplicated";
+      }
     }
-    // }
   }
 }
 export default SignUpViewModel;
