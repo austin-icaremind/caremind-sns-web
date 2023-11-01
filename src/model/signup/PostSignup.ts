@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
+import axios from "axios";
 
 class PostSignUp {
   private email: string;
@@ -8,26 +8,24 @@ class PostSignUp {
   constructor(email: string, password: string) {
     this.email = email;
     this.password = password;
-    this.apiUrl = "http://10.58.52.158:8000/users/";
+    this.apiUrl = "http://172.30.1.28:3000/user/signup";
   }
 
-  async signUp() {
-    alert(`맨밑 ${this.email} ${this.password}`);
+  async signUp(): Promise<any> {
+    try {
+      const response = await axios.post(this.apiUrl, {
+        email: this.email,
+        password: this.password,
+      });
+      const message = response.data.message;
+      if (message === "KEY ERROR(password)") {
+        alert("비밀번호를 다시 확인해주세욧");
+      }
+    } catch (error) {
+      console.error("Sign-up failed:", error);
+      throw error;
+    }
   }
-
-  // async signUp(): Promise<AxiosResponse | AxiosError> {
-  //   try {
-  //     const response = await axios.post(this.apiUrl, {
-  //       email: this.email,
-  //       password: this.password,
-  //     });
-
-  //     return response;
-  //   } catch (error) {
-  //     console.error("Sign-up failed:", error);
-  //     throw error;
-  //   }
-  // }
 }
 
 export default PostSignUp;

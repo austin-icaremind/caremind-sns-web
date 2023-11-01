@@ -60,7 +60,8 @@ const SignupComponent = () => {
           ))}
         </SignupInputWrap>
         <SignupBtn
-          onClick={() => {
+          onClick={(e: React.FormEvent) => {
+            e.preventDefault;
             signUpVM.showAlert();
           }}
           // disabled={!isValidCheck}
@@ -131,7 +132,7 @@ const InputStyle = styled.input`
   }
 `;
 
-const SignupBtn = styled.button`
+const SignupBtn = styled.div`
   width: 150px;
   padding: 16px;
   font-size: 20px;

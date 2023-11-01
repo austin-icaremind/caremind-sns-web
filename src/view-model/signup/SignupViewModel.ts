@@ -28,18 +28,24 @@ class SignUpViewModel {
   }
 
   async showAlert(): Promise<void> {
-    if (!this.isEmailValid()) {
-      alert("이메일이 유효하지 않습니다.");
-    } else if (!this.isPasswordValid()) {
-      alert("비밀번호가 유효하지 않습니다.");
-    } else if (!this.doPasswordsMatch()) {
-      alert("비밀번호 확인이 일치하지 않습니다.");
-    } else {
-      const postSignUp = new PostSignUp(this.email, this.password);
+    // if (!this.isEmailValid()) {
+    //   alert("이메일이 유효하지 않습니다.");
+    // } else if (!this.isPasswordValid()) {
+    //   alert("비밀번호가 유효하지 않습니다.");
+    // } else if (!this.doPasswordsMatch()) {
+    //   alert("비밀번호 확인이 일치하지 않습니다.");
+    // } else {
+    const postSignUp = new PostSignUp(this.email, this.password);
+    try {
       const response = await postSignUp.signUp();
-      response;
+      console.log(response);
+      // if (response.message === "KEY ERROR(password)") {
+      //   alert("비밀번호를 다시 확인해주세요");
+      // }
+    } catch (error) {
+      // alert("회원가입 중 오류가 발생했습니다.");
     }
+    // }
   }
 }
-
 export default SignUpViewModel;
