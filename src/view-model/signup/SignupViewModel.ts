@@ -1,4 +1,4 @@
-import PostSignUp from "@/model/signup/PostSignup";
+import UserService from "@/model/service/UserService";
 
 class SignUpViewModel {
   private email: string;
@@ -36,9 +36,8 @@ class SignUpViewModel {
       alert("비밀번호 확인이 일치하지 않습니다.");
     } else {
       try {
-        const postSignUp = new PostSignUp(this.email, this.password);
-        const response = await postSignUp.signUp();
-        console.log(response.status);
+        const postSignUp = new UserService();
+        const response = await postSignUp.signUp(this.email, this.password);
         return "success";
       } catch (error) {
         console.log("중복된 이메일");
