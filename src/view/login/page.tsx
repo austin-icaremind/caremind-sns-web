@@ -3,18 +3,25 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import LoginViewModel from "@/view-model/login/page";
+import LoginViewModel from "@/view-model/login/LoginViewModel";
 
 const LoginComponent: React.FC = () => {
-  const [emailInfo, setEmailInfo] = useState<string>("");
-  const [passwordInfo, setPasswordInfo] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
-  const loginViewModel = new LoginViewModel();
 
-  //   const handleNavigate = () => {
-  //     router.push("/");
-  //   };
+  interface acountCheck {
+    email: string;
+    password: string;
+  }
+
+  const [userInfo, setUserInfo] = useState<acountCheck>({
+    email: "",
+    password: "",
+  });
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const [loginCheck, setLoginCheck] = useState<string>("");
+
+  const loginViewModel = new LoginViewModel(userInfo.email, userInfo.password);
 
   const handleGoToSignUp = () => {
     router.push("/signup");
@@ -23,19 +30,21 @@ const LoginComponent: React.FC = () => {
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const saveUserEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailInfo(e.target.value);
+  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const saveUserPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPasswordInfo(e.target.value);
-  };
-
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    loginViewModel.handleLogin(emailInfo, passwordInfo, () => {
+    const alertCheck = await loginViewModel.showAlert();
+    setLoginCheck(alertCheck);
+    if (alertCheck === "success") {
+      alert("로그인 성공");
       router.push("/");
-    });
+    } else if (alertCheck === "wrong") {
+      alert("잘못된 정보 입력");
+    }
   };
 
   return (
@@ -47,15 +56,15 @@ const LoginComponent: React.FC = () => {
           <EmailInput
             type="text"
             placeholder="이메일을 입력하세요"
-            onChange={saveUserEmail}
-            value={emailInfo}
+            onChange={handleUserInfo}
+            name="email"
           ></EmailInput>
           <PasswordWrapper>
             <PasswordInput
               type={showPassword ? "text" : "password"}
               placeholder="비밀번호를 입력하세요"
-              onChange={saveUserPassword}
-              value={passwordInfo}
+              onChange={handleUserInfo}
+              name="password"
             ></PasswordInput>
             <ShowButton onClick={handleShowPassword}>
               {showPassword ? "숨기기" : "보기"}
