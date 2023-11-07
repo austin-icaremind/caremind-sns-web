@@ -6,11 +6,6 @@ import ProfileTitle from "./components/ProfileTitle";
 import ProfileEducation from "./components/ProfileEducation";
 import ProfileExperience from "./components/ProfileExperience";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import {
-  ProfileTitleData,
-  ExperienceInsideData,
-  EducationInsideData,
-} from "@/model/service/interface/ProfileServiceInterface";
 
 const ProfileView = () => {
   const [titleData, setTitleData] = useState<any | null>(null);
@@ -26,11 +21,11 @@ const ProfileView = () => {
 
         const getExperienceData =
           await new ProfileViewModel().getProfileExperience();
-        setExperienceData(getExperienceData);
+        setExperienceData(getExperienceData.data);
 
         const getEducationData =
           await new ProfileViewModel().getProfileEducation();
-        setEducationData(getEducationData);
+        setEducationData(getEducationData.data);
       } catch (error) {
         console.error(error);
       }

@@ -2,11 +2,12 @@ import axios, { AxiosResponse } from "axios";
 import {
   ProfileServiceInterface,
   ProfileTitleData,
-  ExperienceData,
   EducationData,
+  ExperienceData,
 } from "../interface/ProfileServiceInterface";
-import { Profile } from "@/model/entity/profile/Profile";
-
+import { ProfileTitle } from "@/model/entity/profile/ProfileTitle";
+import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
+import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
 export class ProfileService implements ProfileServiceInterface {
   private apiUrl: string;
 
@@ -14,41 +15,46 @@ export class ProfileService implements ProfileServiceInterface {
     this.apiUrl = "/data"; // 새로운 URL로 변경
   }
 
-  async getTitle(): Promise<ProfileTitleData> {
+  async getTitle(): Promise<ProfileTitle> {
     const response: AxiosResponse<ProfileTitleData> = await axios.get(
       `${this.apiUrl}/ProfileTitle.json`
     );
-    return response.data;
+    const result = new ProfileTitle(
+      response.data.id,
+      response.data.profileImage,
+      response.data.name,
+      response.data.location,
+      response.data.jobDescription,
+      response.data.connections
+    );
+    return result;
   }
 
-  async getExperience(): Promise<Profile> {
+  async getExperience(): Promise<ProfileExperience> {
     const response: AxiosResponse<ExperienceData> = await axios.get(
       `${this.apiUrl}/Experience.json`
     );
 
-    console.log("모델 Experience : ", response);
-    console.log("모델 Experience Type: ", typeof response);
-
-    const result = new Profile(
+    const result = new ProfileExperience(
       response.data.id,
       response.data.message,
-      response.data.category
-      // response.data.data
+      response.data.category,
+      response.data.data
     );
 
     return result;
   }
 
-  async getEducation(): Promise<Profile> {
+  async getEducation(): Promise<ProfileEducation> {
     const response: AxiosResponse<EducationData> = await axios.get(
       `${this.apiUrl}/Education.json`
     );
 
-    const result = new Profile(
+    const result = new ProfileEducation(
       response.data.id,
       response.data.message,
-      response.data.category
-      // response.data.data
+      response.data.category,
+      response.data.data
     );
 
     return result;

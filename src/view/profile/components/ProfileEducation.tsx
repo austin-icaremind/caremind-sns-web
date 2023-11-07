@@ -5,29 +5,9 @@ import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import { EducationInsideData } from "@/model/service/interface/ProfileServiceInterface";
 
 const ProfileEducation = (data: EducationInsideData) => {
-  // const [data, setData] = useState<any | null>(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const getProfile = new ProfileViewModel();
-  //       const educationData = await getProfile.getProfileEducation();
-  //       setData(educationData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (data === null) {
-  //   return;
-  // }
-
   return (
     <>
-      {data.data?.map((item: any) => (
+      {data?.data.map((item: any) => (
         <CareerContentBox key={item.id}>
           <CareerPic src={item.imgSrc} alt="사진" width={100} height={100} />
           <CareerDetailBox>

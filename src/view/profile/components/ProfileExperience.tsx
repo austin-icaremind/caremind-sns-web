@@ -6,30 +6,9 @@ import { Profile } from "@/model/entity/profile/Profile";
 import { ExperienceInsideData } from "@/model/service/interface/ProfileServiceInterface";
 
 const ProfileExperience = (data: ExperienceInsideData) => {
-  // const [data, setData] = useState<any | null>(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const getProfile = new ProfileViewModel();
-  //       const experienceData = await getProfile.getProfileExperience();
-
-  //       setData(experienceData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
-  // if (data === null) {
-  //   return;
-  // }
-
   return (
     <>
-      {data.data?.map((item: any) => (
+      {data?.data.map((item: any) => (
         <CareerContentBox key={item.id}>
           <CareerPic src={item.imgSrc} alt="사진" width={100} height={100} />
           <CareerDetailBox>

@@ -2,6 +2,8 @@ import { Profile } from "@/model/entity/profile/Profile";
 import { ProfileService } from "@/model/service/class/ProfileService";
 import { ProfileViewModelInterface } from "../interface/ProfileViewModelInterface";
 import { ProfileTitleData } from "../interface/ProfileViewModelInterface";
+import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
+import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
 
 class ProfileViewModel implements ProfileViewModelInterface {
   async getProfileTitleData(): Promise<ProfileTitleData> {
@@ -16,7 +18,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProfileExperience(): Promise<Profile> {
+  async getProfileExperience(): Promise<ProfileExperience> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getExperience();
@@ -29,7 +31,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProfileEducation(): Promise<Profile> {
+  async getProfileEducation(): Promise<ProfileEducation> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getEducation();
