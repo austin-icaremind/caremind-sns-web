@@ -5,9 +5,12 @@ import {
   EducationData,
   ExperienceData,
 } from "../interface/ProfileServiceInterface";
+import { ProfileTitleInterface } from "@/model/entity/profile/ProfileTitleInterface";
 import { ProfileTitle } from "@/model/entity/profile/ProfileTitle";
 import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
 import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
+import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileExperienceInterface";
+import { ProfileEducationInterface } from "@/model/entity/profile/ProfileEducationInterface";
 export class ProfileService implements ProfileServiceInterface {
   private apiUrl: string;
 
@@ -15,7 +18,8 @@ export class ProfileService implements ProfileServiceInterface {
     this.apiUrl = "/data"; // 새로운 URL로 변경
   }
 
-  async getTitle(): Promise<ProfileTitle> {
+  // async getTitle(): Promise<ProfileTitle> {
+  async getTitle(): Promise<ProfileTitleInterface> {
     const response: AxiosResponse<ProfileTitleData> = await axios.get(
       `${this.apiUrl}/ProfileTitle.json`
     );
@@ -30,7 +34,8 @@ export class ProfileService implements ProfileServiceInterface {
     return result;
   }
 
-  async getExperience(): Promise<ProfileExperience> {
+  // async getExperience(): Promise<ProfileExperience> {
+  async getExperience(): Promise<ProfileExperienceInterface> {
     const response: AxiosResponse<ExperienceData> = await axios.get(
       `${this.apiUrl}/Experience.json`
     );
@@ -45,7 +50,8 @@ export class ProfileService implements ProfileServiceInterface {
     return result;
   }
 
-  async getEducation(): Promise<ProfileEducation> {
+  // async getEducation(): Promise<ProfileEducation> {
+  async getEducation(): Promise<ProfileEducationInterface> {
     const response: AxiosResponse<EducationData> = await axios.get(
       `${this.apiUrl}/Education.json`
     );

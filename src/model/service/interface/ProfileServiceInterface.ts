@@ -1,11 +1,17 @@
 import { Profile } from "@/model/entity/profile/Profile";
+import { ProfileEducationInterface } from "@/model/entity/profile/ProfileEducationInterface";
 import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
+import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileExperienceInterface";
 import { ProfileTitle } from "@/model/entity/profile/ProfileTitle";
+import { ProfileTitleInterface } from "@/model/entity/profile/ProfileTitleInterface";
 
 export interface ProfileServiceInterface {
-  getTitle: () => Promise<ProfileTitle>;
-  getExperience: () => Promise<ProfileExperience>;
-  getEducation: () => Promise<Profile>;
+  // getTitle: () => Promise<ProfileTitle>;
+  // getExperience: () => Promise<ProfileExperience>;
+  // getEducation: () => Promise<Profile>;
+  getTitle: () => Promise<ProfileTitleInterface>;
+  getExperience: () => Promise<ProfileExperienceInterface>;
+  getEducation: () => Promise<ProfileEducationInterface>;
 }
 
 export interface ProfileTitleData {
