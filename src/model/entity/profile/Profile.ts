@@ -12,15 +12,15 @@ export class Profile implements ProfileInterface {
   connections?: number;
 
   constructor(
-    profileImage: string,
-    name: string,
-    location: string,
-    jobDescription: string,
-    connections: number,
     id: number,
-    message: string,
-    category: string,
-    data: Data[]
+    profileImage?: string,
+    name?: string,
+    location?: string,
+    jobDescription?: string,
+    connections?: number,
+    message?: string,
+    category?: string,
+    data?: Data[]
   ) {
     this.profileImage = profileImage;
     this.name = name;
