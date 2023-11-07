@@ -22,8 +22,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getExperience();
-      console.log("modelView :", response);
-      console.log("modelView 타입:", typeof response);
+
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);

@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import { EducationInsideData } from "@/model/service/interface/ProfileServiceInterface";
+import { ExperienceData } from "@/model/service/interface/ProfileServiceInterface";
 
-const ProfileEducation = (data: EducationInsideData) => {
+const ProfileExperienceView: React.FC<{ data: [] }> = ({ data }) => {
   return (
     <>
-      {data?.data.map((item: any) => (
+      {data?.map((item: any) => (
         <CareerContentBox key={item.id}>
           <CareerPic src={item.imgSrc} alt="사진" width={100} height={100} />
           <CareerDetailBox>
@@ -107,4 +106,4 @@ const CareerDetail = styled.div`
   font-weight: 400;
   line-height: 150%;
 `;
-export default ProfileEducation;
+export default ProfileExperienceView;

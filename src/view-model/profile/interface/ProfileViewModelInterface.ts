@@ -1,9 +1,10 @@
-import { Profile } from "@/model/entity/profile/Profile";
+import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
+import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
 
 export interface ProfileViewModelInterface {
   getProfileTitleData: () => Promise<ProfileTitleData>;
-  getProfileExperience: () => Promise<Profile>;
-  getProfileEducation: () => Promise<Profile>;
+  getProfileExperience: () => Promise<ProfileEducation>;
+  getProfileEducation: () => Promise<ProfileExperience>;
 }
 
 export interface ProfileTitleData {

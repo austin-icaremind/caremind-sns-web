@@ -2,10 +2,15 @@
 
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ProfileTitle from "./components/ProfileTitle";
-import ProfileEducation from "./components/ProfileEducation";
-import ProfileExperience from "./components/ProfileExperience";
+import ProfileTitleView from "./components/ProfileTitleView";
+import ProfileEducationView from "./components/ProfileEducationView";
+import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
+import { ProfileTitleInterface } from "@/model/entity/profile/ProfileTitleInterface";
+import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileExperienceInterface";
+import { ProfileEducationInterface } from "@/model/entity/profile/ProfileEducationInterface";
+import { ExperienceInsideData } from "@/model/service/interface/ProfileServiceInterface";
+import { EducationInsideData } from "@/model/service/interface/ProfileServiceInterface";
 
 const ProfileView = () => {
   const [titleData, setTitleData] = useState<any | null>(null);
@@ -17,14 +22,17 @@ const ProfileView = () => {
       try {
         const getProfileData =
           await new ProfileViewModel().getProfileTitleData();
+
         setTitleData(getProfileData);
 
         const getExperienceData =
           await new ProfileViewModel().getProfileExperience();
+
         setExperienceData(getExperienceData.data);
 
         const getEducationData =
           await new ProfileViewModel().getProfileEducation();
+
         setEducationData(getEducationData.data);
       } catch (error) {
         console.error(error);
@@ -40,7 +48,7 @@ const ProfileView = () => {
   return (
     <ProfileStyle>
       <ProfileLeft>
-        <ProfileTitle data={titleData} />:
+        <ProfileTitleView data={titleData} />:
         <ProfileUpperInfo>PROFILE</ProfileUpperInfo>
         <ProfileUpperInfoEmptySpace />
         <ProfileTotalBox>
@@ -96,13 +104,13 @@ const ProfileView = () => {
           <ProfileCareerStyle>
             <ProfileCareerWrap>
               <CareerCategory>Experience</CareerCategory>
-              <ProfileExperience data={experienceData} />
+              <ProfileExperienceView data={experienceData} />
             </ProfileCareerWrap>
           </ProfileCareerStyle>
           <ProfileCareerStyle>
             <ProfileCareerWrap>
               <CareerCategory>Education</CareerCategory>
-              <ProfileEducation data={educationData} />
+              <ProfileEducationView data={educationData} />
             </ProfileCareerWrap>
           </ProfileCareerStyle>
         </ProfileTotalBox>
