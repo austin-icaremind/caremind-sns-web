@@ -3,29 +3,30 @@ import styled from "styled-components";
 import Image from "next/image";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import { Profile } from "@/model/entity/profile/Profile";
+import { ExperienceInsideData } from "@/model/service/interface/ProfileServiceInterface";
 
-const ProfileExperience = () => {
-  const [data, setData] = useState<any | null>(null);
+const ProfileExperience = (data: ExperienceInsideData) => {
+  // const [data, setData] = useState<any | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const getProfile = new ProfileViewModel();
-        const experienceData = await getProfile.getProfileExperience();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const getProfile = new ProfileViewModel();
+  //       const experienceData = await getProfile.getProfileExperience();
 
-        setData(experienceData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //       setData(experienceData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  if (data === null) {
-    return;
-  }
-  console.log("data", data);
+  // if (data === null) {
+  //   return;
+  // }
+
   return (
     <>
       {data.data?.map((item: any) => (
