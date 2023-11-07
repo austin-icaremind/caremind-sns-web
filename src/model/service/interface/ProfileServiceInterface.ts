@@ -9,7 +9,7 @@ export interface ProfileServiceInterface {
   // getTitle: () => Promise<ProfileTitle>;
   // getExperience: () => Promise<ProfileExperience>;
   // getEducation: () => Promise<Profile>;
-  getTitle: () => Promise<ProfileTitleInterface>;
+  getTitle: () => Promise<ProfileTitleData>;
   getExperience: () => Promise<ProfileExperienceInterface>;
   getEducation: () => Promise<ProfileEducationInterface>;
 }

@@ -19,7 +19,7 @@ export class ProfileService implements ProfileServiceInterface {
   }
 
   // async getTitle(): Promise<ProfileTitle> {
-  async getTitle(): Promise<ProfileTitleInterface> {
+  async getTitle(): Promise<ProfileTitleData> {
     const response: AxiosResponse<ProfileTitleData> = await axios.get(
       `${this.apiUrl}/ProfileTitle.json`
     );
