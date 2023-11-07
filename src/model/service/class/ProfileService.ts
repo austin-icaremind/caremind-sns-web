@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import {
   ProfileServiceInterface,
-  ProfileTitleData,
-  ExperienceData,
   EducationData,
 } from "../interface/ProfileServiceInterface";
 import { Profile } from "@/model/entity/profile/Profile";
+import { ProfileTitle } from "@/model/entity/profile/ProfileTitle";
+import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
 
 export class ProfileService implements ProfileServiceInterface {
   private apiUrl: string;
@@ -14,20 +14,25 @@ export class ProfileService implements ProfileServiceInterface {
     this.apiUrl = "/data"; // 새로운 URL로 변경
   }
 
-  async getTitle(): Promise<ProfileTitleData> {
-    const response: AxiosResponse<ProfileTitleData> = await axios.get(
+  async getTitle(): Promise<ProfileTitle> {
+    const response: AxiosResponse<ProfileTitle> = await axios.get(
       `${this.apiUrl}/ProfileTitle.json`
     );
-    return response.data;
+    const result = new ProfileTitle(
+      response.data.id,
+      response.data.profileImage,
+      response.data.name,
+      response.data.location,
+      response.data.jobDescription,
+      response.data.connections
+    );
+    return result;
   }
 
-  async getExperience(): Promise<Profile> {
-    const response: AxiosResponse<ExperienceData> = await axios.get(
+  async getExperience(): Promise<ProfileExperience> {
+    const response: AxiosResponse<ProfileExperience> = await axios.get(
       `${this.apiUrl}/Experience.json`
     );
-
-    console.log("모델 Experience : ", response);
-    console.log("모델 Experience Type: ", typeof response);
 
     const result = new Profile(
       response.data.id,
