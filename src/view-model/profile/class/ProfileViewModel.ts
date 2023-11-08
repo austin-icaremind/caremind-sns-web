@@ -1,12 +1,9 @@
-import { Profile } from "@/model/entity/profile/Profile";
+import * as Profile from "@/model/entity/profile/Profile";
 import { ProfileService } from "@/model/service/class/ProfileService";
 import { ProfileViewModelInterface } from "../interface/ProfileViewModelInterface";
-import { ProfileTitleData } from "../interface/ProfileViewModelInterface";
-import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
-import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
 
 class ProfileViewModel implements ProfileViewModelInterface {
-  async getProfileTitleData(): Promise<ProfileTitleData> {
+  async getProfileTitleData(): Promise<Profile.ProfileTitleImp> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getTitle();
@@ -18,7 +15,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProfileExperience(): Promise<ProfileExperience> {
+  async getProfileExperience(): Promise<Profile.ProfileExperienceImp> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getExperience();
@@ -30,7 +27,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProfileEducation(): Promise<ProfileEducation> {
+  async getProfileEducation(): Promise<Profile.ProfileEducationImp> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getEducation();

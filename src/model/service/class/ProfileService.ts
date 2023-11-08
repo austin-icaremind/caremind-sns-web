@@ -1,29 +1,20 @@
 import axios, { AxiosResponse } from "axios";
-import {
-  ProfileServiceInterface,
-  ProfileTitleData,
-  EducationData,
-  ExperienceData,
-} from "../interface/ProfileServiceInterface";
-import { ProfileTitleInterface } from "@/model/entity/profile/ProfileTitleInterface";
-import { ProfileTitle } from "@/model/entity/profile/ProfileTitle";
-import { ProfileExperience } from "@/model/entity/profile/ProfileExperience";
-import { ProfileEducation } from "@/model/entity/profile/ProfileEducation";
-import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileExperienceInterface";
-import { ProfileEducationInterface } from "@/model/entity/profile/ProfileEducationInterface";
-export class ProfileService implements ProfileServiceInterface {
+import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
+import * as ProfileServiceInterface from "../interface/ProfileServiceInterface";
+import * as Profile from "@/model/entity/profile/Profile";
+export class ProfileService
+  implements ProfileServiceInterface.ProfileServiceInterface
+{
   private apiUrl: string;
 
   constructor() {
     this.apiUrl = "/data"; // 새로운 URL로 변경
   }
 
-  // async getTitle(): Promise<ProfileTitle> {
-  async getTitle(): Promise<ProfileTitleData> {
-    const response: AxiosResponse<ProfileTitleData> = await axios.get(
-      `${this.apiUrl}/ProfileTitle.json`
-    );
-    const result = new ProfileTitle(
+  async getTitle(): Promise<ProfileInterface.ProfileTitleInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
+      await axios.get(`${this.apiUrl}/ProfileTitle.json`);
+    const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileImage,
       response.data.name,
@@ -34,13 +25,11 @@ export class ProfileService implements ProfileServiceInterface {
     return result;
   }
 
-  // async getExperience(): Promise<ProfileExperience> {
-  async getExperience(): Promise<ProfileExperienceInterface> {
-    const response: AxiosResponse<ExperienceData> = await axios.get(
-      `${this.apiUrl}/Experience.json`
-    );
+  async getExperience(): Promise<ProfileInterface.ProfileExperienceInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ExperienceData> =
+      await axios.get(`${this.apiUrl}/Experience.json`);
 
-    const result = new ProfileExperience(
+    const result = new Profile.ProfileExperienceImp(
       response.data.id,
       response.data.message,
       response.data.category,
@@ -50,13 +39,11 @@ export class ProfileService implements ProfileServiceInterface {
     return result;
   }
 
-  // async getEducation(): Promise<ProfileEducation> {
-  async getEducation(): Promise<ProfileEducationInterface> {
-    const response: AxiosResponse<EducationData> = await axios.get(
-      `${this.apiUrl}/Education.json`
-    );
+  async getEducation(): Promise<ProfileInterface.ProfileEducationInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.EducationData> =
+      await axios.get(`${this.apiUrl}/Education.json`);
 
-    const result = new ProfileEducation(
+    const result = new Profile.ProfileEducationImp(
       response.data.id,
       response.data.message,
       response.data.category,
