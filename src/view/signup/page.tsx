@@ -37,16 +37,16 @@ const SignupPage = () => {
     const alertCheck = await signUpVM.SignUp();
     setSignupCheck(alertCheck);
 
-    if (signupCheck === "success") {
+    if (alertCheck === "success") {
       alert("회원가입 성공!");
       router.push("/login");
-    } else if (signupCheck === "duplicated") {
+    } else if (alertCheck === "duplicated") {
       alert("중복된 이메일 입니다.");
-    } else if (signupCheck === "emailNotPerfect") {
+    } else if (alertCheck === "emailNotPerfect") {
       alert("이메일 형식을 다시 맞춰주세요.");
-    } else if (signupCheck === "passwordNotPerfect") {
+    } else if (alertCheck === "passwordNotPerfect") {
       alert("비밀번호 형식을 다시 맞춰주세요");
-    } else if (signupCheck === "passwordNotMatch") {
+    } else if (alertCheck === "passwordNotMatch") {
       alert("비밀번호 확인을 다시 입력해주세요.");
     }
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import UserViewModel from "@/view-model/user/class/UserViewModel";
@@ -21,8 +21,6 @@ const LoginPage: React.FC = () => {
 
   const [loginCheck, setLoginCheck] = useState<any>({});
 
-  const loginViewModel = new UserViewModel(userInfo.email, userInfo.password);
-
   const handleGoToSignUp = () => {
     router.push("/signup");
   };
@@ -39,19 +37,29 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     const alertCheck = await loginViewModel.Login();
     setLoginCheck(alertCheck);
-    localStorage.setItem("token", loginCheck.token);
-    localStorage.setItem("userId", loginCheck.user.id);
-    if (loginCheck === "wrong") {
+    if (alertCheck === "wrong") {
       alert("잘못된 정보 입력했습니다.");
-    } else if (loginCheck === "emailEmpty") {
+      return;
+    } else if (alertCheck === "emailEmpty") {
       alert("이메일을 입력해주세요.");
-    } else if (loginCheck === "passwordEmpty") {
+      return;
+    } else if (alertCheck === "passwordEmpty") {
       alert("비밀번호를 입력해주세요.");
-    } else {
-      alert("로그인 성공");
-      router.push("/");
+      return;
     }
+
+    alert("로그인 성공");
+    router.push("/");
   };
+
+  useEffect(() => {
+    if (loginCheck.token) {
+      localStorage.setItem("token", loginCheck.token);
+      localStorage.setItem("userId", loginCheck.user.id);
+    }
+  }, [loginCheck]);
+
+  const loginViewModel = new UserViewModel(userInfo.email, userInfo.password);
 
   return (
     <div>

@@ -17,6 +17,7 @@ class UserService implements UserServiceModel {
         password,
       }
     );
+    console.log("코드", response.status);
     return response.status;
   }
 
@@ -28,6 +29,7 @@ class UserService implements UserServiceModel {
         password,
       }
     );
+    console.log(response);
     return response;
   }
 }
