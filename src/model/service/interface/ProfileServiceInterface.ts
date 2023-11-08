@@ -5,18 +5,9 @@ import {
 } from "@/model/entity/profile/ProfileInterface";
 
 export interface ProfileServiceInterface {
-  // getTitle: () => Promise<ProfileTitle>;
-  // getExperience: () => Promise<ProfileExperience>;
-  // getEducation: () => Promise<Profile>;
-<<<<<<< HEAD
-  getTitle: () => Promise<ProfileTitleData>;
-  getExperience: () => Promise<ExperienceData>;
-  getEducation: () => Promise<EducationData>;
-=======
   getTitle: () => Promise<ProfileTitleInterface>;
   getExperience: () => Promise<ProfileExperienceInterface>;
   getEducation: () => Promise<ProfileEducationInterface>;
->>>>>>> f0825b89dfe75f8c1854d0a0479aa456bbcd2dd6
 }
 
 export interface ProfileTitleData {

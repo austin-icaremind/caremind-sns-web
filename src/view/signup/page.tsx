@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-import SignUpViewModel from "@/view-model/signup/class/SignupViewModel";
+import UserViewModel from "@/view-model/user/class/UserViewModel";
 
-const SignupComponent = () => {
+const SignupPage = () => {
   const router = useRouter();
 
   interface accountCheck {
@@ -27,20 +27,27 @@ const SignupComponent = () => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const signUpVM = new SignUpViewModel(
+  const signUpVM = new UserViewModel(
     userInfo.email,
     userInfo.password,
     userInfo.passwordCheck
   );
 
   const onClcikAlert = async () => {
-    const alertCheck = await signUpVM.showAlert();
+    const alertCheck = await signUpVM.SignUp();
     setSignupCheck(alertCheck);
 
-    if (alertCheck === "success") {
+    if (signupCheck === "success") {
       alert("회원가입 성공!");
-    } else if (alertCheck === "duplicated") {
-      alert("중복된 이메일");
+      router.push("/login");
+    } else if (signupCheck === "duplicated") {
+      alert("중복된 이메일 입니다.");
+    } else if (signupCheck === "emailNotPerfect") {
+      alert("이메일 형식을 다시 맞춰주세요.");
+    } else if (signupCheck === "passwordNotPerfect") {
+      alert("비밀번호 형식을 다시 맞춰주세요");
+    } else if (signupCheck === "passwordNotMatch") {
+      alert("비밀번호 확인을 다시 입력해주세요.");
     }
   };
 
@@ -67,7 +74,6 @@ const SignupComponent = () => {
             e.preventDefault;
             onClcikAlert();
           }}
-          // disabled={!isValidCheck}
         >
           회원가입
         </SignupBtn>
@@ -157,7 +163,7 @@ const SignupBtn = styled.div`
   }
 `;
 
-export default SignupComponent;
+export default SignupPage;
 
 const FIELD_DATA = [
   {

@@ -2,18 +2,21 @@ import axios, { AxiosResponse } from "axios";
 import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import * as ProfileServiceInterface from "../interface/ProfileServiceInterface";
 import * as Profile from "@/model/entity/profile/Profile";
+import BASE_API from "@/model/config";
+
 export class ProfileService
   implements ProfileServiceInterface.ProfileServiceInterface
 {
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = "/data"; // 새로운 URL로 변경
+    this.apiUrl = "BASE_API"; // 새로운 URL로 변경
   }
 
   async getTitle(): Promise<ProfileInterface.ProfileTitleInterface> {
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
       await axios.get(`${this.apiUrl}/ProfileTitle.json`);
+    console.log("테스트", response);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileImage,

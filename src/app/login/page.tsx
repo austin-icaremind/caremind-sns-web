@@ -1,7 +1,7 @@
-import LoginComponent from "@/view/login/page";
+import LoginPage from "@/view/login/page";
 
 const Login = () => {
-  return <LoginComponent />;
+  return <LoginPage />;
 };
 
 export default Login;

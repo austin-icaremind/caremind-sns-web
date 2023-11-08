@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import LoginViewModel from "@/view-model/login/class/LoginViewModel";
+import UserViewModel from "@/view-model/user/class/UserViewModel";
 
-const LoginComponent: React.FC = () => {
+const LoginPage: React.FC = () => {
   const router = useRouter();
 
   interface acountCheck {
@@ -19,9 +19,9 @@ const LoginComponent: React.FC = () => {
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const [loginCheck, setLoginCheck] = useState<string>("");
+  const [loginCheck, setLoginCheck] = useState<any>({});
 
-  const loginViewModel = new LoginViewModel(userInfo.email, userInfo.password);
+  const loginViewModel = new UserViewModel(userInfo.email, userInfo.password);
 
   const handleGoToSignUp = () => {
     router.push("/signup");
@@ -37,13 +37,19 @@ const LoginComponent: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const alertCheck = await loginViewModel.showAlert();
+    const alertCheck = await loginViewModel.Login();
     setLoginCheck(alertCheck);
-    if (alertCheck === "success") {
+    localStorage.setItem("token", loginCheck.token);
+    localStorage.setItem("userId", loginCheck.user.id);
+    if (loginCheck === "wrong") {
+      alert("잘못된 정보 입력했습니다.");
+    } else if (loginCheck === "emailEmpty") {
+      alert("이메일을 입력해주세요.");
+    } else if (loginCheck === "passwordEmpty") {
+      alert("비밀번호를 입력해주세요.");
+    } else {
       alert("로그인 성공");
       router.push("/");
-    } else if (alertCheck === "wrong") {
-      alert("잘못된 정보 입력");
     }
   };
 
@@ -139,4 +145,4 @@ const ShowButton = styled.div`
   cursor: pointer;
 `;
 
-export default LoginComponent;
+export default LoginPage;
