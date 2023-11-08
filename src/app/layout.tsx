@@ -13,7 +13,6 @@ export default function RootLayout({
       <body>
         {children}
         <GlobalStyle />
-        <Header />
       </body>
     </html>
   );
