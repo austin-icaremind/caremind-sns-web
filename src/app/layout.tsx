@@ -13,7 +13,7 @@ export default function RootLayout({
       <body>
         {children}
         <GlobalStyle />
-        <Footer />
+        <Header />
       </body>
     </html>
   );
