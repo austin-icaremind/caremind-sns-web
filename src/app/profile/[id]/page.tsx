@@ -5,7 +5,8 @@ interface pageProps {
 }
 
 const Profile: React.FC<pageProps> = ({ params }) => {
-  return <ProfileView id={params.id} />;
+  // return <ProfileView id={params.id} />;
+  return <div>id는 {params.id}</div>;
 };
 
 export default Profile;
