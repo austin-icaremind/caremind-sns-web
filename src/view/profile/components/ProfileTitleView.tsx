@@ -7,57 +7,72 @@ import Image from "next/image";
 
 const ProfileTitleView: React.FC<{ data: ProfileTitleData }> = ({ data }) => {
   return (
-    <ProfileTitleWrapper>
-      <BackGroundImageWrapper imgSrc={data.profileBackImage}>
-        <IconWrapper>
-          <UpLoadContainer>
-            <UpLoadImage
-              alt="업로드 아이콘"
-              src="/images/upload.png"
-            ></UpLoadImage>
-          </UpLoadContainer>
-          <RightIcon>
-            <EditContainer>
-              <EditImage alt="편집 아이콘" src="/images/edit.png"></EditImage>
-              <EditLetter>EDIT PROFILE</EditLetter>
-            </EditContainer>
-            <HamburgerContainer>
-              <HamburgerImage
-                alt="옵션 아이콘"
-                src="/images/more-horizontal.png"
-              ></HamburgerImage>
-            </HamburgerContainer>
-          </RightIcon>
-        </IconWrapper>
-      </BackGroundImageWrapper>
-      <InformationWrapper>
-        <ProfileImageWrapper>
-          <ProfileImage
-            alt="프로필 이미지"
-            src={data.profileImage}
-          ></ProfileImage>
-        </ProfileImageWrapper>
-        <AboutMeWrapper>
-          <NameAndLocationWrapper>
-            <NameLetter>{data.name}</NameLetter>
-            <LocationWrapper>
-              <LocationImage
-                alt="화살표이미지"
-                src="/images/navigation.png"
-              ></LocationImage>
-              <LocationLetter>{data.location}</LocationLetter>
-            </LocationWrapper>
-          </NameAndLocationWrapper>
-          <JobExplanitionWrapper>{data.jobDescription}</JobExplanitionWrapper>
-          <ButtonWrapper>
-            <LeftButton>CONTACT INFO</LeftButton>
-            <RightButton>{data.connections} CONNECTIONS</RightButton>
-          </ButtonWrapper>
-        </AboutMeWrapper>
-      </InformationWrapper>
-    </ProfileTitleWrapper>
+    <ProfileTitleStyle>
+      <ProfileTitleWrapper>
+        <BackGroundImageWrapper imgSrc={data.profileBackImage}>
+          <IconWrapper>
+            <UpLoadContainer>
+              <UpLoadImage
+                alt="업로드 아이콘"
+                src="/images/upload.png"
+              ></UpLoadImage>
+            </UpLoadContainer>
+            <RightIcon>
+              <EditContainer>
+                <EditImage alt="편집 아이콘" src="/images/edit.png"></EditImage>
+                <EditLetter>EDIT PROFILE</EditLetter>
+              </EditContainer>
+              <HamburgerContainer>
+                <HamburgerImage
+                  alt="옵션 아이콘"
+                  src="/images/more-horizontal.png"
+                ></HamburgerImage>
+              </HamburgerContainer>
+            </RightIcon>
+          </IconWrapper>
+        </BackGroundImageWrapper>
+        <InformationWrapper>
+          <ProfileImageWrapper>
+            <ProfileImage
+              alt="프로필 이미지"
+              src={data.profileImage}
+            ></ProfileImage>
+          </ProfileImageWrapper>
+          <AboutMeWrapper>
+            <NameAndLocationWrapper>
+              <NameLetter>{data.name}</NameLetter>
+              <LocationWrapper>
+                <LocationImage
+                  alt="화살표이미지"
+                  src="/images/navigation.png"
+                ></LocationImage>
+                <LocationLetter>{data.location}</LocationLetter>
+              </LocationWrapper>
+            </NameAndLocationWrapper>
+            <JobExplanitionWrapper>{data.jobDescription}</JobExplanitionWrapper>
+            <ButtonWrapper>
+              <LeftButton>CONTACT INFO</LeftButton>
+              <RightButton>{data.connections} CONNECTIONS</RightButton>
+            </ButtonWrapper>
+          </AboutMeWrapper>
+        </InformationWrapper>
+      </ProfileTitleWrapper>
+      <ProfileUpperInfo>PROFILE</ProfileUpperInfo>
+      <ProfileUpperInfoEmptySpace />
+      <ProfileTotalBox>
+        <ProfileBox>
+          <ProfileBoxInside>
+            <ProfileBoxTitle>About</ProfileBoxTitle>
+            <ProfileAboutContent>{data.about}</ProfileAboutContent>
+            <ProfileMore>see more</ProfileMore>
+          </ProfileBoxInside>
+        </ProfileBox>
+      </ProfileTotalBox>
+    </ProfileTitleStyle>
   );
 };
+
+const ProfileTitleStyle = styled.div``;
 
 const ProfileTitleWrapper = styled.div`
   width: 850px;
@@ -67,7 +82,7 @@ const ProfileTitleWrapper = styled.div`
   box-shadow: 0px 20px 60px 0px rgba(241, 244, 248, 0.5);
   margin-bottom: 21px;
 `;
-const BackGroundImageWrapper = styled.div`
+const BackGroundImageWrapper = styled.div<{ imgSrc: string }>`
   display: block;
   width: 100%;
   height: 50%;
@@ -251,6 +266,95 @@ const RightButton = styled(Button)`
   line-height: normal;
   text-transform: uppercase;
   border: 1px solid #0275b1;
+`;
+
+const ProfileUpperInfo = styled.div`
+  width: 240px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 4px 4px 0px 0px;
+  background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Gotham Pro;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+`;
+
+const ProfileUpperInfoEmptySpace = styled.div`
+  width: 850px;
+  height: 30px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(241, 244, 248, 0.8) 0%,
+    rgba(241, 244, 248, 0) 100%
+  );
+  border-top: 1px solid rgb(241, 241, 241);
+`;
+
+const ProfileTotalBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+`;
+
+const ProfileBox = styled.div`
+  width: 850px;
+  flex-shrink: 0;
+  background-color: white;
+`;
+
+const ProfileBoxInside = styled.div`
+  padding: 30px;
+`;
+
+const ProfileBoxTitle = styled.div`
+  color: #181818;
+  font-family: Gotham Pro;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 15px;
+`;
+
+const ProfileProjectsNumber = styled.div`
+  margin-left: 15px;
+  color: #747474;
+  font-family: Gotham Pro;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+const ProfileAboutContent = styled.div`
+  color: #181818;
+  font-family: Gotham Pro;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 21px */
+  margin-bottom: 20px;
+`;
+
+const ProfileMore = styled.div`
+  color: #0275b1;
+  font-family: Gotham Pro;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 export default ProfileTitleView;

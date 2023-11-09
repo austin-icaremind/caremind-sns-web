@@ -12,6 +12,10 @@ export interface ProfileTitleInterface extends ProfileInterface {
   about: string;
 }
 
+export interface ProfileProjectsInterface extends ProfileInterface {
+  data: ProjectsData[];
+}
+
 export interface ProfileExperienceInterface extends ProfileInterface {
   message: string;
   category: string;
@@ -22,6 +26,14 @@ export interface ProfileEducationInterface extends ProfileInterface {
   message: string;
   category: string;
   data: Data[];
+}
+
+export interface ProjectsData {
+  id: number;
+  image: string;
+  title: string;
+  category: string;
+  date: string;
 }
 
 export interface Data {

@@ -32,6 +32,20 @@ export class ProfileService
     return result;
   }
 
+  async getProjects(
+    id: number
+  ): Promise<ProfileInterface.ProfileProjectsInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsData> =
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Projects${id}.json`);
+    console.log("테스트", response);
+    const result = new Profile.ProfileProjectsImp(
+      response.data.id,
+      response.data.data
+    );
+    return result;
+  }
+
   async getExperience(
     id: number
   ): Promise<ProfileInterface.ProfileExperienceInterface> {

@@ -5,9 +5,10 @@ import {
 } from "@/model/entity/profile/ProfileInterface";
 
 export interface ProfileServiceInterface {
-  getTitle: () => Promise<ProfileTitleInterface>;
-  getExperience: () => Promise<ProfileExperienceInterface>;
-  getEducation: () => Promise<ProfileEducationInterface>;
+  getTitle: () => Promise<ProfileTitleData>;
+  getProject: () => Promise<ProfileProjectsData>;
+  getExperience: () => Promise<ExperienceData>;
+  getEducation: () => Promise<EducationData>;
 }
 
 export interface ProfileTitleData {
@@ -19,6 +20,19 @@ export interface ProfileTitleData {
   jobDescription: string;
   connections: number;
   about: string;
+}
+
+export interface ProfileProjectsInsideData {
+  id: number;
+  image: string;
+  title: string;
+  category: string;
+  date: string;
+}
+
+export interface ProfileProjectsData {
+  id: number;
+  data: ExperienceInsideData[];
 }
 
 export interface ExperienceInsideData {

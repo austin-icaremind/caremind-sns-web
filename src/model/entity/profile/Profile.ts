@@ -80,3 +80,15 @@ export class ProfileTitleImp
     this.about = about;
   }
 }
+
+export class ProfileProjectsImp
+  extends Profile
+  implements ProfileInterface.ProfileProjectsInterface
+{
+  data: ProfileInterface.ProjectsData[];
+
+  constructor(id: number, data: ProfileInterface.ProjectsData[]) {
+    super(id);
+    this.data = data;
+  }
+}

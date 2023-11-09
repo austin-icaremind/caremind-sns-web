@@ -15,6 +15,18 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
+  async getProjectsData(id: number): Promise<Profile.ProfileProjectsImp> {
+    try {
+      const getProjects = new ProfileService();
+      const response = await getProjects.getProjects(id);
+
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
   async getProfileExperience(
     id: number
   ): Promise<Profile.ProfileExperienceImp> {

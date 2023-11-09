@@ -7,12 +7,26 @@ export interface ProfileViewModelInterface {
 }
 
 export interface ProfileTitleData {
+  id: number;
   profileImage: string;
   profileBackImage: string;
   name: string;
   location: string;
   jobDescription: string;
   connections: number;
+}
+
+export interface ProfileProjectsData {
+  id: number;
+  data: ProfileProjectsInsideData[];
+}
+
+export interface ProfileProjectsInsideData {
+  id: number;
+  image: string;
+  title: string;
+  category: string;
+  date: string;
 }
 
 export interface ExperienceInsideData {
