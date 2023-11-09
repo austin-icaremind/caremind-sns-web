@@ -10,12 +10,14 @@ export class ProfileService
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = BASE_API; // 새로운 URL로 변경
+    // this.apiUrl = BASE_API;
+    this.apiUrl = "/data";
   }
 
-  async getTitle(): Promise<ProfileInterface.ProfileTitleInterface> {
+  async getTitle(id: number): Promise<ProfileInterface.ProfileTitleInterface> {
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
-      await axios.get(`${this.apiUrl}/Profile${id}`);
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/ProfileTitle${id}.json`);
     console.log("테스트", response);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
@@ -28,9 +30,12 @@ export class ProfileService
     return result;
   }
 
-  async getExperience(): Promise<ProfileInterface.ProfileExperienceInterface> {
+  async getExperience(
+    id: number
+  ): Promise<ProfileInterface.ProfileExperienceInterface> {
     const response: AxiosResponse<ProfileServiceInterface.ExperienceData> =
-      await axios.get(`${this.apiUrl}/Experience.json`);
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Experience${id}.json`);
 
     const result = new Profile.ProfileExperienceImp(
       response.data.id,
@@ -42,9 +47,12 @@ export class ProfileService
     return result;
   }
 
-  async getEducation(): Promise<ProfileInterface.ProfileEducationInterface> {
+  async getEducation(
+    id: number
+  ): Promise<ProfileInterface.ProfileEducationInterface> {
     const response: AxiosResponse<ProfileServiceInterface.EducationData> =
-      await axios.get(`${this.apiUrl}/Education.json`);
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Education${id}.json`);
 
     const result = new Profile.ProfileEducationImp(
       response.data.id,

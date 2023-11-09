@@ -1,0 +1,25 @@
+{
+  "id": 2,
+  "data": [
+    {
+      "imgSrc": "/images/careerImg.png",
+      "title": "개발자",
+      "titleSub": "Self-employed",
+      "periodStart": 2019,
+      "periodEnd": 2022,
+      "detail": "사업 진행",
+      "id": 1,
+      "workSpace": "서울"
+    },
+    {
+      "imgSrc": "/images/careerImg.png",
+      "title": "조리사",
+      "titleSub": "Upwork",
+      "periodStart": 2016,
+      "periodEnd": 2020,
+      "detail": "New experience with Upwork system. Work in next areas: UX/UI design, graphic design, interaction design, UX research.",
+      "id": 2,
+      "workSpace": "제주"
+    }
+  ]
+}

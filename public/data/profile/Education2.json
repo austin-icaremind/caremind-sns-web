@@ -1,0 +1,25 @@
+{
+  "id": 2,
+  "data": [
+    {
+      "imgSrc": "/images/careerImg.png",
+      "title": "숭실대학교",
+      "titleSub": "경영학부 졸업",
+      "periodStart": 2019,
+      "periodEnd": 2022,
+      "detail": "회계 수업은 영어수업으로 진행",
+      "id": 1,
+      "workSpace": "서울"
+    },
+    {
+      "imgSrc": "/images/careerImg.png",
+      "title": "운천고등학교",
+      "titleSub": "인문계 졸업",
+      "periodStart": 2016,
+      "periodEnd": 2020,
+      "detail": "숙련된 전문가",
+      "id": 2,
+      "workSpace": "오산"
+    }
+  ]
+}
