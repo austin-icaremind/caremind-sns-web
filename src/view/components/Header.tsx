@@ -61,8 +61,7 @@ export default Header;
 const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
-
-  width: 1440px;
+  width: 100%;
   height: 80px;
   flex-shrink: 0;
   background: #fff;
@@ -85,7 +84,7 @@ const Logo = styled(Image)`
 const FeedAndNetworkWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 483px;
+  flex: 1;
   height: 80px;
   border-right: 1px solid #f4f4f4;
 `;
@@ -131,6 +130,7 @@ const NetworkLetter = styled(IconLetterStyle)`
 `;
 
 const SearchWrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -156,7 +156,7 @@ const SearchInput = styled.input`
 `;
 
 const ProfileWrapper = styled.div`
-  padding-left: 30px;
+  margin-left: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -15,7 +15,6 @@ const FeedHashTagView = () => {
           <HashTageButton>1231312124214</HashTageButton>
           <HashTageButton>1231312</HashTageButton>
           <HashTageButton>1231312211</HashTageButton>
-          <HashTageButton>1231</HashTageButton>
         </HashTagButtonWrapper>
       </PaddingWrapper>
     </HashTagWrapper>
@@ -26,7 +25,8 @@ export default FeedHashTagView;
 
 const HashTagWrapper = styled.div`
   width: 290px;
-  height: 265px;
+  height: auto;
+  min-height: 265px;
   border-radius: 4px;
   background: #fcfdfd;
 `;
@@ -55,16 +55,14 @@ const FollowhashTagLetter = styled.div`
 
 const HashTagButtonWrapper = styled.div`
   margin-top: 20px;
-  display: flex;
-  flex-direction: row;
   gap: 10px;
   width: 100%;
-  height: 100px;
-  border: 1px solid pink;
+  height: auto;
+  padding: 30px 0;
 `;
 
 const HashTageButton = styled.button`
-  width: 100%;
+  margin: 5px;
   height: 32px;
   padding: 7px 12px;
   border-radius: 4px;

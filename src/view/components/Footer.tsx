@@ -93,13 +93,15 @@ export default Footer;
 const FooterWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 1440px;
+  justify-content: center;
+  border-top: 1px solid #e7e7e7;
+  width: 100%;
   height: 215px;
   background-color: #f7f9fb;
 `;
 
 const LogoWrapper = styled.div`
-  margin: 30px 84px 12px 130px;
+  margin: 30px 84px 12px 0px;
   width: 46px;
   height: 46px;
 `;

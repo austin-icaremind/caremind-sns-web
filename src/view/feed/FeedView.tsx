@@ -41,6 +41,7 @@ const FeedWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 40px;
+  margin: 40px 0;
 `;
 
 const FeedLeftContent = styled.div`
