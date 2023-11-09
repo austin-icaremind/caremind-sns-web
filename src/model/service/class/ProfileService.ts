@@ -10,12 +10,12 @@ export class ProfileService
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = "BASE_API"; // 새로운 URL로 변경
+    this.apiUrl = BASE_API; // 새로운 URL로 변경
   }
 
   async getTitle(): Promise<ProfileInterface.ProfileTitleInterface> {
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
-      await axios.get(`${this.apiUrl}/ProfileTitle.json`);
+      await axios.get(`${this.apiUrl}/Profile${id}`);
     console.log("테스트", response);
     const result = new Profile.ProfileTitleImp(
       response.data.id,

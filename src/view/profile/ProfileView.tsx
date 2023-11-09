@@ -8,34 +8,34 @@ import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import { ProfileInterface } from "@/model/entity/profile/ProfileInterface";
 
-const ProfileView = () => {
+const ProfileView = ({ id }: { id: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (id: number) => {
       try {
-        const getProfileData =
-          await new ProfileViewModel().getProfileTitleData();
+        const getProfileData = await new ProfileViewModel().getProfileTitleData(
+          id
+        );
 
         setTitleData(getProfileData);
 
         const getExperienceData =
-          await new ProfileViewModel().getProfileExperience();
+          await new ProfileViewModel().getProfileExperience(id);
 
         setExperienceData(getExperienceData.data);
 
         const getEducationData =
-          await new ProfileViewModel().getProfileEducation();
-
+          await new ProfileViewModel().getProfileEducation(id);
         setEducationData(getEducationData.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    fetchData(id);
   }, []);
 
   if (titleData === null || experienceData == null || educationData == null) {
