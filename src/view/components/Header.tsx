@@ -120,13 +120,12 @@ const IconLetterStyle = styled.p`
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
-`;
-const FeedLetter = styled(IconLetterStyle)`
   color: #181818;
 `;
+const FeedLetter = styled(IconLetterStyle)``;
 
 const NetworkLetter = styled(IconLetterStyle)`
-  color: #0275b1;
+  /* color: #0275b1; */
 `;
 
 const SearchWrapper = styled.div`

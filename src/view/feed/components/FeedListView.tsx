@@ -1,49 +1,102 @@
 "use clients";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import FeedModal from "@/view/components/FeedModal";
 
 const FeedListView = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const ListBox = useRef<HTMLElement | null>(null);
+
+  const handleModalOpen = (item: any) => {
+    setSelectedOption(item);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setSelectedOption(null);
+    setIsModalOpen(false);
+  };
+
+  type FeedData = {
+    // 나중에 키값 백엔드랑 맞추기//
+    id: number;
+    profileImageSrc: string;
+    userName: string;
+    userJob: string;
+    feedText: string;
+  };
+
+  const feedData: FeedData[] = [
+    {
+      id: 1,
+      profileImageSrc: "/images/thumbs-up.png",
+      userName: "Theresa Steward",
+      userJob: "iOS developer",
+      feedText: "How’s your day going,",
+    },
+    {
+      id: 2,
+      profileImageSrc: "/images/Logo.png",
+      userName: "2번 목데이터",
+      userJob: "백수",
+      feedText: "배가 고파요,",
+    },
+    {
+      id: 3,
+      profileImageSrc: "/images/Logo.png",
+      userName: "3번 목데이터",
+      userJob: "돈많은 백수",
+      feedText: "배가 고파요,",
+    },
+  ];
+
   return (
     <FeedListWrapper>
-      <RecommandedWrapper>
-        <RecommandedTitle>
-          <BlueText>Ted Bell, Annette Nguyen</BlueText>
-          <BlackText>and</BlackText>
-          <BlueText>Cody Hawkins</BlueText> <BlackText>liked this</BlackText>
-        </RecommandedTitle>
-        <HambergerIconWrapper>
-          <HambergerIcon
-            alt="더보기버튼"
-            src="/images/more-horizontal.png"
-            width={24}
-            height={24}
-          ></HambergerIcon>
-        </HambergerIconWrapper>
-      </RecommandedWrapper>
-      <FeedContentWrapper>
-        <PaddingContainer>
-          <ProfileImageAndName>
-            {/* 나중에 데이터받아서 이미지 넣기 */}
-            <ProfileImage
-              alt="프로필이미지"
-              src="/images/thumbs-up.png"
-              width={52}
-              height={52}
-            ></ProfileImage>
-            <NameAndJobWrapper>
-              {/* 나중에 이름 넣기 */}
-              <UserName>Theresa Steward</UserName>
-              {/* 나중에 직업 넣기 */}
-              <UserJob>iOS developer</UserJob>
-            </NameAndJobWrapper>
-          </ProfileImageAndName>
-          <FeedTextWrapper>
-            {/* 피드 내용 데이터로 받기 */}
-            <FeedText>How’s your day going,</FeedText>
-          </FeedTextWrapper>
-          {/* {feedImage && (
+      <ModalWrapper>
+        {feedData.map((feed, index) => (
+          <MapWrapper key={index}>
+            <RecommandedWrapper>
+              <RecommandedTitle>
+                <BlueText>Ted Bell, Annette Nguyen</BlueText>
+                <BlackText>and</BlackText>
+                <BlueText>Cody Hawkins</BlueText>{" "}
+                <BlackText>liked this</BlackText>
+              </RecommandedTitle>
+              <HambergerIconWrapper
+                onClick={() => {
+                  handleModalOpen(feed);
+                }}
+              >
+                <HambergerIcon>
+                  <FeedLocation>{isModalOpen && <FeedModal />}</FeedLocation>
+                </HambergerIcon>
+              </HambergerIconWrapper>
+            </RecommandedWrapper>
+            <FeedContentWrapper>
+              <PaddingContainer>
+                <ProfileImageAndName>
+                  {/* 나중에 키값맞추기 */}
+                  <ProfileImage
+                    alt="프로필이미지"
+                    src={feed.profileImageSrc}
+                    width={52}
+                    height={52}
+                  ></ProfileImage>
+                  <NameAndJobWrapper>
+                    {/* 나중에 이름 키값맞추기 넣기 */}
+                    <UserName>{feed.userName}</UserName>
+                    {/* 나중에 키값맞추기직업 넣기 */}
+                    <UserJob>{feed.userJob}</UserJob>
+                  </NameAndJobWrapper>
+                </ProfileImageAndName>
+                <FeedTextWrapper>
+                  {/* 피드 내용 키값맞추기데이터로 받기 */}
+                  <FeedText>{feed.feedText}</FeedText>
+                </FeedTextWrapper>
+                {/* {feedImage && (
             <FeedImage
               src={feedImage}
               width={790}
@@ -51,57 +104,75 @@ const FeedListView = () => {
               alt="피드 이미지"
             ></FeedImage>
           )} */}
-        </PaddingContainer>
-      </FeedContentWrapper>
-      <LikeAndCommentShareWrapper>
-        <LikeAndCommentWrapper>
-          <LikeWrapper>
-            <LikeIcon
-              alt="좋아요 아이콘"
-              src="/images/thumbs-up.png"
-              width={16}
-              height={16}
-            ></LikeIcon>
-            {/* 나중에 데이터로 좋아요 숫자 넣기 */}
-            <LikeNumber>42</LikeNumber>
-          </LikeWrapper>
-          <CommentWrapper>
-            <CommentIcon
-              alt="댓글 아이콘"
-              src="/images/message-circle.png"
-              width={16}
-              height={16}
-            ></CommentIcon>
-            {/* 나중에 데이터로 댓글 숫자 넣기 */}
-            <CommentNumber>9</CommentNumber>
-          </CommentWrapper>
-        </LikeAndCommentWrapper>
-        <ShareWrapper>
-          <ShareIcon
-            alt="공유 아이콘"
-            src="/images/share-2.png"
-            width={16}
-            height={16}
-          ></ShareIcon>
-          <ShareText>Share</ShareText>
-        </ShareWrapper>
-      </LikeAndCommentShareWrapper>
+              </PaddingContainer>
+            </FeedContentWrapper>
+            <LikeAndCommentShareWrapper>
+              <LikeAndCommentWrapper>
+                <LikeWrapper>
+                  <LikeIcon
+                    alt="좋아요 아이콘"
+                    src="/images/thumbs-up.png"
+                    width={16}
+                    height={16}
+                  ></LikeIcon>
+                  {/* 나중에 데이터로 좋아요 숫자 넣기 */}
+                  <LikeNumber>42</LikeNumber>
+                </LikeWrapper>
+                <CommentWrapper>
+                  <CommentIcon
+                    alt="댓글 아이콘"
+                    src="/images/message-circle.png"
+                    width={16}
+                    height={16}
+                  ></CommentIcon>
+                  {/* 나중에 데이터로 댓글 숫자 넣기 */}
+                  <CommentNumber>9</CommentNumber>
+                </CommentWrapper>
+              </LikeAndCommentWrapper>
+              <ShareWrapper>
+                <ShareIcon
+                  alt="공유 아이콘"
+                  src="/images/share-2.png"
+                  width={16}
+                  height={16}
+                ></ShareIcon>
+                <ShareText>Share</ShareText>
+              </ShareWrapper>
+            </LikeAndCommentShareWrapper>
+          </MapWrapper>
+        ))}
+      </ModalWrapper>
     </FeedListWrapper>
   );
 };
 
 export default FeedListView;
+const ModalWrapper = styled.div``;
 
+// const Outside = styled.div`
+//   background-color: rgba(0, 0, 0, 0); /* 반투명한 배경색 */
+//   position: absolute;
+//   width: 100vh;
+//   height: 100vh;
+//   /* display: flex;
+//   align-items: center;
+//   justify-content: center; */
+//   z-index: 999;
+//   /* top: 0;
+//   right: -20px; */
+// `;
 const FeedListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 850px;
   border-radius: 4px;
-  background: #fff;
-  gap: 30px;
 `;
 
+const MapWrapper = styled.div`
+  margin-bottom: 30px;
+  background: #fff;
+`;
 const RecommandedWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -135,9 +206,18 @@ const BlackText = styled.p`
 `;
 
 const HambergerIconWrapper = styled.div``;
-const HambergerIcon = styled(Image)`
+const HambergerIcon = styled.div`
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  transform: rotate(90deg);
+  background-image: url("/images/more-horizontal.png");
+  position: relative;
+`;
+
+const FeedLocation = styled.div`
+  position: absolute;
+  bottom: -80px;
+  right: -80px;
 `;
 
 const FeedContentWrapper = styled.div``;
