@@ -13,10 +13,12 @@ export interface ProfileServiceInterface {
 export interface ProfileTitleData {
   id: number;
   profileImage: string;
+  profileBackImage: string;
   name: string;
   location: string;
   jobDescription: string;
   connections: number;
+  about: string;
 }
 
 export interface ExperienceInsideData {

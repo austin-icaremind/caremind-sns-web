@@ -4,10 +4,12 @@ export interface ProfileInterface {
 
 export interface ProfileTitleInterface extends ProfileInterface {
   profileImage: string;
+  profileBackImage: string;
   name: string;
   location: string;
   jobDescription: string;
   connections: number;
+  about: string;
 }
 
 export interface ProfileExperienceInterface extends ProfileInterface {

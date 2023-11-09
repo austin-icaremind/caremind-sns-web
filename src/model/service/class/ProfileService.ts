@@ -22,10 +22,12 @@ export class ProfileService
     const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileImage,
+      response.data.profileBackImage,
       response.data.name,
       response.data.location,
       response.data.jobDescription,
-      response.data.connections
+      response.data.connections,
+      response.data.about
     );
     return result;
   }

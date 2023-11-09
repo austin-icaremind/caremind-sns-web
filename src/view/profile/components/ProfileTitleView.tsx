@@ -3,27 +3,28 @@
 import styled from "styled-components";
 
 import { ProfileTitleData } from "@/model/service/interface/ProfileServiceInterface";
+import Image from "next/image";
 
 const ProfileTitleView: React.FC<{ data: ProfileTitleData }> = ({ data }) => {
   return (
     <ProfileTitleWrapper>
-      <BackGroundImageWrapper>
+      <BackGroundImageWrapper imgSrc={data.profileBackImage}>
         <IconWrapper>
           <UpLoadContainer>
             <UpLoadImage
               alt="업로드 아이콘"
-              src="images/upload.png"
+              src="/images/upload.png"
             ></UpLoadImage>
           </UpLoadContainer>
           <RightIcon>
             <EditContainer>
-              <EditImage alt="편집 아이콘" src="images/edit.png"></EditImage>
+              <EditImage alt="편집 아이콘" src="/images/edit.png"></EditImage>
               <EditLetter>EDIT PROFILE</EditLetter>
             </EditContainer>
             <HamburgerContainer>
               <HamburgerImage
                 alt="옵션 아이콘"
-                src="images/more-horizontal.png"
+                src="/images/more-horizontal.png"
               ></HamburgerImage>
             </HamburgerContainer>
           </RightIcon>
@@ -42,7 +43,7 @@ const ProfileTitleView: React.FC<{ data: ProfileTitleData }> = ({ data }) => {
             <LocationWrapper>
               <LocationImage
                 alt="화살표이미지"
-                src="images/navigation.png"
+                src="/images/navigation.png"
               ></LocationImage>
               <LocationLetter>{data.location}</LocationLetter>
             </LocationWrapper>
@@ -67,9 +68,11 @@ const ProfileTitleWrapper = styled.div`
   margin-bottom: 21px;
 `;
 const BackGroundImageWrapper = styled.div`
+  display: block;
   width: 100%;
   height: 50%;
-  background-image: url("images/Rectangle 3.png");
+  background-image: ${(props) =>
+    props.imgSrc ? `url(${props.imgSrc})` : null};
 `;
 
 const IconWrapper = styled.div`
@@ -209,7 +212,7 @@ const JobExplanitionWrapper = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 21px */
+  line-height: 150%;
 `;
 
 const ButtonWrapper = styled.div`

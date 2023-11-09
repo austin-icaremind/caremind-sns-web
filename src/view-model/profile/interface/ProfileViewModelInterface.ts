@@ -8,6 +8,7 @@ export interface ProfileViewModelInterface {
 
 export interface ProfileTitleData {
   profileImage: string;
+  profileBackImage: string;
   name: string;
   location: string;
   jobDescription: string;
