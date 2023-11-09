@@ -6,11 +6,7 @@ import ProfileTitleView from "./components/ProfileTitleView";
 import ProfileEducationView from "./components/ProfileEducationView";
 import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import { ProfileTitleInterface } from "@/model/entity/profile/ProfileTitleInterface";
-import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileExperienceInterface";
-import { ProfileEducationInterface } from "@/model/entity/profile/ProfileEducationInterface";
-import { ExperienceInsideData } from "@/model/service/interface/ProfileServiceInterface";
-import { EducationInsideData } from "@/model/service/interface/ProfileServiceInterface";
+import { ProfileInterface } from "@/model/entity/profile/ProfileInterface";
 
 const ProfileView = () => {
   const [titleData, setTitleData] = useState<any | null>(null);
