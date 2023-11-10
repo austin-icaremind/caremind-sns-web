@@ -1,51 +1,57 @@
-import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
-
 export interface ProfileViewModelInterface {
-  getProfileTitleData: () => Promise<ProfileInterface.ProfileTitleInterface>;
-  getProfileExperience: () => Promise<ProfileInterface.ProfileEducationInterface>;
-  getProfileEducation: () => Promise<ProfileInterface.ProfileExperienceInterface>;
+  getProfileTitleData: (id: number) => Promise<ProfileTitleInterface>;
+  getProjectsData: (id: number) => Promise<ProfileProjectsInterface>;
+  getProfileExperience: (id: number) => Promise<ProfileExperienceInterface>;
+  getProfileEducation: (id: number) => Promise<ProfileEducationInterface>;
 }
 
-export interface ProfileTitleData {
+export interface ProfileTitleInterface {
+  id: number;
   profileImage: string;
+  profileBackImage: string;
   name: string;
   location: string;
+  address: string;
   jobDescription: string;
-  connections: number;
+  about: string;
 }
 
-export interface ExperienceInsideData {
-  imgSrc: string;
+export interface ProfileProjectsInterface {
+  id: number;
+  coverImage: {
+    id: number;
+    image: string;
+  };
   title: string;
-  titleSub: string;
-  periodStart: number;
-  periodEnd: number;
-  detail: string;
-  id: number;
-  workSpace: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
 }
 
-export interface EducationInsideData {
+export interface ProfileExperienceInterface {
   imgSrc: string;
-  title: string;
-  titleSub: string;
-  periodStart: number;
-  periodEnd: number;
-  detail: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  description: string;
   id: number;
-  workSpace: string;
+  experienceCompany: {
+    id: number;
+    name: string;
+    logo: string;
+    location: string;
+  };
 }
 
-export interface ExperienceData {
+export interface ProfileEducationInterface {
   id: number;
-  message: string;
-  category: string;
-  data: ExperienceInsideData[];
-}
-
-export interface EducationData {
-  id: number;
-  message: string;
-  category: string;
-  data: EducationInsideData[];
+  course: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
+  educationInstitute: {
+    id: number;
+    name: string;
+    logo: string;
+  };
 }

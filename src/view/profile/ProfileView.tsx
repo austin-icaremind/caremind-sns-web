@@ -6,95 +6,61 @@ import ProfileTitleView from "./components/ProfileTitleView";
 import ProfileEducationView from "./components/ProfileEducationView";
 import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import { ProfileInterface } from "@/model/entity/profile/ProfileInterface";
+import ProfileProjectsView from "./components/ProfileProjectsView";
 
-const ProfileView = () => {
+const ProfileView = ({ id }: { id: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);
+  const [projectsData, setProjectsData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (id: number) => {
       try {
-        const getProfileData =
-          await new ProfileViewModel().getProfileTitleData();
+        const getProfileData = await new ProfileViewModel().getProfileTitleData(
+          id
+        );
 
         setTitleData(getProfileData);
 
-        const getExperienceData =
-          await new ProfileViewModel().getProfileExperience();
+        const getProjectsData = await new ProfileViewModel().getProjectsData(
+          id
+        );
 
-        setExperienceData(getExperienceData.data);
+        setProjectsData(getProjectsData);
+
+        const getExperienceData =
+          await new ProfileViewModel().getProfileExperience(id);
+
+        setExperienceData(getExperienceData);
 
         const getEducationData =
-          await new ProfileViewModel().getProfileEducation();
-
-        setEducationData(getEducationData.data);
+          await new ProfileViewModel().getProfileEducation(id);
+        setEducationData(getEducationData);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData();
+    fetchData(id);
   }, []);
 
-  if (titleData === null || experienceData == null || educationData == null) {
+  if (
+    titleData === null ||
+    projectsData === null ||
+    experienceData == null ||
+    educationData == null
+  ) {
     return <div>Loading...</div>;
   }
   return (
     <ProfileStyle>
       <ProfileLeft>
-        <ProfileTitleView data={titleData} />:
-        <ProfileUpperInfo>PROFILE</ProfileUpperInfo>
-        <ProfileUpperInfoEmptySpace />
+        <ProfileTitleView data={titleData} />
         <ProfileTotalBox>
           <ProfileBox>
             <ProfileBoxInside>
-              <ProfileBoxTitle>About</ProfileBoxTitle>
-              <ProfileAboutContent>
-                I'm more experienced in eCommerce web projects and mobile
-                banking apps, but also like to work with creative projects, such
-                as landing pages or unusual corporate websites.
-              </ProfileAboutContent>
-              <ProfileMore>see more</ProfileMore>
-            </ProfileBoxInside>
-          </ProfileBox>
-          <ProfileBox>
-            <ProfileBoxInside>
-              <ProfileBoxTitleBox>
-                <ProfileBoxTitle>Projects</ProfileBoxTitle>
-                <ProfileProjectsNumber>3 of 12</ProfileProjectsNumber>
-              </ProfileBoxTitleBox>
-              <ProfileProjectsContent>
-                <ProfileProjectsCard>
-                  <ProfileProjectsPic />
-                  <ProfileProjectsTitle>
-                    Zara redesign concenpt
-                  </ProfileProjectsTitle>
-                  <ProfileProjectsDetail>
-                    UX/UI design, 15.07.2019
-                  </ProfileProjectsDetail>
-                </ProfileProjectsCard>
-                <ProfileProjectsCard>
-                  <ProfileProjectsPic />
-                  <ProfileProjectsTitle>
-                    Zara redesign concenpt
-                  </ProfileProjectsTitle>
-                  <ProfileProjectsDetail>
-                    UX/UI design, 15.07.2019
-                  </ProfileProjectsDetail>
-                </ProfileProjectsCard>
-                <ProfileProjectsCard>
-                  <ProfileProjectsPic />
-                  <ProfileProjectsTitle>
-                    Zara redesign concenpt
-                  </ProfileProjectsTitle>
-                  <ProfileProjectsDetail>
-                    UX/UI design, 15.07.2019
-                  </ProfileProjectsDetail>
-                </ProfileProjectsCard>
-              </ProfileProjectsContent>
-              <ProfileMore>show all (12)</ProfileMore>
+              <ProfileProjectsView data={projectsData} />
             </ProfileBoxInside>
           </ProfileBox>
           <ProfileCareerStyle>
@@ -244,89 +210,6 @@ const ProfileBox = styled.div`
 
 const ProfileBoxInside = styled.div`
   padding: 30px;
-`;
-
-const ProfileBoxTitleBox = styled.div`
-  display: flex;
-  margin-bottom: 25px;
-  align-items: center;
-`;
-
-const ProfileBoxTitle = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-`;
-
-const ProfileProjectsNumber = styled.div`
-  margin-left: 15px;
-  color: #747474;
-  font-family: Gotham Pro;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-`;
-
-const ProfileAboutContent = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 21px */
-  margin-bottom: 20px;
-`;
-
-const ProfileMore = styled.div`
-  color: #0275b1;
-  font-family: Gotham Pro;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-  cursor: pointer;
-`;
-
-const ProfileProjectsContent = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-bottom: 25px;
-`;
-
-const ProfileProjectsCard = styled.div``;
-
-const ProfileProjectsPic = styled.div`
-  width: 250px;
-  height: 160px;
-  flex-shrink: 0;
-  background-color: orange;
-  display: block;
-  margin-bottom: 15px;
-`;
-
-const ProfileProjectsTitle = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%; /* 21px */
-  margin-bottom: 5px;
-`;
-
-const ProfileProjectsDetail = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 150%; /* 15px */
 `;
 
 const ProfileCareerStyle = styled.div`
