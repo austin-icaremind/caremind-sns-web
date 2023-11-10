@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import FeedModal from "@/view/components/FeedModal";
 import Image from "next/image";
+import { useEffect } from "react";
 
 const FeedItem: React.FC<{ data: any }> = ({ data }) => {
   const { id, profileImageSrc, userName, userJob, feedText } = data;
@@ -17,6 +18,22 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
     setSelectedOption(null);
     setIsModalOpen(false);
   };
+  const handleOutsideClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest(".modal-container")) {
+      handleModalClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.addEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isModalOpen]);
 
   return (
     <MapWrapper key={id}>
@@ -28,7 +45,9 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
         </RecommandedTitle>
         <HambergerIconWrapper>
           <HambergerIcon onClick={handleModalOpen}>
-            <FeedLocation>{isModalOpen && <FeedModal />}</FeedLocation>
+            <FeedLocation>
+              {isModalOpen && <FeedModal FeedId={id} />}
+            </FeedLocation>
           </HambergerIcon>
         </HambergerIconWrapper>
       </RecommandedWrapper>
