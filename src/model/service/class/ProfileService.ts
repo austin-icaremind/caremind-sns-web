@@ -15,7 +15,7 @@ export class ProfileService
   }
 
   async getTitle(id: number): Promise<ProfileInterface.ProfileTitleInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
+    const response: AxiosResponse<ProfileServiceInterface.ProfileTitleInterface> =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/ProfileTitle${id}.json`);
     const result = new Profile.ProfileTitleImp(
@@ -24,8 +24,8 @@ export class ProfileService
       response.data.profileBackImage,
       response.data.name,
       response.data.location,
+      response.data.address,
       response.data.jobDescription,
-      response.data.connections,
       response.data.about
     );
     return result;
@@ -34,28 +34,44 @@ export class ProfileService
   async getProjects(
     id: number
   ): Promise<ProfileInterface.ProfileProjectsInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsData> =
+    const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsInterface> =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Projects${id}.json`);
-    const result = new Profile.ProfileProjectsImp(
-      response.data.id,
-      response.data.data
+
+    const result = response.data.map(
+      (project) =>
+        new Profile.ProfileProjectsImp(
+          project.id,
+          project.coverImage,
+          project.title,
+          project.description,
+          project.startDate,
+          project.endDate
+        )
     );
+
+    console.log("테스트", result);
     return result;
   }
 
   async getExperience(
     id: number
   ): Promise<ProfileInterface.ProfileExperienceInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ExperienceData> =
+    const response: AxiosResponse<ProfileServiceInterface.ProfileExperienceInterface> =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Experience${id}.json`);
 
-    const result = new Profile.ProfileExperienceImp(
-      response.data.id,
-      response.data.message,
-      response.data.category,
-      response.data.data
+    const result = response.data.map(
+      (experience) =>
+        new Profile.ProfileExperienceImp(
+          experience.imgSrc,
+          experience.position,
+          experience.startDate,
+          experience.endDate,
+          experience.description,
+          experience.id,
+          experience.experienceCompany
+        )
     );
 
     return result;
@@ -64,15 +80,22 @@ export class ProfileService
   async getEducation(
     id: number
   ): Promise<ProfileInterface.ProfileEducationInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.EducationData> =
+    const response: AxiosResponse<
+      ProfileServiceInterface.ProfileEducationInterface[]
+    > =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Education${id}.json`);
 
-    const result = new Profile.ProfileEducationImp(
-      response.data.id,
-      response.data.message,
-      response.data.category,
-      response.data.data
+    const result = response.data.map(
+      (education) =>
+        new Profile.ProfileEducationImp(
+          education.id,
+          education.course,
+          education.description,
+          education.startDate,
+          education.endDate,
+          education.educationInstitute
+        )
     );
 
     return result;

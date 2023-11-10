@@ -1,14 +1,12 @@
 "use Client";
 
 import styled from "styled-components";
+import { ExperienceData } from "@/view-model/profile/interface/ProfileViewModelInterface";
 
-import { ProfileProjectsData } from "@/model/service/interface/ProfileServiceInterface";
 import Image from "next/image";
 import Profile from "@/app/profile/[id]/page";
 
-const ProfileProjectsView: React.FC<{ data: ProfileProjectsData }> = ({
-  data,
-}) => {
+const ProfileProjectsView: React.FC<{ data: ExperienceData }> = (data) => {
   return (
     <ProfileProjectsViewStyle>
       <ProfileBoxTitleBox>

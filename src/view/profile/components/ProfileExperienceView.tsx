@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { ExperienceData } from "@/model/service/interface/ProfileServiceInterface";
 
 const ProfileExperienceView: React.FC<{ data: [] }> = ({ data }) => {
   return (

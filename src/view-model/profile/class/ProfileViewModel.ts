@@ -8,7 +8,7 @@ class ProfileViewModel
 {
   async getProfileTitleData(
     id: number
-  ): Promise<ProfileViewModelInterface.ProfileTitleData> {
+  ): Promise<ProfileViewModelInterface.ProfileTitleInterface> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getTitle(id);
@@ -22,7 +22,7 @@ class ProfileViewModel
 
   async getProjectsData(
     id: number
-  ): Promise<ProfileViewModelInterface.ProfileProjectsData> {
+  ): Promise<ProfileViewModelInterface.ProfileProjectsInterface> {
     try {
       const getProjects = new ProfileService();
       const response = await getProjects.getProjects(id);
@@ -36,7 +36,7 @@ class ProfileViewModel
 
   async getProfileExperience(
     id: number
-  ): Promise<ProfileViewModelInterface.ExperienceData> {
+  ): Promise<ProfileViewModelInterface.ProfileExperienceInterface> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getExperience(id);
@@ -50,7 +50,7 @@ class ProfileViewModel
 
   async getProfileEducation(
     id: number
-  ): Promise<ProfileViewModelInterface.EducationData> {
+  ): Promise<ProfileViewModelInterface.ProfileEducationInterface> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getEducation(id);

@@ -27,16 +27,16 @@ const ProfileView = ({ id }: { id: number }) => {
           id
         );
 
-        setProjectsData(getProjectsData.data);
+        setProjectsData(getProjectsData);
 
         const getExperienceData =
           await new ProfileViewModel().getProfileExperience(id);
 
-        setExperienceData(getExperienceData.data);
+        setExperienceData(getExperienceData);
 
         const getEducationData =
           await new ProfileViewModel().getProfileEducation(id);
-        setEducationData(getEducationData.data);
+        setEducationData(getEducationData);
       } catch (error) {
         console.error(error);
       }

@@ -1,63 +1,13 @@
 import * as ProfileInterface from "./ProfileInterface";
 
-export class Profile implements ProfileInterface.ProfileMainInterface {
+export class ProfileTitleImp implements ProfileInterface.ProfileTitleInterface {
   id: number;
-
-  constructor(id: number) {
-    this.id = id;
-  }
-}
-
-export class ProfileEducationImp
-  extends Profile
-  implements ProfileInterface.ProfileEducationInterface
-{
-  message: string;
-  category: string;
-  data: ProfileInterface.Data[];
-  constructor(
-    id: number,
-    message: string,
-    category: string,
-    data: ProfileInterface.Data[]
-  ) {
-    super(id);
-    this.message = message;
-    this.category = category;
-    this.data = data;
-  }
-}
-
-export class ProfileExperienceImp
-  extends Profile
-  implements ProfileInterface.ProfileExperienceInterface
-{
-  message: string;
-  category: string;
-  data: ProfileInterface.Data[];
-  constructor(
-    id: number,
-    message: string,
-    category: string,
-    data: ProfileInterface.Data[]
-  ) {
-    super(id);
-    this.message = message;
-    this.category = category;
-    this.data = data;
-  }
-}
-
-export class ProfileTitleImp
-  extends Profile
-  implements ProfileInterface.ProfileTitleInterface
-{
   profileImage: string;
   profileBackImage: string;
   name: string;
   location: string;
+  address: string;
   jobDescription: string;
-  connections: number;
   about: string;
 
   constructor(
@@ -66,29 +16,123 @@ export class ProfileTitleImp
     profileBackImage: string,
     name: string,
     location: string,
+    address: string,
     jobDescription: string,
-    connections: number,
     about: string
   ) {
-    super(id);
+    this.id = id;
     this.profileImage = profileImage;
     this.profileBackImage = profileBackImage;
     this.name = name;
     this.location = location;
+    this.address = address;
     this.jobDescription = jobDescription;
-    this.connections = connections;
     this.about = about;
   }
 }
 
 export class ProfileProjectsImp
-  extends Profile
   implements ProfileInterface.ProfileProjectsInterface
 {
-  data: ProfileInterface.ProjectsData[];
+  id: number;
+  coverImage: {
+    id: number;
+    image: string;
+  };
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
 
-  constructor(id: number, data: ProfileInterface.ProjectsData[]) {
-    super(id);
-    this.data = data;
+  constructor(
+    id: number,
+    coverImage: {
+      id: number;
+      image: string;
+    },
+    title: string,
+    description: string,
+    startDate: string,
+    endDate: string | null
+  ) {
+    this.id = id;
+    this.coverImage = coverImage;
+    this.title = title;
+    this.description = description;
+    this.startDate = startDate;
+    this.endDate = endDate;
+  }
+}
+
+export class ProfileExperienceImp
+  implements ProfileInterface.ProfileExperienceInterface
+{
+  imgSrc: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  id: number;
+  experienceCompany: {
+    id: number;
+    name: string;
+    logo: string;
+    location: string;
+  };
+  constructor(
+    imgSrc: string,
+    position: string,
+    startDate: string,
+    endDate: string,
+    description: string,
+    id: number,
+    experienceCompany: {
+      id: number;
+      name: string;
+      logo: string;
+      location: string;
+    }
+  ) {
+    this.imgSrc = imgSrc;
+    this.position = position;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.description = description;
+    this.id = id;
+    this.experienceCompany = experienceCompany;
+  }
+}
+
+export class ProfileEducationImp
+  implements ProfileInterface.ProfileEducationInterface
+{
+  id: number;
+  course: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
+  educationInstitute: {
+    id: number;
+    name: string;
+    logo: string;
+  };
+  constructor(
+    id: number,
+    course: string,
+    description: string,
+    startDate: string,
+    endDate: string | null,
+    educationInstitute: {
+      id: number;
+      name: string;
+      logo: string;
+    }
+  ) {
+    this.id = id;
+    this.course = course;
+    this.description = description;
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.educationInstitute = educationInstitute;
   }
 }

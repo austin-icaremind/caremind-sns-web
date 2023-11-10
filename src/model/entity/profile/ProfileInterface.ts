@@ -5,51 +5,53 @@ export interface ProfileInterface {
   getProfileEducation: (id: number) => Promise<ProfileEducationInterface>;
 }
 
-export interface ProfileMainInterface {
+export interface ProfileTitleInterface {
   id: number;
-}
-
-export interface ProfileTitleInterface extends ProfileMainInterface {
   profileImage: string;
   profileBackImage: string;
   name: string;
   location: string;
+  address: string;
   jobDescription: string;
-  connections: number;
   about: string;
 }
 
-export interface ProfileProjectsInterface extends ProfileMainInterface {
-  data: ProjectsData[];
-}
-
-export interface ProfileExperienceInterface extends ProfileMainInterface {
-  message: string;
-  category: string;
-  data: Data[];
-}
-
-export interface ProfileEducationInterface extends ProfileMainInterface {
-  message: string;
-  category: string;
-  data: Data[];
-}
-
-export interface ProjectsData {
+export interface ProfileProjectsInterface {
   id: number;
-  image: string;
+  coverImage: {
+    id: number;
+    image: string;
+  };
   title: string;
-  category: string;
-  date: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
 }
 
-export interface Data {
+export interface ProfileExperienceInterface {
   imgSrc: string;
-  title: string;
-  titleSub: string;
-  periodStart: number;
-  periodEnd: number;
-  detail: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  description: string;
   id: number;
-  workSpace: string;
+  experienceCompany: {
+    id: number;
+    name: string;
+    logo: string;
+    location: string;
+  };
+}
+
+export interface ProfileEducationInterface {
+  id: number;
+  course: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
+  educationInstitute: {
+    id: number;
+    name: string;
+    logo: string;
+  };
 }

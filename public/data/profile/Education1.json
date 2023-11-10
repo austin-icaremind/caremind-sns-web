@@ -22,9 +22,7 @@
     "educationInstitute": {
       "id": 2,
       "name": "서울_SJ대학교",
-      "logo": "https://mblogthumb-phinf.pstatic.net/MjAxODA4MzBfMjEw/MDAxNTM1NjIyNjA5NDYx.V_Zb2yW-y7KyAfZ19IStAfAXew3jjEvuQb7DkyNaIrsg.st7sAayHzkCyi44FGTdcAEUcPiF-42pGE6zJ7oK58OMg.PNG.math-min/%EC%A4%91%EB%A6%AC%EC%A4%91_%EB%A1%9C%EA%B3%A02.png?type=w800",
-      "createdAt": "2023-11-07T07:14:20.323Z",
-      "updatedAt": "2023-11-10T01:42:59.480Z"
+      "logo": "https://mblogthumb-phinf.pstatic.net/MjAxODA4MzBfMjEw/MDAxNTM1NjIyNjA5NDYx.V_Zb2yW-y7KyAfZ19IStAfAXew3jjEvuQb7DkyNaIrsg.st7sAayHzkCyi44FGTdcAEUcPiF-42pGE6zJ7oK58OMg.PNG.math-min/%EC%A4%91%EB%A6%AC%EC%A4%91_%EB%A1%9C%EA%B3%A02.png?type=w800"
     }
   },
   {
@@ -36,9 +34,7 @@
     "educationInstitute": {
       "id": 5,
       "name": "대전_성룡초교",
-      "logo": "대전_성룡초교 로고",
-      "createdAt": "2023-11-10T01:46:07.055Z",
-      "updatedAt": "2023-11-10T01:46:07.055Z"
+      "logo": "대전_성룡초교 로고"
     }
   }
 ]
