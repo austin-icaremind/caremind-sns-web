@@ -1,3 +1,9 @@
+import FeedModal from "@/view/components/FeedModal";
 export default function Home() {
-  return <main>Care Mind</main>;
+  return (
+    <main>
+      <FeedModal />
+      Care Mind
+    </main>
+  );
 }

@@ -54,7 +54,6 @@ const FollowhashTagLetter = styled.div`
 `;
 
 const HashTagButtonWrapper = styled.div`
-  margin-top: 20px;
   gap: 10px;
   width: 100%;
   height: auto;
