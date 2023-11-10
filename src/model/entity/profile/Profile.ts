@@ -1,6 +1,6 @@
 import * as ProfileInterface from "./ProfileInterface";
 
-export class Profile implements ProfileInterface.ProfileInterface {
+export class Profile implements ProfileInterface.ProfileMainInterface {
   id: number;
 
   constructor(id: number) {

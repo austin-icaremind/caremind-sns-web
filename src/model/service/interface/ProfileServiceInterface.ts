@@ -1,14 +1,8 @@
-import {
-  ProfileEducationInterface,
-  ProfileTitleInterface,
-  ProfileExperienceInterface,
-} from "@/model/entity/profile/ProfileInterface";
-
 export interface ProfileServiceInterface {
-  getTitle: () => Promise<ProfileTitleData>;
-  getProject: () => Promise<ProfileProjectsData>;
-  getExperience: () => Promise<ExperienceData>;
-  getEducation: () => Promise<EducationData>;
+  getTitle: (id: number) => Promise<ProfileTitleData>;
+  getProjects: (id: number) => Promise<ProfileProjectsData>;
+  getExperience: (id: number) => Promise<ExperienceData>;
+  getEducation: (id: number) => Promise<EducationData>;
 }
 
 export interface ProfileTitleData {
@@ -32,7 +26,7 @@ export interface ProfileProjectsInsideData {
 
 export interface ProfileProjectsData {
   id: number;
-  data: ExperienceInsideData[];
+  data: ProfileProjectsInsideData[];
 }
 
 export interface ExperienceInsideData {

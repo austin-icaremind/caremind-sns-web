@@ -1,9 +1,14 @@
 import * as Profile from "@/model/entity/profile/Profile";
+import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
+import * as ProfileViewModelInterface from "../interface/ProfileViewModelInterface";
 import { ProfileService } from "@/model/service/class/ProfileService";
-import { ProfileViewModelInterface } from "../interface/ProfileViewModelInterface";
 
-class ProfileViewModel implements ProfileViewModelInterface {
-  async getProfileTitleData(id: number): Promise<Profile.ProfileTitleImp> {
+class ProfileViewModel
+  implements ProfileViewModelInterface.ProfileViewModelInterface
+{
+  async getProfileTitleData(
+    id: number
+  ): Promise<ProfileViewModelInterface.ProfileTitleData> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getTitle(id);
@@ -15,11 +20,13 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProjectsData(id: number): Promise<Profile.ProfileProjectsImp> {
+  async getProjectsData(
+    id: number
+  ): Promise<ProfileViewModelInterface.ProfileProjectsData> {
     try {
       const getProjects = new ProfileService();
       const response = await getProjects.getProjects(id);
-
+      console.log(response);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -29,7 +36,7 @@ class ProfileViewModel implements ProfileViewModelInterface {
 
   async getProfileExperience(
     id: number
-  ): Promise<Profile.ProfileExperienceImp> {
+  ): Promise<ProfileViewModelInterface.ExperienceData> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getExperience(id);
@@ -41,7 +48,9 @@ class ProfileViewModel implements ProfileViewModelInterface {
     }
   }
 
-  async getProfileEducation(id: number): Promise<Profile.ProfileEducationImp> {
+  async getProfileEducation(
+    id: number
+  ): Promise<ProfileViewModelInterface.EducationData> {
     try {
       const getProfile = new ProfileService();
       const response = await getProfile.getEducation(id);

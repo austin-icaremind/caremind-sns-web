@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import * as ProfileServiceInterface from "../interface/ProfileServiceInterface";
 import * as Profile from "@/model/entity/profile/Profile";
+import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import BASE_API from "@/model/config";
 
 export class ProfileService
@@ -18,7 +18,6 @@ export class ProfileService
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/ProfileTitle${id}.json`);
-    console.log("테스트", response);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileImage,
@@ -38,7 +37,6 @@ export class ProfileService
     const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsData> =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Projects${id}.json`);
-    console.log("테스트", response);
     const result = new Profile.ProfileProjectsImp(
       response.data.id,
       response.data.data

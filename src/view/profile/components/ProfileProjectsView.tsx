@@ -13,7 +13,7 @@ const ProfileProjectsView: React.FC<{ data: ProfileProjectsData }> = ({
     <ProfileProjectsViewStyle>
       <ProfileBoxTitleBox>
         <ProfileBoxTitle>Projects</ProfileBoxTitle>
-        <ProfileProjectsNumber>3 of 12</ProfileProjectsNumber>
+        <ProfileProjectsNumber>3 of 12 </ProfileProjectsNumber>
       </ProfileBoxTitleBox>
       <ProfileProjectsContent>
         <ProfileProjectsCard>

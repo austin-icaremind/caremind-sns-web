@@ -1,8 +1,15 @@
 export interface ProfileInterface {
+  getProfileTitleData: (id: number) => Promise<ProfileTitleInterface>;
+  getProjectsData: (id: number) => Promise<ProfileProjectsInterface>;
+  getProfileExperience: (id: number) => Promise<ProfileExperienceInterface>;
+  getProfileEducation: (id: number) => Promise<ProfileEducationInterface>;
+}
+
+export interface ProfileMainInterface {
   id: number;
 }
 
-export interface ProfileTitleInterface extends ProfileInterface {
+export interface ProfileTitleInterface extends ProfileMainInterface {
   profileImage: string;
   profileBackImage: string;
   name: string;
@@ -12,17 +19,17 @@ export interface ProfileTitleInterface extends ProfileInterface {
   about: string;
 }
 
-export interface ProfileProjectsInterface extends ProfileInterface {
+export interface ProfileProjectsInterface extends ProfileMainInterface {
   data: ProjectsData[];
 }
 
-export interface ProfileExperienceInterface extends ProfileInterface {
+export interface ProfileExperienceInterface extends ProfileMainInterface {
   message: string;
   category: string;
   data: Data[];
 }
 
-export interface ProfileEducationInterface extends ProfileInterface {
+export interface ProfileEducationInterface extends ProfileMainInterface {
   message: string;
   category: string;
   data: Data[];

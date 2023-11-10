@@ -1,9 +1,8 @@
-import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
-
 export interface ProfileViewModelInterface {
-  getProfileTitleData: () => Promise<ProfileInterface.ProfileTitleInterface>;
-  getProfileExperience: () => Promise<ProfileInterface.ProfileEducationInterface>;
-  getProfileEducation: () => Promise<ProfileInterface.ProfileExperienceInterface>;
+  getProfileTitleData: (id: number) => Promise<ProfileTitleData>;
+  getProjectsData: (id: number) => Promise<ProfileProjectsData>;
+  getProfileExperience: (id: number) => Promise<ExperienceData>;
+  getProfileEducation: (id: number) => Promise<EducationData>;
 }
 
 export interface ProfileTitleData {

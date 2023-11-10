@@ -3,8 +3,8 @@
   "profileImage": "https://images.unsplash.com/photo-1586281380117-5a60ae2050cc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "profileBackImage": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   "name": "박인국",
-  "location": "오산",
+  "location": "오산시",
+  "address": "운암로 64",
   "jobDescription": "저는 풀스택 개발자에요",
-  "connections": 152,
   "about": "안녕하세요. 개발호소인입니다."
 }

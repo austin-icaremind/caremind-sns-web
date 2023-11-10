@@ -1,25 +1,44 @@
-{
-  "id": 1,
-  "data": [
-    {
-      "imgSrc": "/images/careerImg.png",
-      "title": "백석대학교",
-      "titleSub": "간호학과 졸업",
-      "periodStart": 2019,
-      "periodEnd": 2022,
-      "detail": "전공 수업은 영어수업으로 진행",
+[
+  {
+    "id": 1,
+    "course": "2학년 이과, 3학년 문과",
+    "description": "에서 공대 진학",
+    "startDate": "2003-03-01",
+    "endDate": "2006-02-28",
+    "educationInstitute": {
       "id": 1,
-      "workSpace": "천안"
-    },
-    {
-      "imgSrc": "/images/careerImg.png",
-      "title": "제주대학교",
-      "titleSub": "감귤포장학과 졸업",
-      "periodStart": 2016,
-      "periodEnd": 2020,
-      "detail": "숙련된 전문가",
-      "id": 2,
-      "workSpace": "제주"
+      "name": "대전_명석고등학교",
+      "logo": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
+      "createdAt": "2023-11-07T07:14:20.314Z",
+      "updatedAt": "2023-11-07T07:14:20.314Z"
     }
-  ]
-}
+  },
+  {
+    "id": 2,
+    "course": "건축공학과",
+    "description": "휴학 한 번 없이 졸업",
+    "startDate": "2006-03-01",
+    "endDate": "2012-02-28",
+    "educationInstitute": {
+      "id": 2,
+      "name": "서울_SJ대학교",
+      "logo": "https://mblogthumb-phinf.pstatic.net/MjAxODA4MzBfMjEw/MDAxNTM1NjIyNjA5NDYx.V_Zb2yW-y7KyAfZ19IStAfAXew3jjEvuQb7DkyNaIrsg.st7sAayHzkCyi44FGTdcAEUcPiF-42pGE6zJ7oK58OMg.PNG.math-min/%EC%A4%91%EB%A6%AC%EC%A4%91_%EB%A1%9C%EA%B3%A02.png?type=w800",
+      "createdAt": "2023-11-07T07:14:20.323Z",
+      "updatedAt": "2023-11-10T01:42:59.480Z"
+    }
+  },
+  {
+    "id": 7,
+    "course": "1-1, 2-6, 3-7, 4-7, 5-8, 6-8",
+    "description": "성룡",
+    "startDate": "1994-03-01",
+    "endDate": "2000-02-01",
+    "educationInstitute": {
+      "id": 5,
+      "name": "대전_성룡초교",
+      "logo": "대전_성룡초교 로고",
+      "createdAt": "2023-11-10T01:46:07.055Z",
+      "updatedAt": "2023-11-10T01:46:07.055Z"
+    }
+  }
+]
