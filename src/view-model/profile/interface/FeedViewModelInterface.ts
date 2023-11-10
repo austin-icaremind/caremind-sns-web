@@ -8,6 +8,7 @@ export interface FeedViewModelInterface {
 }
 
 export interface PostFeedData {
+  id: number;
   content: string;
   images: PostInsideImageData[];
 }

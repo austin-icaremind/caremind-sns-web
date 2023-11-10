@@ -5,6 +5,10 @@ class FeedViewModel implements FeedViewModelInterface.FeedViewModelInterface {
   async postFeedData(): Promise<FeedViewModelInterface.PostFeedData> {
     try {
       const postFeed = new FeedService();
+      const response = postFeed.postFeed();
+      return response;
     } catch {}
   }
 }
+
+export default FeedViewModel;
