@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
   return (
     <FooterWrapper>
       <LogoWrapper>
-        <LogoImage alt="로고이미지" src="images/Logo.png"></LogoImage>
+        <LogoImage alt="로고이미지" src="/images/Logo.png"></LogoImage>
         <LogoText>Linked</LogoText>
         <LogoTextTwo>In</LogoTextTwo>
       </LogoWrapper>

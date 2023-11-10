@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import * as ProfileServiceInterface from "../interface/ProfileServiceInterface";
 import * as Profile from "@/model/entity/profile/Profile";
+import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import BASE_API from "@/model/config";
 
 export class ProfileService
@@ -10,47 +10,92 @@ export class ProfileService
   private apiUrl: string;
 
   constructor() {
-    this.apiUrl = "BASE_API"; // 새로운 URL로 변경
+    // this.apiUrl = BASE_API;
+    this.apiUrl = "/data";
   }
 
-  async getTitle(): Promise<ProfileInterface.ProfileTitleInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ProfileTitleData> =
-      await axios.get(`${this.apiUrl}/ProfileTitle.json`);
-    console.log("테스트", response);
+  async getTitle(id: number): Promise<ProfileInterface.ProfileTitleInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ProfileTitleInterface> =
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/ProfileTitle${id}.json`);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileImage,
+      response.data.profileBackImage,
       response.data.name,
       response.data.location,
+      response.data.address,
       response.data.jobDescription,
-      response.data.connections
+      response.data.about
     );
     return result;
   }
 
-  async getExperience(): Promise<ProfileInterface.ProfileExperienceInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ExperienceData> =
-      await axios.get(`${this.apiUrl}/Experience.json`);
+  async getProjects(
+    id: number
+  ): Promise<ProfileInterface.ProfileProjectsInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsInterface> =
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Projects${id}.json`);
 
-    const result = new Profile.ProfileExperienceImp(
-      response.data.id,
-      response.data.message,
-      response.data.category,
-      response.data.data
+    const result = response.data.map(
+      (project) =>
+        new Profile.ProfileProjectsImp(
+          project.id,
+          project.coverImage,
+          project.title,
+          project.description,
+          project.startDate,
+          project.endDate
+        )
+    );
+
+    console.log("테스트", result);
+    return result;
+  }
+
+  async getExperience(
+    id: number
+  ): Promise<ProfileInterface.ProfileExperienceInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.ProfileExperienceInterface> =
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Experience${id}.json`);
+
+    const result = response.data.map(
+      (experience) =>
+        new Profile.ProfileExperienceImp(
+          experience.imgSrc,
+          experience.position,
+          experience.startDate,
+          experience.endDate,
+          experience.description,
+          experience.id,
+          experience.experienceCompany
+        )
     );
 
     return result;
   }
 
-  async getEducation(): Promise<ProfileInterface.ProfileEducationInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.EducationData> =
-      await axios.get(`${this.apiUrl}/Education.json`);
+  async getEducation(
+    id: number
+  ): Promise<ProfileInterface.ProfileEducationInterface> {
+    const response: AxiosResponse<
+      ProfileServiceInterface.ProfileEducationInterface[]
+    > =
+      // await axios.get(`${this.apiUrl}/profile/${id}`);
+      await axios.get(`${this.apiUrl}/profile/Education${id}.json`);
 
-    const result = new Profile.ProfileEducationImp(
-      response.data.id,
-      response.data.message,
-      response.data.category,
-      response.data.data
+    const result = response.data.map(
+      (education) =>
+        new Profile.ProfileEducationImp(
+          education.id,
+          education.course,
+          education.description,
+          education.startDate,
+          education.endDate,
+          education.educationInstitute
+        )
     );
 
     return result;

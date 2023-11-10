@@ -1,34 +1,57 @@
 export interface ProfileInterface {
-  id: number;
+  getProfileTitleData: (id: number) => Promise<ProfileTitleInterface>;
+  getProjectsData: (id: number) => Promise<ProfileProjectsInterface>;
+  getProfileExperience: (id: number) => Promise<ProfileExperienceInterface>;
+  getProfileEducation: (id: number) => Promise<ProfileEducationInterface>;
 }
 
-export interface ProfileTitleInterface extends ProfileInterface {
+export interface ProfileTitleInterface {
+  id: number;
   profileImage: string;
+  profileBackImage: string;
   name: string;
   location: string;
+  address: string;
   jobDescription: string;
-  connections: number;
+  about: string;
 }
 
-export interface ProfileExperienceInterface extends ProfileInterface {
-  message: string;
-  category: string;
-  data: Data[];
-}
-
-export interface ProfileEducationInterface extends ProfileInterface {
-  message: string;
-  category: string;
-  data: Data[];
-}
-
-export interface Data {
-  imgSrc: string;
-  title: string;
-  titleSub: string;
-  periodStart: number;
-  periodEnd: number;
-  detail: string;
+export interface ProfileProjectsInterface {
   id: number;
-  workSpace: string;
+  coverImage: {
+    id: number;
+    image: string;
+  };
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
+}
+
+export interface ProfileExperienceInterface {
+  imgSrc: string;
+  position: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  id: number;
+  experienceCompany: {
+    id: number;
+    name: string;
+    logo: string;
+    location: string;
+  };
+}
+
+export interface ProfileEducationInterface {
+  id: number;
+  course: string;
+  description: string;
+  startDate: string;
+  endDate: string | null;
+  educationInstitute: {
+    id: number;
+    name: string;
+    logo: string;
+  };
 }

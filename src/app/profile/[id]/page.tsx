@@ -1,12 +1,14 @@
 import ProfileView from "@/view/profile/ProfileView";
+import { NextPage } from "next";
 
 interface pageProps {
   params: { id: number };
 }
 
-const Profile: React.FC<pageProps> = ({ params }) => {
-  // return <ProfileView id={params.id} />;
-  return <div>id는 {params.id}</div>;
+const Profile: NextPage<pageProps> = ({ params }) => {
+  // const name = async getName(parmas.id)
+
+  return <ProfileView id={params.id} />;
 };
 
 export default Profile;
