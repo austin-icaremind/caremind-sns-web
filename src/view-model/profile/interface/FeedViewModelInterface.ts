@@ -15,7 +15,6 @@ export interface PostFeedData {
 
 export interface GetFeedListData {
   id: number;
-  imageUrl: string;
   content: string;
   createdAt: string;
   updatedAt: string;

@@ -19,7 +19,6 @@ export interface FeedPostInsideImage {
 
 //피드 리스트 get//
 export interface FeedListData {
-  imageUrl: string;
   content: string;
   createdAt: string;
   updatedAt: string;
