@@ -1,25 +1,70 @@
 "use client";
 
 import styled from "styled-components";
+import NetworkNewConnectionUserItem from "./NetworkNewConnectionUserItem";
 
 const NetworkRecievedView = () => {
+  type FeedData = {
+    // 나중에 키값 백엔드랑 맞추기//
+    id: number;
+    profileImageSrc: string;
+    userName: string;
+    userJob: string;
+    connection: number;
+    explanation: string;
+  };
+
+  const UserData: FeedData[] = [
+    {
+      id: 1,
+      profileImageSrc: "/images/thumbs-up.png",
+      userName: "Theresa Steward",
+      userJob: "iOS developer",
+      connection: 132,
+      explanation:
+        "Hey, I saw your works. I like it! Can we do something together? Or,",
+    },
+    {
+      id: 2,
+      profileImageSrc: "/images/Logo.png",
+      userName: "2번 목데이터",
+      userJob: "백수",
+      connection: 555,
+      explanation: "2번 목데이터",
+    },
+    {
+      id: 3,
+      profileImageSrc: "/images/Logo.png",
+      userName: "3번 목데이터",
+      userJob: "돈많은 백수",
+      connection: 333,
+      explanation: "3번 목데이터",
+    },
+  ];
   return (
-    <PaddingWrapper>
-      <ButtonContainer>
-        <ReceivedButton>RECEIVED</ReceivedButton>
-        <SentButton>SENT</SentButton>
-      </ButtonContainer>
-      <NewConnectionWrapper>
-        <StyleWrapper>
-          <NetworkConnectionUnderLine />
-          <NewConnectionLetter>
-            <Black>YOU HAVE</Black>
-            <Blue> 2 NEW CONNECTIONS</Blue>
-          </NewConnectionLetter>
-          <NetworkConnectionUnderLine />
-        </StyleWrapper>
-      </NewConnectionWrapper>
-    </PaddingWrapper>
+    <div>
+      <PaddingWrapper>
+        <ButtonContainer>
+          <ReceivedButton>RECEIVED</ReceivedButton>
+          <SentButton>SENT</SentButton>
+        </ButtonContainer>
+        <NewConnectionWrapper>
+          <StyleWrapper>
+            <NetworkConnectionUnderLine />
+            <NewConnectionLetter>
+              <Black>YOU HAVE</Black>
+              <Blue> 2 NEW CONNECTIONS</Blue>
+            </NewConnectionLetter>
+            <NetworkConnectionUnderLine />
+          </StyleWrapper>
+        </NewConnectionWrapper>
+      </PaddingWrapper>
+      <div>
+        {UserData.map((data) => (
+          <NetworkNewConnectionUserItem data={data} />
+        ))}
+      </div>
+    </div>
   );
 };
 

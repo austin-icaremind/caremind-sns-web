@@ -1,5 +1,6 @@
 "use client";
 import styled from "styled-components";
+import NetworkRecentConnectItem from "./NetworkRecentConnectItem";
 
 const NetworkRecentConnectView = () => {
   return (
@@ -9,7 +10,9 @@ const NetworkRecentConnectView = () => {
         <NewConnectionLetter>recent connections</NewConnectionLetter>
         <NetworkConnectionUnderLine />
       </StyleWrapper>
-      {/* <NetWorkRecentConnectItem></NetWorkRecentConnectItem> */}
+      <ItemWrapper>
+        <NetworkRecentConnectItem></NetworkRecentConnectItem>
+      </ItemWrapper>
     </RecentConnectWrapper>
   );
 };
@@ -42,4 +45,7 @@ const StyleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+`;
+const ItemWrapper = styled.div`
+  margin-top: 40px;
 `;

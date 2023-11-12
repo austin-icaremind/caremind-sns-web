@@ -1,13 +1,15 @@
 "use client";
+
 import styled from "styled-components";
 import Image from "next/image";
 
-const NetWorkNewConnectionUserView: React.FC<{ data: any }> = ({ data }) => {
+const NetworkNewConnectionUserItem: React.FC<{ data: any }> = ({ data }) => {
   const { id, profileImageSrc, userName, userJob, connection, explanation } =
     data;
+
   return (
-    <MapWrapper>
-      <NewConnectionUserWrapper key={id}>
+    <MapWrapper key={id}>
+      <NewConnectionUserWrapper>
         <PaddingWrapper>
           <UserImage
             alt="profileImage"
@@ -29,7 +31,7 @@ const NetWorkNewConnectionUserView: React.FC<{ data: any }> = ({ data }) => {
   );
 };
 
-export default NetWorkNewConnectionUserView;
+export default NetworkNewConnectionUserItem;
 
 const MapWrapper = styled.div`
   margin-bottom: 10px;
