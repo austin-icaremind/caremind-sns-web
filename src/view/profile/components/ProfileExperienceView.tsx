@@ -1,28 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileInterface";
 
-const ProfileExperienceView: React.FC<{ data: [] }> = ({ data }) => {
+const ProfileExperienceView: React.FC<{
+  data: ProfileExperienceInterface[];
+}> = ({ data }) => {
   return (
     <>
-      {data?.map((item: any) => (
+      {data?.map((item: ProfileExperienceInterface) => (
         <CareerContentBox key={item.id}>
-          <CareerPic src={item.imgSrc} alt="사진" width={100} height={100} />
-          <CareerDetailBox>
-            <CareerTitle>{item.title}</CareerTitle>
+          <CareerPic
+            src={item.experienceCompany.logo}
+            alt="사진"
+            width={100}
+            height={100}
+          />
+          <CareerInfoBox>
+            <CareerTitle>{item.position}</CareerTitle>
             <CareerTitleSubBox>
-              <CareerTitleSub>{item.titleSub}</CareerTitleSub>
-              {item.workSpace && (
+              <CareerTitleSub>{item.experienceCompany.name}</CareerTitleSub>
+              {item.experienceCompany.location && (
                 <CareerTitleSubLocation>
-                  {item.workSpace}
+                  {item.experienceCompany.location}
                 </CareerTitleSubLocation>
               )}
             </CareerTitleSubBox>
             <CareerPeriod>
-              {item.periodStart} - {item.periodEnd}
+              {item.startDate} - {item.endDate}
             </CareerPeriod>
-            <CareerDetail>{item.detail}</CareerDetail>
-          </CareerDetailBox>
+            <CareerDetail>{item.description}</CareerDetail>
+          </CareerInfoBox>
         </CareerContentBox>
       ))}
     </>
@@ -49,7 +57,7 @@ const CareerPic = styled(Image)`
   margin-right: 16px;
 `;
 
-const CareerDetailBox = styled.div``;
+const CareerInfoBox = styled.div``;
 
 const CareerTitle = styled.div`
   color: #181818;

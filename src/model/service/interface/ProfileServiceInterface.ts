@@ -1,8 +1,8 @@
 export interface ProfileServiceInterface {
   getTitle: (id: number) => Promise<ProfileTitleInterface>;
-  getProjects: (id: number) => Promise<ProfileProjectsInterface>;
-  getExperience: (id: number) => Promise<ProfileExperienceInterface>;
-  getEducation: (id: number) => Promise<ProfileEducationInterface>;
+  getProjects: (id: number) => Promise<ProfileProjectsInterface[]>;
+  getExperience: (id: number) => Promise<ProfileExperienceInterface[]>;
+  getEducation: (id: number) => Promise<ProfileEducationInterface[]>;
 }
 
 export interface ProfileTitleInterface {

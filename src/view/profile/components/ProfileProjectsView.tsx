@@ -1,42 +1,40 @@
 "use Client";
 
 import styled from "styled-components";
-import { ExperienceData } from "@/view-model/profile/interface/ProfileViewModelInterface";
-
 import Image from "next/image";
-import Profile from "@/app/profile/[id]/page";
+import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
 
-const ProfileProjectsView: React.FC<{ data: ExperienceData }> = (data) => {
+const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
+  data,
+}) => {
+  const selectedData = data.slice(0, 3);
+
   return (
     <ProfileProjectsViewStyle>
       <ProfileBoxTitleBox>
         <ProfileBoxTitle>Projects</ProfileBoxTitle>
-        <ProfileProjectsNumber>3 of 12 </ProfileProjectsNumber>
+        <ProfileProjectsNumber>
+          {data.length >= 3 ? 3 : data.length} of {data.length}{" "}
+        </ProfileProjectsNumber>
       </ProfileBoxTitleBox>
       <ProfileProjectsContent>
-        <ProfileProjectsCard>
-          <ProfileProjectsPic />
-          <ProfileProjectsTitle>Zara redesign concenpt</ProfileProjectsTitle>
-          <ProfileProjectsDetail>
-            UX/UI design, 15.07.2019
-          </ProfileProjectsDetail>
-        </ProfileProjectsCard>
-        <ProfileProjectsCard>
-          <ProfileProjectsPic />
-          <ProfileProjectsTitle>Zara redesign concenpt</ProfileProjectsTitle>
-          <ProfileProjectsDetail>
-            UX/UI design, 15.07.2019
-          </ProfileProjectsDetail>
-        </ProfileProjectsCard>
-        <ProfileProjectsCard>
-          <ProfileProjectsPic />
-          <ProfileProjectsTitle>Zara redesign concenpt</ProfileProjectsTitle>
-          <ProfileProjectsDetail>
-            UX/UI design, 15.07.2019
-          </ProfileProjectsDetail>
-        </ProfileProjectsCard>
+        {selectedData?.map((item: ProfileProjectsInterface) => (
+          <ProfileProjectsCard>
+            <ProfileProjectsPic
+              alt="사진"
+              key={item.coverImage.id}
+              width={250}
+              height={160}
+              src={item.coverImage.image}
+            />
+            <ProfileProjectsTitle>P{item.title}</ProfileProjectsTitle>
+            <ProfileProjectsDetail>
+              {item.description} {item.startDate}
+            </ProfileProjectsDetail>
+          </ProfileProjectsCard>
+        ))}
       </ProfileProjectsContent>
-      <ProfileMore>show all (12)</ProfileMore>
+      <ProfileMore>show all ({data.length})</ProfileMore>
     </ProfileProjectsViewStyle>
   );
 };
@@ -68,16 +66,6 @@ const ProfileProjectsNumber = styled.div`
   line-height: normal;
 `;
 
-const ProfileAboutContent = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 21px */
-  margin-bottom: 20px;
-`;
-
 const ProfileMore = styled.div`
   color: #0275b1;
   font-family: Gotham Pro;
@@ -98,11 +86,8 @@ const ProfileProjectsContent = styled.div`
 
 const ProfileProjectsCard = styled.div``;
 
-const ProfileProjectsPic = styled.div`
-  width: 250px;
-  height: 160px;
+const ProfileProjectsPic = styled(Image)`
   flex-shrink: 0;
-  background-color: orange;
   display: block;
   margin-bottom: 15px;
 `;

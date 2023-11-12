@@ -1,32 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import {
-  EducationData,
-  EducationInsideData,
-} from "@/model/service/interface/ProfileServiceInterface";
+import { ProfileEducationInterface } from "@/model/entity/profile/ProfileInterface";
 
-const ProfileEducationView: React.FC<{ data: [] }> = ({ data }) => {
+const ProfileEducationView: React.FC<{ data: ProfileEducationInterface[] }> = ({
+  data,
+}) => {
   return (
     <>
-      {data?.map((item: EducationInsideData) => (
+      {data?.map((item: ProfileEducationInterface) => (
         <CareerContentBox key={item.id}>
-          <CareerPic src={item.imgSrc} alt="사진" width={100} height={100} />
-          <CareerDetailBox>
-            <CareerTitle>{item.title}</CareerTitle>
-            <CareerTitleSubBox>
-              <CareerTitleSub>{item.titleSub}</CareerTitleSub>
-              {item.workSpace && (
-                <CareerTitleSubLocation>
-                  {item.workSpace}
-                </CareerTitleSubLocation>
-              )}
-            </CareerTitleSubBox>
+          <CareerPic
+            src={item.educationInstitute.logo}
+            alt="사진"
+            width={100}
+            height={100}
+          />
+          <CareerInfoBox>
+            <CareerInstitute>{item.educationInstitute.name}</CareerInstitute>
+
+            <CareerInstituteDescription>
+              {item.description}
+            </CareerInstituteDescription>
+
             <CareerPeriod>
-              {item.periodStart} - {item.periodEnd}
+              {item.startDate} - {item.endDate}
             </CareerPeriod>
-            <CareerDetail>{item.detail}</CareerDetail>
-          </CareerDetailBox>
+            <EducationCourse>{item.course}</EducationCourse>
+          </CareerInfoBox>
         </CareerContentBox>
       ))}
     </>
@@ -53,9 +54,9 @@ const CareerPic = styled(Image)`
   margin-right: 16px;
 `;
 
-const CareerDetailBox = styled.div``;
+const CareerInfoBox = styled.div``;
 
-const CareerTitle = styled.div`
+const CareerInstitute = styled.div`
   color: #181818;
   font-family: Gotham Pro;
   font-size: 14px;
@@ -65,13 +66,7 @@ const CareerTitle = styled.div`
   margin-bottom: 10px;
 `;
 
-const CareerTitleSubBox = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-`;
-
-const CareerTitleSub = styled.div`
+const CareerInstituteDescription = styled.div`
   color: #181818;
   font-family: Gotham Pro;
   font-size: 10px;
@@ -79,15 +74,6 @@ const CareerTitleSub = styled.div`
   font-weight: 400;
   line-height: 150%;
   margin-right: 10px;
-`;
-
-const CareerTitleSubLocation = styled.div`
-  color: #181818;
-  font-family: Gotham Pro;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 150%;
 `;
 
 const CareerPeriod = styled.div`
@@ -100,7 +86,7 @@ const CareerPeriod = styled.div`
   margin-bottom: 10px;
 `;
 
-const CareerDetail = styled.div`
+const EducationCourse = styled.div`
   color: #181818;
   width: 719px;
   font-family: Gotham Pro;

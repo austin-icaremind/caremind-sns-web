@@ -33,8 +33,10 @@ export class ProfileService
 
   async getProjects(
     id: number
-  ): Promise<ProfileInterface.ProfileProjectsInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ProfileProjectsInterface> =
+  ): Promise<ProfileInterface.ProfileProjectsInterface[]> {
+    const response: AxiosResponse<
+      ProfileServiceInterface.ProfileProjectsInterface[]
+    > =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Projects${id}.json`);
 
@@ -56,8 +58,10 @@ export class ProfileService
 
   async getExperience(
     id: number
-  ): Promise<ProfileInterface.ProfileExperienceInterface> {
-    const response: AxiosResponse<ProfileServiceInterface.ProfileExperienceInterface> =
+  ): Promise<ProfileInterface.ProfileExperienceInterface[]> {
+    const response: AxiosResponse<
+      ProfileServiceInterface.ProfileExperienceInterface[]
+    > =
       // await axios.get(`${this.apiUrl}/profile/${id}`);
       await axios.get(`${this.apiUrl}/profile/Experience${id}.json`);
 
@@ -79,7 +83,7 @@ export class ProfileService
 
   async getEducation(
     id: number
-  ): Promise<ProfileInterface.ProfileEducationInterface> {
+  ): Promise<ProfileInterface.ProfileEducationInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileEducationInterface[]
     > =
