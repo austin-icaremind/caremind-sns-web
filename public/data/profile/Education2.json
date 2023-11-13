@@ -8,9 +8,7 @@
     "educationInstitute": {
       "id": 1,
       "name": "운천고등학교",
-      "logo": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
-      "createdAt": "2023-11-07T07:14:20.314Z",
-      "updatedAt": "2023-11-07T07:14:20.314Z"
+      "logo": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg"
     }
   },
   {
@@ -34,7 +32,7 @@
     "educationInstitute": {
       "id": 5,
       "name": "대전_성룡초교",
-      "logo": "대전_성룡초교 로고"
+      "logo": "https://mblogthumb-phinf.pstatic.net/MjAxODA4MzBfMjEw/MDAxNTM1NjIyNjA5NDYx.V_Zb2yW-y7KyAfZ19IStAfAXew3jjEvuQb7DkyNaIrsg.st7sAayHzkCyi44FGTdcAEUcPiF-42pGE6zJ7oK58OMg.PNG.math-min/%EC%A4%91%EB%A6%AC%EC%A4%91_%EB%A1%9C%EA%B3%A02.png?type=w800"
     }
   }
 ]
