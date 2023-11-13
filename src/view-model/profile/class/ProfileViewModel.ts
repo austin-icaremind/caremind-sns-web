@@ -3,16 +3,12 @@ import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import * as ProfileViewModelInterface from "../interface/ProfileViewModelInterface";
 import { ProfileService } from "@/model/service/class/ProfileService";
 
-class ProfileViewModel
-  implements ProfileViewModelInterface.ProfileViewModelInterface
-{
-  async getProfileTitleData(
+export class ProfileViewModel {
+  static getProfileTitleData(
     id: number
   ): Promise<ProfileViewModelInterface.ProfileTitleInterface> {
     try {
-      const getProfile = new ProfileService();
-      const response = await getProfile.getTitle(id);
-
+      const response = ProfileService.getTitle(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -20,12 +16,11 @@ class ProfileViewModel
     }
   }
 
-  async getProjectsData(
+  static getProjectsData(
     id: number
-  ): Promise<ProfileViewModelInterface.ProfileProjectsInterface> {
+  ): Promise<ProfileViewModelInterface.ProfileProjectsInterface[]> {
     try {
-      const getProjects = new ProfileService();
-      const response = await getProjects.getProjects(id);
+      const response = ProfileService.getProjects(id);
       console.log(response);
       return response;
     } catch (error) {
@@ -34,13 +29,11 @@ class ProfileViewModel
     }
   }
 
-  async getProfileExperience(
+  static getProfileExperience(
     id: number
-  ): Promise<ProfileViewModelInterface.ProfileExperienceInterface> {
+  ): Promise<ProfileViewModelInterface.ProfileExperienceInterface[]> {
     try {
-      const getProfile = new ProfileService();
-      const response = await getProfile.getExperience(id);
-
+      const response = ProfileService.getExperience(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -48,12 +41,11 @@ class ProfileViewModel
     }
   }
 
-  async getProfileEducation(
+  static getProfileEducation(
     id: number
-  ): Promise<ProfileViewModelInterface.ProfileEducationInterface> {
+  ): Promise<ProfileViewModelInterface.ProfileEducationInterface[]> {
     try {
-      const getProfile = new ProfileService();
-      const response = await getProfile.getEducation(id);
+      const response = ProfileService.getEducation(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
