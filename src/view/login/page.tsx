@@ -35,7 +35,12 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const alertCheck = await loginViewModel.Login();
+
+    const alertCheck = await UserViewModel.Login(
+      userInfo.email,
+      userInfo.password
+    );
+
     setLoginCheck(alertCheck);
     if (alertCheck === "wrong") {
       alert("잘못된 정보 입력했습니다.");
@@ -58,8 +63,6 @@ const LoginPage: React.FC = () => {
       localStorage.setItem("userId", loginCheck.user.id);
     }
   }, [loginCheck]);
-
-  const loginViewModel = new UserViewModel(userInfo.email, userInfo.password);
 
   return (
     <div>

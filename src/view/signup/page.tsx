@@ -27,14 +27,12 @@ const SignupPage = () => {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const signUpVM = new UserViewModel(
-    userInfo.email,
-    userInfo.password,
-    userInfo.passwordCheck
-  );
-
   const onClcikAlert = async () => {
-    const alertCheck = await signUpVM.SignUp();
+    const alertCheck = await UserViewModel.SignUp(
+      userInfo.email,
+      userInfo.password,
+      userInfo.passwordCheck
+    );
     setSignupCheck(alertCheck);
 
     if (alertCheck === "success") {

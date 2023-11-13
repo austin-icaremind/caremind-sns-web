@@ -7,13 +7,16 @@ export interface ProfileServiceInterface {
 
 export interface ProfileTitleInterface {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  name: string;
   location: string;
   address: string;
   jobDescription: string;
   about: string;
+  user: {
+    email: string;
+    name: string;
+    profileImage: string;
+  };
 }
 
 export interface ProfileProjectsInterface {

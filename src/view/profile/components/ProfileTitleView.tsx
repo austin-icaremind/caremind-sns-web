@@ -2,10 +2,12 @@
 
 import styled from "styled-components";
 
-import { ProfileTitleData } from "@/model/service/interface/ProfileServiceInterface";
 import Image from "next/image";
 
-const ProfileTitleView: React.FC<{ data: ProfileTitleData }> = ({ data }) => {
+const ProfileTitleView: React.FC<{ data: any }> = ({ data }) => {
+  console.log(data);
+  console.log(data.user.profileImage);
+  console.log(data.user.name);
   return (
     <ProfileTitleStyle>
       <ProfileTitleWrapper>
@@ -35,18 +37,20 @@ const ProfileTitleView: React.FC<{ data: ProfileTitleData }> = ({ data }) => {
           <ProfileImageWrapper>
             <ProfileImage
               alt="프로필 이미지"
-              src={data.profileImage}
+              src={data.user.profileImage}
             ></ProfileImage>
           </ProfileImageWrapper>
           <AboutMeWrapper>
             <NameAndLocationWrapper>
-              <NameLetter>{data.name}</NameLetter>
+              <NameLetter>{data.user.name}</NameLetter>
               <LocationWrapper>
                 <LocationImage
                   alt="화살표이미지"
                   src="/images/navigation.png"
                 ></LocationImage>
-                <LocationLetter>{data.location}</LocationLetter>
+                <LocationLetter>
+                  {data.location} {data.address}
+                </LocationLetter>
               </LocationWrapper>
             </NameAndLocationWrapper>
             <JobExplanitionWrapper>{data.jobDescription}</JobExplanitionWrapper>
