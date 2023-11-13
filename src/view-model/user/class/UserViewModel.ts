@@ -32,13 +32,10 @@ export class UserViewModel {
 
   async SignUp(): Promise<any> {
     if (!this.isEmailValid()) {
-      // alert("이메일이 유효하지 않습니다.");
       return "emailNotPerfect";
     } else if (!this.isPasswordValid()) {
-      // alert("비밀번호가 유효하지` 않습니다.");
       return "passwordNotPerfect";
     } else if (!this.doPasswordsMatch()) {
-      // alert("비밀번호 확인이 일치하지 않습니다.");
       return "passwordNotMatch";
     } else {
       try {

@@ -17,25 +17,21 @@ const ProfileView = ({ id }: { id: number }) => {
   useEffect(() => {
     const fetchData = async (id: number) => {
       try {
-        const getProfileData = await new ProfileViewModel().getProfileTitleData(
-          id
-        );
+        const getProfileData = await ProfileViewModel.getProfileTitleData(id);
 
         setTitleData(getProfileData);
 
-        const getProjectsData = await new ProfileViewModel().getProjectsData(
-          id
-        );
+        const getProjectsData = await ProfileViewModel.getProjectsData(id);
 
         setProjectsData(getProjectsData);
 
-        const getExperienceData =
-          await new ProfileViewModel().getProfileExperience(id);
+        const getExperienceData = await ProfileViewModel.getProfileExperience(
+          id
+        );
 
         setExperienceData(getExperienceData);
 
-        const getEducationData =
-          await new ProfileViewModel().getProfileEducation(id);
+        const getEducationData = await ProfileViewModel.getProfileEducation(id);
         setEducationData(getEducationData);
       } catch (error) {
         console.error(error);
