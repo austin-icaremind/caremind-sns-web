@@ -16,7 +16,7 @@ const FeedHashTagView: React.FC<{ data: FeedHashTagInterface }> = ({
         <MapWrapper>
           {data.hashTag.map((data: any) => (
             <HashTagButtonWrapper key={data.id}>
-              <HashTageButton>{data.content}</HashTageButton>
+              <HashTageButton>#{data.content}</HashTageButton>
             </HashTagButtonWrapper>
           ))}
         </MapWrapper>
