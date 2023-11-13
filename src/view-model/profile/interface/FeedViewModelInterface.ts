@@ -1,16 +1,14 @@
-import * as FeedInterface from "@/model/entity/feed/FeedInterface";
-
 export interface FeedViewModelInterface {
-  postFeedData: () => Promise<FeedInterface.FeedPostInterface>;
-  getFeedListData: () => Promise<FeedInterface.FeedListInterface>;
-  getFeedMyProfileData: () => Promise<FeedInterface.FeedMyProfileInterface>;
-  getFeedMyHashtagData: () => Promise<FeedInterface.FeedHashTagInterface>;
+  postFeedData: () => Promise<PostFeedData>;
+  getFeedListData: () => Promise<GetFeedListData>;
+  getFeedMyProfileData: () => Promise<GetFeedMyProfileData>;
+  getFeedMyHashtagData: () => Promise<GetFeedMyHashtagData>;
 }
 
 export interface PostFeedData {
   id: number;
   content: string;
-  images: PostInsideImageData[];
+  images: { imageUrl: string };
 }
 
 export interface GetFeedListData {
@@ -19,42 +17,31 @@ export interface GetFeedListData {
   createdAt: string;
   updatedAt: string;
   author: string;
-  likes: WhoLikesData[]; //어떤사람이 좋아요눌럿는지?
-  images: FeedInsideImageData[];
+  likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
+  images: { imageUrl: string };
   video: string;
-  comments: WhoCommentsData[]; //댓글
+  comments: {
+    id: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    commenter: { id: number; name: string };
+  }; //댓글
   likesCount: number;
   commentsCount: number;
 }
+
 export interface GetFeedMyProfileData {
   id: number;
+  profileImage: string;
+  profileBackImage: string;
+  myName: string;
+  about: string;
 }
 export interface GetFeedMyHashtagData {
   id: number;
-}
-
-export interface PostInsideImageData {
-  imageUrl: string;
-}
-
-export interface WhoLikesData {
-  id: number;
-  createdAt: string;
-}
-
-export interface FeedInsideImageData {
-  imageUrl: string;
-}
-
-export interface WhoCommentsData {
-  id: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  commenter: CommenterData[];
-}
-
-export interface CommenterData {
-  id: number;
-  name: string;
+  hashTag: {
+    id: number;
+    content: string;
+  }[];
 }

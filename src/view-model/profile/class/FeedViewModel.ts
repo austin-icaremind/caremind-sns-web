@@ -16,6 +16,26 @@ class FeedViewModel implements FeedViewModelInterface.FeedViewModelInterface {
     try {
       const getFeedList = new FeedService();
       const response = getFeedList.getFeedList();
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+  async getFeedMyProfileData(): Promise<FeedViewModelInterface.GetFeedMyProfileData> {
+    try {
+      const getMyProfile = new FeedService();
+      const response = getMyProfile.getMyProfile();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getFeedMyHashtagData(): Promise<FeedViewModelInterface.GetFeedMyHashtagData> {
+    try {
+      const getMyHashtag = new FeedService();
+      const response = getMyHashtag.getMyHashtag();
       return response;
     } catch (error) {
       throw error;
@@ -24,14 +44,3 @@ class FeedViewModel implements FeedViewModelInterface.FeedViewModelInterface {
 }
 
 export default FeedViewModel;
-
-// async getProfileTitleData(): Promise<Profile.ProfileTitleImp> {
-//   try {
-//     const getProfile = new ProfileService();
-//     const response = await getProfile.getTitle();
-
-//     return response;
-//   } catch (error) {
-//     console.error("Error getting profile title data:", error);
-//     throw error;
-//   }

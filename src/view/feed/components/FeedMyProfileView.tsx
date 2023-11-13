@@ -3,29 +3,30 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { FeedMyProfileInterface } from "@/model/entity/feed/FeedInterface";
 
-const FeedMyProfileView = () => {
+const FeedMyProfileView: React.FC<{ data: FeedMyProfileInterface }> = ({
+  data,
+}) => {
   return (
     <div>
       <FeedMyProfileViewWrapper>
         <BackgroundWrapper>
           <BackgroundImage
             alt="프로필배경"
-            src="/images/Rectangle 3.png"
+            src={data.profileBackImage}
           ></BackgroundImage>
         </BackgroundWrapper>
         <ProfileImageWrapper>
-          {/* 데이터로 이미지 받기 */}
           <ProfileImage
             alt="프로필 사진"
-            src="/images/Ellipse.png"
+            src={data.profileImage}
             width={100}
             height={100}
           ></ProfileImage>
         </ProfileImageWrapper>
         <UserNameWrapper>
-          {/* 데이터로 이미지 넣기 */}
-          <UserName>권순우</UserName>
+          <UserName>{data.myName}</UserName>
           <LinkInIcon
             alt="링크인 아이콘 뱃지"
             src="/images/Logo-yellow.png"
@@ -34,11 +35,7 @@ const FeedMyProfileView = () => {
           />
         </UserNameWrapper>
         <AboutMeWrapper>
-          {/* 나의 소개 데이터로 받기 */}
-          <AboutMe>
-            Freelance UX/UI designer, 80+ projects in web design, mobile apps
-            (iOS
-          </AboutMe>
+          <AboutMe>{data.about}</AboutMe>
         </AboutMeWrapper>
       </FeedMyProfileViewWrapper>
       <FeedNewArticleWrapper>
