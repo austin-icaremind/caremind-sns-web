@@ -12,7 +12,7 @@ class FeedViewModel implements FeedViewModelInterface.FeedViewModelInterface {
     }
   }
 
-  async getFeedListData(): Promise<FeedViewModelInterface.GetFeedListData> {
+  async getFeedListData(): Promise<FeedViewModelInterface.GetFeedListData[]> {
     try {
       const getFeedList = new FeedService();
       const response = getFeedList.getFeedList();

@@ -22,7 +22,7 @@ export interface FeedListInterface {
   }; //댓글
   likesCount: number;
   commentsCount: number;
-} //피드 게시글 get 데이터//
+}
 
 export interface FeedMyProfileInterface {
   id: number;
