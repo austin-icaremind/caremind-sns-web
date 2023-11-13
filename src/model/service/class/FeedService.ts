@@ -12,15 +12,21 @@ export class FeedService implements FeedServiceInterface.FeedServiceInterface {
     // this.apiUrl = "BASE_API";
     this.apiUrl = "/data";
   }
-  async postFeed(): Promise<FeedInterface.FeedPostInterface> {
-    const response: AxiosResponse<FeedServiceInterface.PostMyFeedData> =
-      await axios.post(`${this.apiUrl}/feed/Feed.json`);
-    const result = new Feed.FeedPostImp(
-      response.data.id,
-      response.data.content,
-      response.data.images
+  async postFeed(
+    id: number,
+    content: string,
+    images: string
+  ): Promise<AxiosResponse<void>> {
+    const response: AxiosResponse<void> = await axios.post(
+      `${this.apiUrl}/feed`,
+      {
+        id,
+        content,
+        images,
+      }
     );
-    return result;
+
+    return response;
   }
 
   async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
