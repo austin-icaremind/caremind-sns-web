@@ -3,9 +3,9 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { FeedMyProfileInterface } from "@/model/entity/feed/FeedInterface";
+import { GetFeedMyProfileData } from "@/view-model/profile/interface/FeedViewModelInterface";
 
-const FeedMyProfileView: React.FC<{ data: FeedMyProfileInterface }> = ({
+const FeedMyProfileView: React.FC<{ data: GetFeedMyProfileData }> = ({
   data,
 }) => {
   return (

@@ -3,8 +3,12 @@ import * as FeedInterface from "./FeedInterface";
 export class FeedPostImp implements FeedInterface.FeedPostInterface {
   id: number;
   content: string;
-  images: { imageUrl: string };
-  constructor(id: number, content: string, images: { imageUrl: string }) {
+  images: { imageUrl: string | null };
+  constructor(
+    id: number,
+    content: string,
+    images: { imageUrl: string | null }
+  ) {
     this.id = id;
     this.content = content;
     this.images = images;
@@ -18,7 +22,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
   updatedAt: string;
   author: { id: number; name: string; profileImage: string; job: string };
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
-  images: { imageUrl: string };
+  images: { imageUrl: string | null };
   video: string;
   comments: {
     id: number;
@@ -37,7 +41,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
     updatedAt: string,
     author: { id: number; name: string; profileImage: string; job: string },
     likes: { id: number; createdAt: string },
-    images: { imageUrl: string },
+    images: { imageUrl: string | null },
     video: string,
     comments: {
       id: number;

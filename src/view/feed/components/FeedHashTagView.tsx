@@ -2,9 +2,9 @@
 
 import React from "react";
 import styled from "styled-components";
-import { FeedHashTagInterface } from "@/model/entity/feed/FeedInterface";
+import { GetFeedMyHashtagData } from "@/view-model/profile/interface/FeedViewModelInterface";
 
-const FeedHashTagView: React.FC<{ data: FeedHashTagInterface }> = ({
+const FeedHashTagView: React.FC<{ data: GetFeedMyHashtagData }> = ({
   data,
 }) => {
   return (
@@ -14,7 +14,7 @@ const FeedHashTagView: React.FC<{ data: FeedHashTagInterface }> = ({
           <FollowhashTagLetter>Followed hashtags</FollowhashTagLetter>
         </FollowHashTagWrapper>
         <MapWrapper>
-          {data.hashTag.map((data: any) => (
+          {data.hashTag.map((data) => (
             <HashTagButtonWrapper key={data.id}>
               <HashTageButton>#{data.content}</HashTageButton>
             </HashTagButtonWrapper>

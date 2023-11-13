@@ -8,7 +8,7 @@ export interface FeedViewModelInterface {
 export interface PostFeedData {
   id: number;
   content: string;
-  images: { imageUrl: string };
+  images: { imageUrl: string | null };
 }
 
 export interface GetFeedListData {
@@ -18,7 +18,7 @@ export interface GetFeedListData {
   updatedAt: string;
   author: { id: number; name: string; profileImage: string; job: string };
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
-  images: { imageUrl: string };
+  images: { imageUrl: string | null };
   video: string;
   comments: {
     id: number;
