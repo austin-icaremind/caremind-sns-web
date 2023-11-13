@@ -1,24 +1,27 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-const NetworkRecentConnectItem = () => {
+const NetworkRecentConnectItem: React.FC<{ data: any }> = ({ data }) => {
+  const { id, profileImageSrc, userName, position, date } = data;
   return (
-    <ItemWrapper>
-      <ContentWrapper>
-        <UserImage
-          alt="유저 이미지"
-          src="/images/thumbs-up.png"
-          width={52}
-          height={52}
-        ></UserImage>
-        <InformationWrapper>
-          <Name>Audrey Alexander</Name>
-          <Position>Team lead at Google</Position>
-        </InformationWrapper>
-      </ContentWrapper>
-      <DateWrapper>
-        <Date>Yesterday, 14:30</Date>
-      </DateWrapper>
+    <ItemWrapper key={id}>
+      <PaddinWrapper>
+        <ContentWrapper>
+          <UserImage
+            alt="유저 이미지"
+            src={profileImageSrc}
+            width={52}
+            height={52}
+          ></UserImage>
+          <InformationWrapper>
+            <Name>{userName}</Name>
+            <Position>{position}</Position>
+          </InformationWrapper>
+        </ContentWrapper>
+        <DateWrapper>
+          <Date>{date}</Date>
+        </DateWrapper>
+      </PaddinWrapper>
     </ItemWrapper>
   );
 };
@@ -26,17 +29,18 @@ const NetworkRecentConnectItem = () => {
 export default NetworkRecentConnectItem;
 
 const ItemWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
   width: 420px;
   height: 95px;
   border-radius: 4px;
   background: #fff;
-  padding: 20px 15px 10px 30px;
 `;
 
+const PaddinWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 15px 10px 30px;
+`;
 const UserImage = styled(Image)`
   border-radius: 50%;
 `;
