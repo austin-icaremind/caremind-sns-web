@@ -1,39 +1,98 @@
 "use client";
-import React from "react";
-import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import styled from "styled-components";
 import Image from "next/image";
+import { useEffect } from "react";
+import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
 
 const Header: React.FC = () => {
+  const router = useRouter();
+
+  const handleRouting = (path: string) => {
+    router.push(path);
+  };
+  const handleFeed = () => handleRouting("/feed");
+  const handleNetwork = () => handleRouting("/network");
+  const handleHome = () => handleRouting("/");
+
+  const [headerData, setHeaderData] = useState<any | null>({});
   const pathname = usePathname();
-  const hideHeaderOnPaths = ["/login", "/signup"];
+  const hideHeaderOnPaths: string[] = ["/login", "/signup"];
+  const pageGaFeed: string[] = ["/feed"];
+  const pageGaNetwork: string[] = ["/network"];
+  const changeFeedColor = pageGaFeed.includes(pathname);
+  const changeNetworkColor = pageGaNetwork.includes(pathname);
   const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
+
+        setHeaderData(getHeaderProfile);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [pathname]);
+  console.log(headerData);
   return (
     <HeaderWrapper>
-      <IconWrapper>
+      <IconWrapper onClick={handleHome}>
         <Logo alt="로고" src="/images/Logo.png" width={46} height={46}></Logo>
       </IconWrapper>
 
       {!shouldHideHeader && (
         <>
           <FeedAndNetworkWrapper>
-            <FeedWrapper>
-              <Feed
-                alt="피드아이콘"
-                src="/images/rss.png"
-                width={24}
-                height={24}
-              />
-              <FeedLetter>FEED</FeedLetter>
+            <FeedWrapper onClick={handleFeed}>
+              {!changeFeedColor ? (
+                <IconLetterWrapper>
+                  <Feed
+                    alt="피드아이콘"
+                    src="/images/rss.png"
+                    width={24}
+                    height={24}
+                  />
+                  <FeedLetter>FEED</FeedLetter>
+                </IconLetterWrapper>
+              ) : (
+                <IconLetterWrapper>
+                  <Feed
+                    alt="피드아이콘"
+                    src="/images/rss-blue.png"
+                    width={24}
+                    height={24}
+                  />
+                  <FeedLetterBlue>FEED</FeedLetterBlue>
+                </IconLetterWrapper>
+              )}
             </FeedWrapper>
-            <NetworkWrapper>
-              <Network
-                alt="네트워크아이콘"
-                src="/images/users.png"
-                width={24}
-                height={24}
-              />
-              <NetworkLetter>NETWORK</NetworkLetter>
+            <NetworkWrapper onClick={handleNetwork}>
+              {!changeNetworkColor ? (
+                <IconLetterWrapper>
+                  <Network
+                    alt="네트워크아이콘"
+                    src="/images/users.png"
+                    width={24}
+                    height={24}
+                  />
+                  <NetworkLetter>NETWORK</NetworkLetter>
+                </IconLetterWrapper>
+              ) : (
+                <IconLetterWrapper>
+                  <Network
+                    alt="네트워크아이콘"
+                    src="/images/users-blue.png"
+                    width={24}
+                    height={24}
+                  />
+                  <NetworkLetterBlue>NETWORK</NetworkLetterBlue>
+                </IconLetterWrapper>
+              )}
             </NetworkWrapper>
           </FeedAndNetworkWrapper>
           <SearchWrapper>
@@ -45,21 +104,21 @@ const Header: React.FC = () => {
             />
             <SearchInput placeholder="Search"></SearchInput>
           </SearchWrapper>
-          <ProfileWrapper>
+          <ProfileWrapper key={headerData.id}>
             <ProfileImage
               alt="프로필 이미지"
-              src={"/images/Ellipse.png"} //data 프로필 이미지 넣기
+              src={headerData.profileImage} //data 프로필 이미지 넣기
               height={42}
               width={42}
             />
             <UserNameWrapper>
               <MyWrapper>
-                <UserName>권순우</UserName>
+                <UserName>{headerData.myName}</UserName>
                 <YouLetter>YOU</YouLetter>
               </MyWrapper>
               <VisitorWrapper>
-                <TodayView>367 views today</TodayView>
-                <AddedNumber>+32</AddedNumber>
+                <TodayView>{headerData.todayView} views today</TodayView>
+                <AddedNumber>{headerData.viewChange}</AddedNumber>
               </VisitorWrapper>
             </UserNameWrapper>
           </ProfileWrapper>
@@ -70,6 +129,13 @@ const Header: React.FC = () => {
 };
 
 export default Header;
+const IconLetterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -122,7 +188,6 @@ const Feed = styled(Image)``;
 const Network = styled(Image)``;
 
 const IconLetterStyle = styled.p`
-  color: #0275b1;
   text-align: center;
   font-family: Gotham Pro;
   font-size: 12px;
@@ -130,12 +195,19 @@ const IconLetterStyle = styled.p`
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
-  color: #181818;
 `;
 const FeedLetter = styled(IconLetterStyle)``;
 
+const FeedLetterBlue = styled(IconLetterStyle)`
+  color: #0275b1;
+`;
+
 const NetworkLetter = styled(IconLetterStyle)`
   /* color: #0275b1; */
+`;
+
+const NetworkLetterBlue = styled(IconLetterStyle)`
+  color: #0275b1;
 `;
 
 const SearchWrapper = styled.div`

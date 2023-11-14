@@ -133,8 +133,7 @@ const SentWrapper = styled.div`
   border-radius: 4px;
   background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
   margin-bottom: 26px;
-`;
-
-const SentIcon = styled(Image)`
   cursor: pointer;
 `;
+
+const SentIcon = styled(Image)``;
