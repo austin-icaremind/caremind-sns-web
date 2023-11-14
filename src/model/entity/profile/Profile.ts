@@ -2,32 +2,37 @@ import * as ProfileInterface from "./ProfileInterface";
 
 export class ProfileTitleImp implements ProfileInterface.ProfileTitleInterface {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  name: string;
   location: string;
   address: string;
   jobDescription: string;
   about: string;
+  user: {
+    email: string;
+    name: string;
+    profileImage: string;
+  };
 
   constructor(
     id: number,
-    profileImage: string,
     profileBackImage: string,
-    name: string,
     location: string,
     address: string,
     jobDescription: string,
-    about: string
+    about: string,
+    user: {
+      email: string;
+      name: string;
+      profileImage: string;
+    }
   ) {
     this.id = id;
-    this.profileImage = profileImage;
     this.profileBackImage = profileBackImage;
-    this.name = name;
     this.location = location;
     this.address = address;
     this.jobDescription = jobDescription;
     this.about = about;
+    this.user = user;
   }
 }
 

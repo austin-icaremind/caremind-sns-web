@@ -9,17 +9,16 @@ export class ProfileService {
     id: number
   ): Promise<ProfileInterface.ProfileTitleInterface> {
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleInterface> =
-      // await axios.get(`${BASE_API}/profile/${id}`);
-      await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
+      await axios.get(`${BASE_API}/profile/${id}`);
+    // await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
-      response.data.profileImage,
       response.data.profileBackImage,
-      response.data.name,
       response.data.location,
       response.data.address,
       response.data.jobDescription,
-      response.data.about
+      response.data.about,
+      response.data.user
     );
     return result;
   }
@@ -29,9 +28,8 @@ export class ProfileService {
   ): Promise<ProfileInterface.ProfileProjectsInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileProjectsInterface[]
-    > =
-      // await axios.get(`${BASE_API}/profile/${id}`);
-      await axios.get(`${BASE_API}/profile/Projects${id}.json`);
+    > = await axios.get(`${BASE_API}/profile/${id}/project`);
+    // await axios.get(`${BASE_API}/profile/Projects${id}.json`);
 
     const result = response.data.map(
       (project) =>
@@ -54,9 +52,8 @@ export class ProfileService {
   ): Promise<ProfileInterface.ProfileExperienceInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileExperienceInterface[]
-    > =
-      // await axios.get(`${BASE_API}/profile/${id}`);
-      await axios.get(`${BASE_API}/profile/Experience${id}.json`);
+    > = await axios.get(`${BASE_API}/profile/${id}/experience`);
+    // await axios.get(`${BASE_API}/profile/Experience${id}.json`);
 
     const result = response.data.map(
       (experience) =>
@@ -79,9 +76,8 @@ export class ProfileService {
   ): Promise<ProfileInterface.ProfileEducationInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileEducationInterface[]
-    > =
-      // await axios.get(`${BASE_API}/profile/${id}`);
-      await axios.get(`${BASE_API}/profile/Education${id}.json`);
+    > = await axios.get(`${BASE_API}/profile/${id}/education`);
+    // await axios.get(`${BASE_API}/profile/Education${id}.json`);
 
     const result = response.data.map(
       (education) =>

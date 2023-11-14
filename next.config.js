@@ -11,6 +11,8 @@ const nextConfig = {
       "cdn.dtnews24.com",
       "mblogthumb-phinf.pstatic.net",
       "images.unsplash.com",
+      "static.wixstatic.com",
+      "search.pstatic.net",
     ],
   },
 };
