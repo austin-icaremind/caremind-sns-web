@@ -7,13 +7,17 @@ export interface ProfileViewModelInterface {
 
 export interface ProfileTitleInterface {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  name: string;
   location: string;
   address: string;
   jobDescription: string;
   about: string;
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    profileImage: string;
+  };
 }
 
 export interface ProfileProjectsInterface {

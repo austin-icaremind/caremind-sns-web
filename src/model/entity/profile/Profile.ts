@@ -8,6 +8,7 @@ export class ProfileTitleImp implements ProfileInterface.ProfileTitleInterface {
   jobDescription: string;
   about: string;
   user: {
+    id: number;
     email: string;
     name: string;
     profileImage: string;
@@ -21,6 +22,7 @@ export class ProfileTitleImp implements ProfileInterface.ProfileTitleInterface {
     jobDescription: string,
     about: string,
     user: {
+      id: number;
       email: string;
       name: string;
       profileImage: string;

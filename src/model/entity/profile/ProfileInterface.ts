@@ -6,6 +6,7 @@ export interface ProfileTitleInterface {
   jobDescription: string;
   about: string;
   user: {
+    id: number;
     email: string;
     name: string;
     profileImage: string;
