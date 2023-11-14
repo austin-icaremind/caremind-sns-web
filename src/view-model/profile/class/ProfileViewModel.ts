@@ -1,5 +1,3 @@
-import * as Profile from "@/model/entity/profile/Profile";
-import * as ProfileInterface from "@/model/entity/profile/ProfileInterface";
 import * as ProfileViewModelInterface from "../interface/ProfileViewModelInterface";
 import { ProfileService } from "@/model/service/class/ProfileService";
 

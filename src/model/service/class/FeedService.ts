@@ -5,33 +5,21 @@ import * as FeedServiceInterface from "../interface/FeedServiceInterface";
 
 import BASE_API from "@/model/config";
 
-export class FeedService implements FeedServiceInterface.FeedServiceInterface {
-  private apiUrl: string;
-
-  constructor() {
-    // this.apiUrl = "BASE_API";
-    this.apiUrl = "/data";
-  }
-  async postFeed(
-    id: number,
+export class FeedService {
+  static async postFeed(
     content: string,
-    images: string
+    images: string | null
   ): Promise<AxiosResponse<void>> {
-    const response: AxiosResponse<void> = await axios.post(
-      `${this.apiUrl}/feed`,
-      {
-        id,
-        content,
-        images,
-      }
-    );
+    const response: AxiosResponse<void> = await axios.post(`${BASE_API}/feed`, {
+      content,
+      images,
+    });
 
     return response;
   }
-
-  async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
+  static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-      await axios.get(`${this.apiUrl}/feed/Feed.json`);
+      await axios.get(`${BASE_API}/feed/Feed.json`);
 
     const result = response.data.map(
       (feedList) =>
@@ -49,26 +37,13 @@ export class FeedService implements FeedServiceInterface.FeedServiceInterface {
           feedList.commentsCount
         )
     );
-    // const result = new Feed.FeedListImp(
-    //   response.data.id,
-    //   response.data.content,
-    //   response.data.createdAt,
-    //   response.data.updatedAt,
-    //   response.data.author,
-    //   response.data.likes,
-    //   response.data.images,
-    //   response.data.video,
-    //   response.data.comments,
-    //   response.data.likesCount,
-    //   response.data.commentsCount
-    // );
-    console.log(result, "<<<<<<");
+
     return result;
   }
 
-  async getMyProfile(): Promise<FeedInterface.FeedMyProfileInterface> {
+  static async getMyProfile(): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${this.apiUrl}/feed/MyProfile.json`);
+      await axios.get(`${BASE_API}/feed/MyProfile.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
       response.data.profileImage,
@@ -80,9 +55,9 @@ export class FeedService implements FeedServiceInterface.FeedServiceInterface {
     return result;
   }
 
-  async getMyHashtag(): Promise<FeedInterface.FeedHashTagInterface> {
+  static async getMyHashtag(): Promise<FeedInterface.FeedHashTagInterface> {
     const response: AxiosResponse<FeedServiceInterface.HashTagData> =
-      await axios.get(`${this.apiUrl}/feed/MyHashtag.json`);
+      await axios.get(`${BASE_API}/feed/MyHashtag.json`);
     const result = new Feed.FeedHashTagImp(
       response.data.id,
       response.data.hashTag

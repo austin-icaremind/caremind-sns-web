@@ -1,41 +1,43 @@
 import { FeedService } from "@/model/service/class/FeedService";
 import * as FeedViewModelInterface from "../interface/FeedViewModelInterface";
+import { AxiosResponse } from "axios";
 
-class FeedViewModel implements FeedViewModelInterface.FeedViewModelInterface {
-  async postFeedData(): Promise<FeedViewModelInterface.PostFeedData> {
+class FeedViewModel {
+  static async postFeedData(
+    content: string,
+    images: string | null
+  ): Promise<AxiosResponse> {
     try {
-      const postFeed = new FeedService();
-      const response = postFeed.postFeed();
+      const response = FeedService.postFeed(content, images);
       return response;
     } catch (error) {
       throw error;
     }
   }
 
-  async getFeedListData(): Promise<FeedViewModelInterface.GetFeedListData[]> {
+  static async getFeedListData(): Promise<
+    FeedViewModelInterface.GetFeedListData[]
+  > {
     try {
-      const getFeedList = new FeedService();
-      const response = getFeedList.getFeedList();
+      const response = FeedService.getFeedList();
 
       return response;
     } catch (error) {
       throw error;
     }
   }
-  async getFeedMyProfileData(): Promise<FeedViewModelInterface.GetFeedMyProfileData> {
+  static async getFeedMyProfileData(): Promise<FeedViewModelInterface.GetFeedMyProfileData> {
     try {
-      const getMyProfile = new FeedService();
-      const response = getMyProfile.getMyProfile();
+      const response = FeedService.getMyProfile();
       return response;
     } catch (error) {
       throw error;
     }
   }
 
-  async getFeedMyHashtagData(): Promise<FeedViewModelInterface.GetFeedMyHashtagData> {
+  static async getFeedMyHashtagData(): Promise<FeedViewModelInterface.GetFeedMyHashtagData> {
     try {
-      const getMyHashtag = new FeedService();
-      const response = getMyHashtag.getMyHashtag();
+      const response = FeedService.getMyHashtag();
       return response;
     } catch (error) {
       throw error;

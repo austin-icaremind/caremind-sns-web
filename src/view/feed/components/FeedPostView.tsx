@@ -1,10 +1,21 @@
 "use clients";
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+import { ChangeEvent } from "react";
 
-const FeedPostView = () => {
+const FeedPostView: React.FC<{ postFeed: any }> = ({ postFeed }) => {
+  const [postInput, setPostInput] = useState<string>("");
+
+  const saveUserFeed = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setPostInput(e.target.value);
+  };
+
+  const handlePostClick = () => {
+    postFeed(postInput);
+  };
+
   return (
     <FeedPostWrapper>
       <PaddingContainer>
@@ -12,8 +23,8 @@ const FeedPostView = () => {
         <PostContentWrapper>
           <CommentTextArea
             placeholder="What’s on your mind?"
-            //   value={commentText}
-            //   onChange={handleCommentTextChange}
+            value={postInput}
+            onChange={saveUserFeed}
           ></CommentTextArea>
           <PostIconWrapper>
             <ImageIcon
@@ -28,6 +39,9 @@ const FeedPostView = () => {
                 src="/images/send.png"
                 height={16}
                 width={16}
+                onClick={() => {
+                  handlePostClick();
+                }}
               ></SentIcon>
             </SentWrapper>
           </PostIconWrapper>

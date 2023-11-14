@@ -1,8 +1,8 @@
-export interface FeedPostInterface {
-  id: number;
-  content: string;
-  images: { imageUrl: string | null };
-}
+// export interface FeedPostInterface {
+//   id: number;
+//   content: string;
+//   images: { imageUrl: string | null };
+// }
 
 export interface FeedListInterface {
   id: number;

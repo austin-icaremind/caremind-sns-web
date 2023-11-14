@@ -2,9 +2,8 @@ import { AxiosResponse } from "axios";
 
 export interface FeedServiceInterface {
   postFeed: (
-    id: number,
     content: string,
-    images: string
+    images: string | null
   ) => Promise<AxiosResponse<void>>;
   getFeedList: () => Promise<FeedListData[]>;
   getMyProfile: (id: number) => Promise<MyProfileData>;
@@ -12,7 +11,6 @@ export interface FeedServiceInterface {
 }
 //피드 post//
 export interface PostMyFeedData {
-  id: number;
   content: string;
   images: { imageUrl: string | null };
 }

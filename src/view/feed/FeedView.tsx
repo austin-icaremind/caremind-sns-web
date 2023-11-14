@@ -10,6 +10,7 @@ import FeedViewModel from "@/view-model/profile/class/FeedViewModel";
 
 const FeedView = ({ id }: { id: number }) => {
   const [index, setIndex] = useState<string>("0");
+
   const [myProfileData, setMyProfileData] = useState<any | null>(null);
   const [myHashtagData, setMyHashtagData] = useState<any | null>(null);
   const [feedListData, setFeedListData] = useState<any | null>(null);
@@ -20,15 +21,15 @@ const FeedView = ({ id }: { id: number }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getFeedList = await new FeedViewModel().getFeedListData();
+        const getFeedList = await FeedViewModel.getFeedListData();
 
         setFeedListData(getFeedList);
 
-        const getMyHashtag = await new FeedViewModel().getFeedMyHashtagData();
+        const getMyHashtag = await FeedViewModel.getFeedMyHashtagData();
 
         setMyHashtagData(getMyHashtag);
 
-        const getMyProfile = await new FeedViewModel().getFeedMyProfileData();
+        const getMyProfile = await FeedViewModel.getFeedMyProfileData();
 
         setMyProfileData(getMyProfile);
       } catch (error) {
@@ -46,11 +47,12 @@ const FeedView = ({ id }: { id: number }) => {
   ) {
     return <div>Loading...</div>;
   }
+  const postFeed = FeedViewModel.postFeedData;
 
   return (
     <FeedWrapper>
       <FeedLeftContent>
-        <FeedPostView />
+        <FeedPostView postFeed={postFeed} />
         <SortContainer>
           <SortLine />
           <SortLetterContainer>

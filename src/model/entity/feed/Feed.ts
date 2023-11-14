@@ -1,19 +1,19 @@
 import * as FeedInterface from "./FeedInterface";
 
-export class FeedPostImp implements FeedInterface.FeedPostInterface {
-  id: number;
-  content: string;
-  images: { imageUrl: string | null };
-  constructor(
-    id: number,
-    content: string,
-    images: { imageUrl: string | null }
-  ) {
-    this.id = id;
-    this.content = content;
-    this.images = images;
-  }
-}
+// export class FeedPostImp implements FeedInterface.FeedPostInterface {
+//   id: number;
+//   content: string;
+//   images: { imageUrl: string | null };
+//   constructor(
+//     id: number,
+//     content: string,
+//     images: { imageUrl: string | null }
+//   ) {
+//     this.id = id;
+//     this.content = content;
+//     this.images = images;
+//   }
+// }
 
 export class FeedListImp implements FeedInterface.FeedListInterface {
   id: number;
