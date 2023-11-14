@@ -3,19 +3,55 @@
 import FeedPostView from "./components/FeedPostView";
 import FeedListView from "./components/FeedListView";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FeedMyProfileView from "./components/FeedMyProfileView";
 import FeedHashTagView from "./components/FeedHashTagView";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
-const FeedView = () => {
+const FeedView = ({ id }: { id: number }) => {
   const [index, setIndex] = useState<string>("0");
+  const [myProfileData, setMyProfileData] = useState<any | null>(null);
+  const [myHashtagData, setMyHashtagData] = useState<any | null>(null);
+  const [feedListData, setFeedListData] = useState<any | null>(null);
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIndex(e.target.value);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getFeedList = await FeedViewModel.getFeedListData();
+
+        setFeedListData(getFeedList);
+
+        const getMyHashtag = await FeedViewModel.getFeedMyHashtagData();
+
+        setMyHashtagData(getMyHashtag);
+
+        const getMyProfile = await FeedViewModel.getFeedMyProfileData();
+
+        setMyProfileData(getMyProfile);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (
+    myProfileData === null ||
+    myHashtagData === null ||
+    feedListData === null
+  ) {
+    return <div>Loading...</div>;
+  }
+  const postFeed = FeedViewModel.postFeedData;
+
   return (
     <FeedWrapper>
       <FeedLeftContent>
-        <FeedPostView />
+        <FeedPostView postFeed={postFeed} />
         <SortContainer>
           <SortLine />
           <SortLetterContainer>
@@ -26,11 +62,11 @@ const FeedView = () => {
             </SortSection>
           </SortLetterContainer>
         </SortContainer>
-        <FeedListView />
+        <FeedListView data={feedListData} />
       </FeedLeftContent>
       <FeedRightContent>
-        <FeedMyProfileView />
-        <FeedHashTagView />
+        <FeedMyProfileView data={myProfileData} />
+        <FeedHashTagView data={myHashtagData} />
       </FeedRightContent>
     </FeedWrapper>
   );

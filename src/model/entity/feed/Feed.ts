@@ -1,42 +1,36 @@
 import * as FeedInterface from "./FeedInterface";
 
-export class Feed implements FeedInterface.FeedInterface {
+// export class FeedPostImp implements FeedInterface.FeedPostInterface {
+//   id: number;
+//   content: string;
+//   images: { imageUrl: string | null };
+//   constructor(
+//     id: number,
+//     content: string,
+//     images: { imageUrl: string | null }
+//   ) {
+//     this.id = id;
+//     this.content = content;
+//     this.images = images;
+//   }
+// }
+
+export class FeedListImp implements FeedInterface.FeedListInterface {
   id: number;
-
-  constructor(id: number) {
-    this.id = id;
-  }
-}
-
-export class FeedPostImp
-  extends Feed
-  implements FeedInterface.FeedPostInterface
-{
-  content: string;
-  images: FeedInterface.FeedPostImageData[];
-  constructor(
-    id: number,
-    content: string,
-    images: FeedInterface.FeedPostImageData[]
-  ) {
-    super(id);
-    this.content = content;
-    this.images = images;
-  }
-}
-
-export class FeedListImp
-  extends Feed
-  implements FeedInterface.FeedListInterface
-{
   content: string;
   createdAt: string;
   updatedAt: string;
-  author: string;
-  likes: FeedInterface.FeedListLikesData[]; //어떤사람이 좋아요눌럿는지?
-  images: FeedInterface.FeedListImageData[];
+  author: { id: number; name: string; profileImage: string; job: string };
+  likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
+  images: { imageUrl: string | null };
   video: string;
-  comments: FeedInterface.FeedListCommentsData[]; //댓글
+  comments: {
+    id: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    commenter: { id: number; name: string };
+  };
   likesCount: number;
   commentsCount: number;
 
@@ -45,15 +39,21 @@ export class FeedListImp
     content: string,
     createdAt: string,
     updatedAt: string,
-    author: string,
-    likes: FeedInterface.FeedListLikesData[], //어떤사람이 좋아요눌럿는지?
-    images: FeedInterface.FeedListImageData[],
+    author: { id: number; name: string; profileImage: string; job: string },
+    likes: { id: number; createdAt: string },
+    images: { imageUrl: string | null },
     video: string,
-    comments: FeedInterface.FeedListCommentsData[], //댓글
+    comments: {
+      id: number;
+      content: string;
+      createdAt: string;
+      updatedAt: string;
+      commenter: { id: number; name: string };
+    },
     likesCount: number,
     commentsCount: number
   ) {
-    super(id);
+    this.id = id;
     this.content = content;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -67,30 +67,43 @@ export class FeedListImp
   }
 }
 
-export class FeedMyProfileImp
-  extends Feed
-  implements FeedInterface.FeedMyProfileInterface
-{
-  //   name: string;
-  //   location: string;
-  //   jobDescription: string;
-  //   connections: number;
+export class FeedMyProfileImp implements FeedInterface.FeedMyProfileInterface {
+  id: number;
+  profileImage: string;
+  profileBackImage: string;
+  myName: string;
+  about: string;
 
-  constructor(id: number) {
-    super(id);
+  constructor(
+    id: number,
+    profileImage: string,
+    profileBackImage: string,
+    myName: string,
+    about: string
+  ) {
+    this.id = id;
+    this.profileImage = profileImage;
+    this.profileBackImage = profileBackImage;
+    this.myName = myName;
+    this.about = about;
   }
 }
 
-export class FeedHashTagImp
-  extends Feed
-  implements FeedInterface.FeedHashTagInterface
-{
-  //   name: string;
-  //   location: string;
-  //   jobDescription: string;
-  //   connections: number;
+export class FeedHashTagImp implements FeedInterface.FeedHashTagInterface {
+  id: number;
+  hashTag: {
+    id: number;
+    content: string;
+  }[];
 
-  constructor(id: number) {
-    super(id);
+  constructor(
+    id: number,
+    hashTag: {
+      id: number;
+      content: string;
+    }[]
+  ) {
+    this.id = id;
+    this.hashTag = hashTag;
   }
 }

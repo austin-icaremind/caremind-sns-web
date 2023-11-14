@@ -2,26 +2,35 @@
 
 import React from "react";
 import styled from "styled-components";
-import Image from "next/image";
+import { GetFeedMyHashtagData } from "@/view-model/feed/interface/FeedViewModelInterface";
 
-const FeedHashTagView = () => {
+const FeedHashTagView: React.FC<{ data: GetFeedMyHashtagData }> = ({
+  data,
+}) => {
   return (
     <HashTagWrapper>
       <PaddingWrapper>
         <FollowHashTagWrapper>
           <FollowhashTagLetter>Followed hashtags</FollowhashTagLetter>
         </FollowHashTagWrapper>
-        <HashTagButtonWrapper>
-          <HashTageButton>1231312124214</HashTageButton>
-          <HashTageButton>1231312</HashTageButton>
-          <HashTageButton>1231312211</HashTageButton>
-        </HashTagButtonWrapper>
+        <MapWrapper>
+          {data.hashTag.map((data) => (
+            <HashTagButtonWrapper key={data.id}>
+              <HashTageButton>#{data.content}</HashTageButton>
+            </HashTagButtonWrapper>
+          ))}
+        </MapWrapper>
       </PaddingWrapper>
     </HashTagWrapper>
   );
 };
 
 export default FeedHashTagView;
+
+const MapWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const HashTagWrapper = styled.div`
   width: 290px;
@@ -53,12 +62,7 @@ const FollowhashTagLetter = styled.div`
   text-transform: uppercase;
 `;
 
-const HashTagButtonWrapper = styled.div`
-  gap: 10px;
-  width: 100%;
-  height: auto;
-  padding: 30px 0;
-`;
+const HashTagButtonWrapper = styled.div``;
 
 const HashTageButton = styled.button`
   margin: 5px;

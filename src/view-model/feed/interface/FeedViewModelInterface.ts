@@ -1,10 +1,21 @@
-// export interface FeedPostInterface {
-//   id: number;
-//   content: string;
-//   images: { imageUrl: string | null };
-// }
+import { AxiosResponse } from "axios";
 
-export interface FeedListInterface {
+export interface FeedViewModelInterface {
+  postFeedData: (
+    content: string,
+    images: { imageUrl: string | null }
+  ) => AxiosResponse<string>;
+  getFeedListData: () => Promise<GetFeedListData[]>;
+  getFeedMyProfileData: () => Promise<GetFeedMyProfileData>;
+  getFeedMyHashtagData: () => Promise<GetFeedMyHashtagData>;
+}
+
+export interface PostFeedData {
+  content: string;
+  images: { imageUrl: string | null };
+}
+
+export interface GetFeedListData {
   id: number;
   content: string;
   createdAt: string;
@@ -24,21 +35,17 @@ export interface FeedListInterface {
   commentsCount: number;
 }
 
-export interface FeedMyProfileInterface {
+export interface GetFeedMyProfileData {
   id: number;
   profileImage: string;
   profileBackImage: string;
   myName: string;
   about: string;
 }
-
-//피드페이지속 나의 프로필//
-
-export interface FeedHashTagInterface {
+export interface GetFeedMyHashtagData {
   id: number;
   hashTag: {
     id: number;
     content: string;
   }[];
 }
-//피드페이지속 나의 프로필 아래 해시태그//

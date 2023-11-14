@@ -97,6 +97,7 @@ const Iconstyle = styled.div`
   width: 90px;
   height: 80px;
   gap: 10px;
+  cursor: pointer;
 `;
 const FeedWrapper = styled(Iconstyle)`
   margin-left: 13px;
@@ -104,12 +105,8 @@ const FeedWrapper = styled(Iconstyle)`
 
 const NetworkWrapper = styled(Iconstyle)``;
 
-const Feed = styled(Image)`
-  cursor: pointer;
-`;
-const Network = styled(Image)`
-  cursor: pointer;
-`;
+const Feed = styled(Image)``;
+const Network = styled(Image)``;
 
 const IconLetterStyle = styled.p`
   color: #0275b1;

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 const FeedItem: React.FC<{ data: any }> = ({ data }) => {
-  const { id, profileImageSrc, userName, userJob, feedText } = data;
+  const { id } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -35,6 +35,8 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
     };
   }, [isModalOpen]);
 
+  const userInformation = data.author;
+
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
@@ -57,20 +59,20 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
             {/* 나중에 키값맞추기 */}
             <ProfileImage
               alt="프로필이미지"
-              src={profileImageSrc}
+              src={userInformation.profileImage}
               width={52}
               height={52}
             ></ProfileImage>
             <NameAndJobWrapper>
               {/* 나중에 이름 키값맞추기 넣기 */}
-              <UserName>{userName}</UserName>
+              <UserName>{userInformation.name}</UserName>
               {/* 나중에 키값맞추기직업 넣기 */}
-              <UserJob>{userJob}</UserJob>
+              <UserJob>{userInformation.job}</UserJob>
             </NameAndJobWrapper>
           </ProfileImageAndName>
           <FeedTextWrapper>
             {/* 피드 내용 키값맞추기데이터로 받기 */}
-            <FeedText>{feedText}</FeedText>
+            <FeedText>{data.content}</FeedText>
           </FeedTextWrapper>
           {/* {feedImage && (
             <FeedImage
@@ -92,7 +94,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               height={16}
             ></LikeIcon>
             {/* 나중에 데이터로 좋아요 숫자 넣기 */}
-            <LikeNumber>42</LikeNumber>
+            <LikeNumber>{data.likesCount}</LikeNumber>
           </LikeWrapper>
           <CommentWrapper>
             <CommentIcon
@@ -102,7 +104,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               height={16}
             ></CommentIcon>
             {/* 나중에 데이터로 댓글 숫자 넣기 */}
-            <CommentNumber>9</CommentNumber>
+            <CommentNumber>{data.commentsCount}</CommentNumber>
           </CommentWrapper>
         </LikeAndCommentWrapper>
         <ShareWrapper>
