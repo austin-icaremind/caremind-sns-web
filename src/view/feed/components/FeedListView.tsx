@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import FeedItem from "./FeedItem";
-import { GetFeedListData } from "@/view-model/profile/interface/FeedViewModelInterface";
+import { GetFeedListData } from "@/view-model/feed/interface/FeedViewModelInterface";
 
 const FeedListView: React.FC<{ data: any }> = ({ data }) => {
   return (

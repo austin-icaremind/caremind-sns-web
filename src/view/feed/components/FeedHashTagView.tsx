@@ -2,7 +2,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import { GetFeedMyHashtagData } from "@/view-model/profile/interface/FeedViewModelInterface";
+import { GetFeedMyHashtagData } from "@/view-model/feed/interface/FeedViewModelInterface";
 
 const FeedHashTagView: React.FC<{ data: GetFeedMyHashtagData }> = ({
   data,

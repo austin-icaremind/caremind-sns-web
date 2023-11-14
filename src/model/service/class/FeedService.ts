@@ -43,7 +43,7 @@ export class FeedService {
 
   static async getMyProfile(): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/feed/MyProfile.json`);
+      await axios.get(`/data/feed/MyProfile.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
       response.data.profileImage,
@@ -57,7 +57,7 @@ export class FeedService {
 
   static async getMyHashtag(): Promise<FeedInterface.FeedHashTagInterface> {
     const response: AxiosResponse<FeedServiceInterface.HashTagData> =
-      await axios.get(`${BASE_API}/feed/MyHashtag.json`);
+      await axios.get(`/data/feed/MyHashtag.json`);
     const result = new Feed.FeedHashTagImp(
       response.data.id,
       response.data.hashTag

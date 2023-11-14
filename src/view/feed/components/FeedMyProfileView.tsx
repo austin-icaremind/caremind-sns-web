@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { GetFeedMyProfileData } from "@/view-model/profile/interface/FeedViewModelInterface";
+import { GetFeedMyProfileData } from "@/view-model/feed/interface/FeedViewModelInterface";
 
 const FeedMyProfileView: React.FC<{ data: GetFeedMyProfileData }> = ({
   data,

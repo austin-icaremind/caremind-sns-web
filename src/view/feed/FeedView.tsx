@@ -6,11 +6,10 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import FeedMyProfileView from "./components/FeedMyProfileView";
 import FeedHashTagView from "./components/FeedHashTagView";
-import FeedViewModel from "@/view-model/profile/class/FeedViewModel";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
 const FeedView = ({ id }: { id: number }) => {
   const [index, setIndex] = useState<string>("0");
-
   const [myProfileData, setMyProfileData] = useState<any | null>(null);
   const [myHashtagData, setMyHashtagData] = useState<any | null>(null);
   const [feedListData, setFeedListData] = useState<any | null>(null);
