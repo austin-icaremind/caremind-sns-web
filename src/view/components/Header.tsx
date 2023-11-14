@@ -1,57 +1,70 @@
 "use client";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import styled from "styled-components";
 import Image from "next/image";
 
 const Header: React.FC = () => {
+  const pathname = usePathname();
+  const hideHeaderOnPaths = ["/login", "/signup"];
+  const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
   return (
     <HeaderWrapper>
       <IconWrapper>
         <Logo alt="로고" src="/images/Logo.png" width={46} height={46}></Logo>
       </IconWrapper>
-      <FeedAndNetworkWrapper>
-        <FeedWrapper>
-          <Feed alt="피드아이콘" src="/images/rss.png" width={24} height={24} />
-          <FeedLetter>FEED</FeedLetter>
-        </FeedWrapper>
-        <NetworkWrapper>
-          <Network
-            alt="네트워크아이콘"
-            src="/images/users.png"
-            width={24}
-            height={24}
-          />
-          <NetworkLetter>NETWORK</NetworkLetter>
-        </NetworkWrapper>
-      </FeedAndNetworkWrapper>
-      <SearchWrapper>
-        <SearchIcon
-          alt="검색아이콘"
-          src="/images/search.png"
-          width={24}
-          height={24}
-        />
-        <SearchInput placeholder="Search"></SearchInput>
-      </SearchWrapper>
-      <ProfileWrapper>
-        <ProfileImage
-          alt="프로필 이미지"
-          src={"/images/Ellipse.png"} //data 프로필 이미지 넣기
-          height={42}
-          width={42}
-        />
-        <UserNameWrapper>
-          <MyWrapper>
-            <UserName>권순우</UserName>
-            <YouLetter>YOU</YouLetter>
-          </MyWrapper>
-          <VisitorWrapper>
-            <TodayView>367 views today</TodayView>
-            <AddedNumber>+32</AddedNumber>
-          </VisitorWrapper>
-        </UserNameWrapper>
-      </ProfileWrapper>
+
+      {!shouldHideHeader && (
+        <>
+          <FeedAndNetworkWrapper>
+            <FeedWrapper>
+              <Feed
+                alt="피드아이콘"
+                src="/images/rss.png"
+                width={24}
+                height={24}
+              />
+              <FeedLetter>FEED</FeedLetter>
+            </FeedWrapper>
+            <NetworkWrapper>
+              <Network
+                alt="네트워크아이콘"
+                src="/images/users.png"
+                width={24}
+                height={24}
+              />
+              <NetworkLetter>NETWORK</NetworkLetter>
+            </NetworkWrapper>
+          </FeedAndNetworkWrapper>
+          <SearchWrapper>
+            <SearchIcon
+              alt="검색아이콘"
+              src="/images/search.png"
+              width={24}
+              height={24}
+            />
+            <SearchInput placeholder="Search"></SearchInput>
+          </SearchWrapper>
+          <ProfileWrapper>
+            <ProfileImage
+              alt="프로필 이미지"
+              src={"/images/Ellipse.png"} //data 프로필 이미지 넣기
+              height={42}
+              width={42}
+            />
+            <UserNameWrapper>
+              <MyWrapper>
+                <UserName>권순우</UserName>
+                <YouLetter>YOU</YouLetter>
+              </MyWrapper>
+              <VisitorWrapper>
+                <TodayView>367 views today</TodayView>
+                <AddedNumber>+32</AddedNumber>
+              </VisitorWrapper>
+            </UserNameWrapper>
+          </ProfileWrapper>
+        </>
+      )}
     </HeaderWrapper>
   );
 };
