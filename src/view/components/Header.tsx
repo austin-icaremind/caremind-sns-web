@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         />
         <UserNameWrapper>
           <MyWrapper>
-            <UserName>권adfdasfafafafas순우</UserName>
+            <UserName>권순우</UserName>
             <YouLetter>YOU</YouLetter>
           </MyWrapper>
           <VisitorWrapper>

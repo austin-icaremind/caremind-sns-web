@@ -18,9 +18,9 @@ export class UserViewModel {
         const response = await UserService.SignUp(email, password);
         if (response.status >= 200 && response.status < 300) {
           return "success";
-        }
+        } else return "duplicated";
       } catch (error) {
-        return "duplicated";
+        return "error";
       }
     }
   }

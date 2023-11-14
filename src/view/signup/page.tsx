@@ -52,7 +52,6 @@ const SignupPage = () => {
   return (
     <SignupStyle>
       <SignupWrap>
-        <Title>CareMind</Title>
         <TextBox>회원가입</TextBox>
         <SignupInputWrap>
           {FIELD_DATA.map(({ name, type, placeholder, label }) => (
@@ -67,13 +66,20 @@ const SignupPage = () => {
             </InputBox>
           ))}
         </SignupInputWrap>
+
+        <SignUpInfo>
+          동의 후 가입 버튼을 클릭하면 LinkedIn{" "}
+          <SignUpInfoSpan>사용자약관</SignUpInfoSpan>,
+          <SignUpInfoSpan>개인정보 처리방침</SignUpInfoSpan>,
+          <SignUpInfoSpan>쿠키정책</SignUpInfoSpan>에 동의하게 됩니다.
+        </SignUpInfo>
         <SignupBtn
           onClick={(e: React.FormEvent) => {
             e.preventDefault;
             onClcikAlert();
           }}
         >
-          회원가입
+          동의 후 가입
         </SignupBtn>
       </SignupWrap>
     </SignupStyle>
@@ -81,38 +87,33 @@ const SignupPage = () => {
 };
 
 const SignupStyle = styled.div`
+  margin: 50px 0 50px 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15), 0px 0px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 `;
 
 const SignupWrap = styled.form`
-  width: 500px;
   height: 100%;
+  border-radius: 8px;
   background-color: white;
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const Title = styled.div`
-  font-size: 30px;
-  font-weight: 700;
-  margin-top: 70px;
-  color: green;
+  padding: 24px 32px 32px 32px;
 `;
 
 const TextBox = styled.p`
   padding: 10px 0;
   font-size: 25px;
   font-weight: 700;
-
   line-height: 140%;
 `;
 
 const SignupInputWrap = styled.div`
-  margin: 10px 0 90px;
+  margin: 10px 0 30px;
 `;
 
 const InputBox = styled.div`
@@ -125,35 +126,46 @@ const InputLabel = styled.p`
 `;
 
 const InputStyle = styled.input`
-  width: 350px;
-  height: 42px;
-  padding: 4px 0 4px 10px;
-  font-size: 15px;
-  line-height: 1.5;
-  outline: none;
-  background-color: white;
-  border-radius: 5px;
-  box-sizing: border-box;
+  width: 300px;
+  height: 30px;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 16px 10px 16px;
+  font-size: 16px;
   &::placeholder {
     color: #e0e0e0;
   }
 `;
 
+const SignUpInfo = styled.div`
+  width: 300px;
+  margin: 12px 0 16px 0;
+  color: #666666;
+  letter-spacing: 0.5px;
+`;
+
+const SignUpInfoSpan = styled.span`
+  color: #2d64bc;
+  font-family: Gotham Pro;
+  font-weight: 700;
+`;
+
 const SignupBtn = styled.div`
-  width: 150px;
+  width: 100%;
   padding: 16px;
   font-size: 20px;
   font-weight: 700;
   color: white;
   border: none;
-  border-radius: 10px;
-  background-color: #0077b5;
+  border-radius: 24px;
+  background-color: #2d64bc;
   line-height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
+  box-sizing: border-box;
   &:disabled {
     background-color: #b4b4b3;
     color: white;
@@ -173,7 +185,7 @@ const FIELD_DATA = [
     alt: "필수입력사항",
   },
   {
-    label: "비밀번호",
+    label: "비밀번호 : 영문 대소문자/숫자/특수문자 8~20자",
     type: "password",
     name: "password",
     placeholder: "비밀번호를 입력해주세요",
