@@ -53,7 +53,7 @@ const NetworkRecievedView = () => {
             <NetworkConnectionUnderLine />
             <NewConnectionLetter>
               <Black>YOU HAVE</Black>
-              <Blue> 2 NEW CONNECTIONS</Blue>
+              <Blue>{UserData.length} NEW CONNECTIONS</Blue>
             </NewConnectionLetter>
             <NetworkConnectionUnderLine />
           </StyleWrapper>
@@ -74,8 +74,10 @@ const PaddingWrapper = styled.div``;
 const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: flex-end;
   width: 850px;
   height: 50px;
+  border-bottom: 1px solid #e7e7e7;
 `;
 
 const ButtonStyle = styled.div`
@@ -92,6 +94,7 @@ const ButtonStyle = styled.div`
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
+  cursor: pointer;
 `;
 const ReceivedButton = styled(ButtonStyle)`
   background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
@@ -99,6 +102,7 @@ const ReceivedButton = styled(ButtonStyle)`
 `;
 
 const SentButton = styled(ButtonStyle)`
+  height: 40px;
   border: 1px solid #e7e7e7;
   background: #fff;
 `;

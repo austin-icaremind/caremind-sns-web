@@ -7,6 +7,7 @@ import ProfileEducationView from "./components/ProfileEducationView";
 import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import ProfileProjectsView from "./components/ProfileProjectsView";
+import { title } from "process";
 
 const ProfileView = ({ id }: { id: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);
@@ -49,6 +50,7 @@ const ProfileView = ({ id }: { id: number }) => {
   ) {
     return <div>Loading...</div>;
   }
+
   return (
     <ProfileStyle>
       <ProfileLeft>

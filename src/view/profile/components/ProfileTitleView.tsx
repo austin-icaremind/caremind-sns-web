@@ -5,9 +5,6 @@ import styled from "styled-components";
 import Image from "next/image";
 
 const ProfileTitleView: React.FC<{ data: any }> = ({ data }) => {
-  console.log(data);
-  console.log(data.user.profileImage);
-  console.log(data.user.name);
   return (
     <ProfileTitleStyle>
       <ProfileTitleWrapper>
