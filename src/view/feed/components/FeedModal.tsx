@@ -5,18 +5,16 @@ import Image from "next/image";
 import { useState } from "react";
 
 const FeedModal: React.FC<{ FeedId: any }> = ({ FeedId }) => {
-  const id = FeedId;
-  // const router = useRouter();
-  // const id = router.query.id
-  // const id = 1;
+  const id = FeedId.id;
 
-  const test = 2;
-  //나중에 로컬스토리지에서 id 가져오는 로직 짜기 //
-
+  const userId: number | null = parseInt(
+    localStorage.getItem("userId") || "-1",
+    10
+  );
   return (
     <ModalWrapper>
       <ContentWrapper>
-        {id === test ? (
+        {id === userId ? (
           <IconContainer>
             <IconWrapper>
               <Image

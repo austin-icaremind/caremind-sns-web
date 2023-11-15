@@ -39,10 +39,13 @@ export interface FeedListData {
 // 피드속 내 프로필 //
 export interface MyProfileData {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  myName: string;
   about: string;
+  user: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
 }
 
 //피드속 해시태그//

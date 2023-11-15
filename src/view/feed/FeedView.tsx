@@ -28,7 +28,11 @@ const FeedView = ({ id }: { id: number }) => {
 
         setMyHashtagData(getMyHashtag);
 
-        const getMyProfile = await FeedViewModel.getFeedMyProfileData();
+        const userId: number | null = parseInt(
+          localStorage.getItem("userId") || "-1",
+          10
+        );
+        const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
 
         setMyProfileData(getMyProfile);
       } catch (error) {

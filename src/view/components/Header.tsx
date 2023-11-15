@@ -50,8 +50,6 @@ const Header: React.FC = () => {
     fetchData();
   }, [pathname]);
 
-  // console.log(headerData, "진짜 데이터");
-
   if (headerFeedData === null || headerData === null) {
     return <div>Loading...</div>;
   }

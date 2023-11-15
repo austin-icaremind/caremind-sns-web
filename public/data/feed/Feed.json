@@ -64,8 +64,8 @@
     "createdAt": "2023-11-07T00:50:12.561Z",
     "updatedAt": "2023-11-07T00:50:12.570Z",
     "author": {
-      "id": 2,
-      "name": "User",
+      "id": 1,
+      "name": "1번유저",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
       "job": "2목"
     },
@@ -118,8 +118,8 @@
     "createdAt": "2023-11-07T00:50:12.561Z",
     "updatedAt": "2023-11-07T00:50:12.570Z",
     "author": {
-      "id": 2,
-      "name": "User",
+      "id": 3,
+      "name": "3번유저",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
       "job": "백수"
     },

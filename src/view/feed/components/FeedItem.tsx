@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import FeedModal from "@/view/components/FeedModal";
+import FeedModal from "@/view/feed/components/FeedModal";
 import Image from "next/image";
 import { useEffect } from "react";
 
 const FeedItem: React.FC<{ data: any }> = ({ data }) => {
   const { id } = data;
+  const feedId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -36,8 +37,8 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
   }, [isModalOpen]);
 
   const userInformation = data.author;
-  console.log(data.images, "<<<<tlqkf>>>>");
 
+  console.log(feedId, "dsafasfas");
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
@@ -49,7 +50,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
         <HambergerIconWrapper>
           <HambergerIcon onClick={handleModalOpen}>
             <FeedLocation>
-              {isModalOpen && <FeedModal FeedId={id} />}
+              {isModalOpen && <FeedModal FeedId={feedId} />}
             </FeedLocation>
           </HambergerIcon>
         </HambergerIconWrapper>
