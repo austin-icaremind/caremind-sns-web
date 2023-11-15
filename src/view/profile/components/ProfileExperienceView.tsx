@@ -1,13 +1,39 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react";
 import Image from "next/image";
 import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileInterface";
+import Modal from "@/view/components/Modal";
 
 const ProfileExperienceView: React.FC<{
   data: ProfileExperienceInterface[];
-}> = ({ data }) => {
+  myProfile: boolean;
+}> = ({ data, myProfile }) => {
+  const [modalCheck, setModalCheck] = useState<boolean>(false);
+
+  const clickModal = (value: boolean) => {
+    setModalCheck(value);
+    if (value === false) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+  };
   return (
-    <>
+    <ProfileExperienceStyle>
+      <Modal click={clickModal} state={modalCheck} title="이력 수정"></Modal>
+      {myProfile && (
+        <Edit
+          alt="수정 아이콘"
+          src="/images/blackpencil.png"
+          width={20}
+          height={20}
+          onClick={() => {
+            clickModal(true);
+          }}
+        />
+      )}
+      <CareerCategory>Experience</CareerCategory>
       {data?.map((item: ProfileExperienceInterface) => (
         <CareerContentBox key={item.id}>
           <CareerPic
@@ -33,9 +59,28 @@ const ProfileExperienceView: React.FC<{
           </CareerInfoBox>
         </CareerContentBox>
       ))}
-    </>
+    </ProfileExperienceStyle>
   );
 };
+
+const ProfileExperienceStyle = styled.div`
+  position: relative;
+`;
+const Edit = styled(Image)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+`;
+const CareerCategory = styled.div`
+  color: #181818;
+  font-family: Gotham Pro;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 8px;
+`;
 
 const CareerContentBox = styled.div`
   display: flex;

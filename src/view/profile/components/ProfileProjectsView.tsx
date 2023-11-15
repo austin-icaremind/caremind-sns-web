@@ -1,16 +1,44 @@
 "use Client";
 
 import styled from "styled-components";
+import { useState } from "react";
 import Image from "next/image";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
+import Modal from "@/view/components/Modal";
 
-const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
-  data,
-}) => {
+const ProfileProjectsView: React.FC<{
+  data: ProfileProjectsInterface[];
+  myProfile: boolean;
+}> = ({ data, myProfile }) => {
   const selectedData = data.slice(0, 3);
+  const [modalCheck, setModalCheck] = useState<boolean>(false);
 
+  const clickModal = (value: boolean) => {
+    setModalCheck(value);
+    if (value === false) {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
+  };
   return (
     <ProfileProjectsViewStyle>
+      <Modal
+        click={clickModal}
+        state={modalCheck}
+        title="프로젝트 수정"
+      ></Modal>
+      {myProfile && (
+        <Edit
+          alt="수정 아이콘"
+          src="/images/blackpencil.png"
+          width={20}
+          height={20}
+          onClick={() => {
+            clickModal(true);
+          }}
+        />
+      )}
       <ProfileBoxTitleBox>
         <ProfileBoxTitle>Projects</ProfileBoxTitle>
         <ProfileProjectsNumber>
@@ -40,6 +68,13 @@ const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
 };
 
 const ProfileProjectsViewStyle = styled.div``;
+
+const Edit = styled(Image)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+`;
 
 const ProfileBoxTitleBox = styled.div`
   display: flex;
