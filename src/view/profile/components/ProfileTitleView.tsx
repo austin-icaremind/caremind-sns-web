@@ -2,34 +2,27 @@
 
 import styled from "styled-components";
 
-import Image from "next/image";
 
-const ProfileTitleView: React.FC<{ data: any }> = ({ data }) => {
+const ProfileTitleView: React.FC<{ data: any; click: any; state: any }> = ({
+  data,
+  click,
+  state,
+}) => {
+
   return (
     <ProfileTitleStyle>
+      <ModalBox active={state}>
+        <ModalBlack />
+        <ModalInfo
+          onClick={() => {
+            click("close");
+          }}
+        ></ModalInfo>
+      </ModalBox>
       <ProfileTitleWrapper>
-        <BackGroundImageWrapper imgSrc={data.profileBackImage}>
-          <IconWrapper>
-            <UpLoadContainer>
-              <UpLoadImage
-                alt="업로드 아이콘"
-                src="/images/upload.png"
-              ></UpLoadImage>
-            </UpLoadContainer>
-            <RightIcon>
-              <EditContainer>
-                <EditImage alt="편집 아이콘" src="/images/edit.png"></EditImage>
-                <EditLetter>EDIT PROFILE</EditLetter>
-              </EditContainer>
-              <HamburgerContainer>
-                <HamburgerImage
-                  alt="옵션 아이콘"
-                  src="/images/more-horizontal.png"
-                ></HamburgerImage>
-              </HamburgerContainer>
-            </RightIcon>
-          </IconWrapper>
-        </BackGroundImageWrapper>
+        <BackGroundImageWrapper
+          imgSrc={data.profileBackImage}
+        ></BackGroundImageWrapper>
         <InformationWrapper>
           <ProfileImageWrapper>
             <ProfileImage
@@ -52,7 +45,13 @@ const ProfileTitleView: React.FC<{ data: any }> = ({ data }) => {
             </NameAndLocationWrapper>
             <JobExplanitionWrapper>{data.jobDescription}</JobExplanitionWrapper>
             <ButtonWrapper>
-              <LeftButton>CONTACT INFO</LeftButton>
+              <LeftButton
+                onClick={() => {
+                  click("profile");
+                }}
+              >
+                CONTACT INFO
+              </LeftButton>
               <RightButton>{data.connections} CONNECTIONS</RightButton>
             </ButtonWrapper>
           </AboutMeWrapper>
@@ -73,6 +72,36 @@ const ProfileTitleView: React.FC<{ data: any }> = ({ data }) => {
   );
 };
 
+interface ModalBoxProps {
+  active: string;
+}
+
+const ModalBox = styled.div<ModalBoxProps>`
+  display: ${(props) => (props.active !== "close" ? "block" : "none")};
+`;
+
+const ModalBlack = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+`;
+
+const ModalInfo = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 11;
+`;
+
 const ProfileTitleStyle = styled.div``;
 
 const ProfileTitleWrapper = styled.div`
@@ -91,14 +120,6 @@ const BackGroundImageWrapper = styled.div<{ imgSrc: string }>`
     props.imgSrc ? `url(${props.imgSrc})` : null};
 `;
 
-const IconWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0 30px;
-  padding-top: 30px;
-`;
-
 const IconContainerStyle = styled.div`
   display: flex;
   align-items: center;
@@ -109,45 +130,6 @@ const IconContainerStyle = styled.div`
   height: 36px;
   width: 36px;
   cursor: pointer;
-`;
-const UpLoadContainer = styled(IconContainerStyle)``;
-
-const UpLoadImage = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-const RightIcon = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-`;
-
-const EditContainer = styled(IconContainerStyle)`
-  display: flex;
-  justify-content: space-evenly;
-  width: 132px;
-`;
-const EditImage = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
-const EditLetter = styled.p`
-  color: #181818;
-  text-align: center;
-  font-family: Gotham Pro;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-transform: uppercase;
-`;
-
-const HamburgerContainer = styled(IconContainerStyle)``;
-const HamburgerImage = styled.img`
-  width: 24px;
-  height: 24px;
 `;
 
 const InformationWrapper = styled.div`
@@ -347,6 +329,7 @@ const ProfileAboutContent = styled.div`
 `;
 
 const ProfileMore = styled.div`
+  width: 70px;
   color: #0275b1;
   font-family: Gotham Pro;
   font-size: 12px;
