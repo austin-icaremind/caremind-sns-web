@@ -16,7 +16,12 @@
         "createdAt": "2023-11-06T08:49:14.816Z"
       }
     ],
-    "images": [],
+    "images": [
+      {
+        "id": 1,
+        "image": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg"
+      }
+    ],
     "video": null,
     "comments": [
       {
