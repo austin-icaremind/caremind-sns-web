@@ -26,10 +26,13 @@ export interface FeedListInterface {
 
 export interface FeedMyProfileInterface {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  myName: string;
   about: string;
+  user: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
 }
 
 //피드페이지속 나의 프로필//

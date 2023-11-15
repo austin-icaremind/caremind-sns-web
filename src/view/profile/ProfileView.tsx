@@ -7,6 +7,7 @@ import ProfileEducationView from "./components/ProfileEducationView";
 import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import ProfileProjectsView from "./components/ProfileProjectsView";
+import { title } from "process";
 import Image from "next/image";
 
 const ProfileView = ({ id }: { id: number }) => {
@@ -52,6 +53,7 @@ const ProfileView = ({ id }: { id: number }) => {
     return <div>Loading...</div>;
   }
 
+
   const userIdFromLocalStorage = localStorage.getItem("userId");
   const userId = userIdFromLocalStorage
     ? parseInt(userIdFromLocalStorage, 10)
@@ -66,6 +68,7 @@ const ProfileView = ({ id }: { id: number }) => {
     }
   };
   console.log("테스트", modalCheck);
+
   return (
     <ProfileStyleBox>
       <ModalBox active={modalCheck}>

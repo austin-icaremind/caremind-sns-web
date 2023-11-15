@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "profileImage": "/images/thumbs-up.png",
+    "userName": "Theresa Steward",
+    "userJob": "iOS developer",
+    "connection": 132,
+    "explanation": "Hey, I saw your works. I like it! Can we do something together? Or,"
+  },
+  {
+    "id": 2,
+    "profileImage": "/images/Logo.png",
+    "userName": "2번 목데이터",
+    "userJob": "백수",
+    "connection": 555,
+    "explanation": "2번 목데이터"
+  },
+  {
+    "id": 3,
+    "profileImage": "/images/Logo.png",
+    "userName": "3번 목데이터",
+    "userJob": "돈많은 백수",
+    "connection": 333,
+    "explanation": "3번 목데이터"
+  }
+]

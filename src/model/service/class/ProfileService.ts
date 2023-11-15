@@ -44,7 +44,6 @@ export class ProfileService {
         )
     );
 
-    console.log("테스트", result);
     return result;
   }
 

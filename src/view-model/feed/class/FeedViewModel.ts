@@ -26,9 +26,12 @@ class FeedViewModel {
       throw error;
     }
   }
-  static async getFeedMyProfileData(): Promise<FeedViewModelInterface.GetFeedMyProfileData> {
+  static async getFeedMyProfileData(
+    id: number
+  ): Promise<FeedViewModelInterface.GetFeedMyProfileData> {
     try {
-      const response = FeedService.getMyProfile();
+      const response = FeedService.getMyProfile(id);
+
       return response;
     } catch (error) {
       throw error;

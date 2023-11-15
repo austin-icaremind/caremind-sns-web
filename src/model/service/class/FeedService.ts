@@ -41,15 +41,16 @@ export class FeedService {
     return result;
   }
 
-  static async getMyProfile(): Promise<FeedInterface.FeedMyProfileInterface> {
+  static async getMyProfile(
+    id: number
+  ): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`/data/feed/MyProfile.json`);
+      await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
-      response.data.profileImage,
       response.data.profileBackImage,
-      response.data.myName,
-      response.data.about
+      response.data.about,
+      response.data.user
     );
 
     return result;

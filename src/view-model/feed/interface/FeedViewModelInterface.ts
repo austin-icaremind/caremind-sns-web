@@ -6,7 +6,7 @@ export interface FeedViewModelInterface {
     images: { imageUrl: string | null }
   ) => AxiosResponse<string>;
   getFeedListData: () => Promise<GetFeedListData[]>;
-  getFeedMyProfileData: () => Promise<GetFeedMyProfileData>;
+  getFeedMyProfileData: (id: number) => Promise<GetFeedMyProfileData>;
   getFeedMyHashtagData: () => Promise<GetFeedMyHashtagData>;
 }
 
@@ -37,10 +37,13 @@ export interface GetFeedListData {
 
 export interface GetFeedMyProfileData {
   id: number;
-  profileImage: string;
   profileBackImage: string;
-  myName: string;
   about: string;
+  user: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
 }
 export interface GetFeedMyHashtagData {
   id: number;

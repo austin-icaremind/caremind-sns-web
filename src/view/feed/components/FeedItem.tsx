@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import FeedModal from "@/view/components/FeedModal";
+import FeedModal from "@/view/feed/components/FeedModal";
 import Image from "next/image";
 import { useEffect } from "react";
 
 const FeedItem: React.FC<{ data: any }> = ({ data }) => {
   const { id } = data;
+  const feedId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -37,6 +38,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
 
   const userInformation = data.author;
 
+  console.log(feedId, "dsafasfas");
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
@@ -48,7 +50,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
         <HambergerIconWrapper>
           <HambergerIcon onClick={handleModalOpen}>
             <FeedLocation>
-              {isModalOpen && <FeedModal FeedId={id} />}
+              {isModalOpen && <FeedModal FeedId={feedId} />}
             </FeedLocation>
           </HambergerIcon>
         </HambergerIconWrapper>
@@ -56,7 +58,6 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
       <FeedContentWrapper>
         <PaddingContainer>
           <ProfileImageAndName>
-            {/* 나중에 키값맞추기 */}
             <ProfileImage
               alt="프로필이미지"
               src={userInformation.profileImage}
@@ -64,24 +65,26 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               height={52}
             ></ProfileImage>
             <NameAndJobWrapper>
-              {/* 나중에 이름 키값맞추기 넣기 */}
               <UserName>{userInformation.name}</UserName>
-              {/* 나중에 키값맞추기직업 넣기 */}
               <UserJob>{userInformation.job}</UserJob>
             </NameAndJobWrapper>
           </ProfileImageAndName>
           <FeedTextWrapper>
-            {/* 피드 내용 키값맞추기데이터로 받기 */}
             <FeedText>{data.content}</FeedText>
           </FeedTextWrapper>
-          {/* {feedImage && (
-            <FeedImage
-              src={feedImage}
-              width={790}
-              height={300}
-              alt="피드 이미지"
-            ></FeedImage>
-          )} */}
+          {data.images.length > 0 && (
+            <ImageMapWrapper>
+              {data.images.map((item: any) => (
+                <FeedImage
+                  key={item.id}
+                  src={item.image}
+                  width={790}
+                  height={300}
+                  alt="피드 이미지"
+                ></FeedImage>
+              ))}
+            </ImageMapWrapper>
+          )}
         </PaddingContainer>
       </FeedContentWrapper>
       <LikeAndCommentShareWrapper>
@@ -93,7 +96,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               width={16}
               height={16}
             ></LikeIcon>
-            {/* 나중에 데이터로 좋아요 숫자 넣기 */}
+
             <LikeNumber>{data.likesCount}</LikeNumber>
           </LikeWrapper>
           <CommentWrapper>
@@ -103,7 +106,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               width={16}
               height={16}
             ></CommentIcon>
-            {/* 나중에 데이터로 댓글 숫자 넣기 */}
+
             <CommentNumber>{data.commentsCount}</CommentNumber>
           </CommentWrapper>
         </LikeAndCommentWrapper>
@@ -122,6 +125,12 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
 };
 
 export default FeedItem;
+
+const ImageMapWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 
 const MapWrapper = styled.div`
   margin-bottom: 30px;

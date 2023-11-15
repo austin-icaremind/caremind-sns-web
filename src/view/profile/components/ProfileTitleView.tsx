@@ -2,11 +2,13 @@
 
 import styled from "styled-components";
 
+
 const ProfileTitleView: React.FC<{ data: any; click: any; state: any }> = ({
   data,
   click,
   state,
 }) => {
+
   return (
     <ProfileTitleStyle>
       <ModalBox active={state}>

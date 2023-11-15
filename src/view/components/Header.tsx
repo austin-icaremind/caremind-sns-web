@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
+import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -16,7 +17,8 @@ const Header: React.FC = () => {
   const handleNetwork = () => handleRouting("/network");
   const handleHome = () => handleRouting("/");
 
-  const [headerData, setHeaderData] = useState<any | null>({});
+  const [headerData, setHeaderData] = useState<any | null>(null);
+  const [headerFeedData, setHeaderFeedData] = useState<any | null>(null);
   const pathname = usePathname();
   const hideHeaderOnPaths: string[] = ["/login", "/signup"];
   const pageGaFeed: string[] = ["/feed"];
@@ -29,8 +31,17 @@ const Header: React.FC = () => {
     const fetchData = async () => {
       try {
         const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
-
         setHeaderData(getHeaderProfile);
+
+        const userId: number | null = parseInt(
+          localStorage.getItem("userId") || "-1",
+          10
+        );
+        // const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
+
+        const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
+
+        setHeaderFeedData(getHeaderFeedData);
       } catch (error) {
         console.error(error);
       }
@@ -38,7 +49,11 @@ const Header: React.FC = () => {
 
     fetchData();
   }, [pathname]);
-  console.log(headerData);
+
+  if (headerFeedData === null || headerData === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -107,13 +122,13 @@ const Header: React.FC = () => {
           <ProfileWrapper key={headerData.id}>
             <ProfileImage
               alt="프로필 이미지"
-              src={headerData.profileImage} //data 프로필 이미지 넣기
+              src={headerFeedData.user.profileImage} //data 프로필 이미지 넣기
               height={42}
               width={42}
             />
             <UserNameWrapper>
               <MyWrapper>
-                <UserName>{headerData.myName}</UserName>
+                <UserName>{headerFeedData.user.name}</UserName>
                 <YouLetter>YOU</YouLetter>
               </MyWrapper>
               <VisitorWrapper>
