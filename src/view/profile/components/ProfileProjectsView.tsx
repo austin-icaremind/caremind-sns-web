@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/Modal";
+import Modal from "@/view/components/ModalEdit";
 
 const ProfileProjectsView: React.FC<{
   data: ProfileProjectsInterface[];

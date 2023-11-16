@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Image from "next/image";
 import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/Modal";
+import Modal from "@/view/components/ModalEdit";
 
 const ProfileExperienceView: React.FC<{
   data: ProfileExperienceInterface[];
@@ -21,7 +21,6 @@ const ProfileExperienceView: React.FC<{
   };
   return (
     <ProfileExperienceStyle>
-      <Modal click={clickModal} state={modalCheck} title="이력 수정"></Modal>
       {myProfile && (
         <Edit
           alt="수정 아이콘"

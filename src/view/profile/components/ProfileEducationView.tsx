@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import Image from "next/image";
 import { ProfileEducationInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/Modal";
+import Modal from "@/view/components/ModalEdit";
 const ProfileEducationView: React.FC<{
   data: ProfileEducationInterface[];
   myProfile: boolean;

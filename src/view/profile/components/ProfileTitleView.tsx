@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "@/view/components/Modal";
+import Modal from "@/view/components/ModalEdit";
 
 const ProfileTitleView: React.FC<{ data: any; myProfile: boolean }> = ({
   data,
