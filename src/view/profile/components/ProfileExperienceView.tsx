@@ -1,24 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/ModalEdit";
 
 const ProfileExperienceView: React.FC<{
   data: ProfileExperienceInterface[];
   myProfile: boolean;
-}> = ({ data, myProfile }) => {
-  const [modalCheck, setModalCheck] = useState<boolean>(false);
+  profileId: number;
+}> = ({ data, myProfile, profileId }) => {
+  const router = useRouter();
 
-  const clickModal = (value: boolean) => {
-    setModalCheck(value);
-    if (value === false) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  };
   return (
     <ProfileExperienceStyle>
       {myProfile && (
@@ -28,7 +20,7 @@ const ProfileExperienceView: React.FC<{
           width={20}
           height={20}
           onClick={() => {
-            clickModal(true);
+            router.push(`/profile/${profileId}/details/experience`);
           }}
         />
       )}

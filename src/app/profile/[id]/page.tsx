@@ -1,4 +1,4 @@
-import ProfileView from "@/view/profile/components/ProfileView";
+import ProfileView from "@/view/profile/ProfileView";
 import { NextPage } from "next";
 
 interface pageProps {

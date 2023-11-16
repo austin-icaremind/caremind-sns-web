@@ -5,14 +5,14 @@ import Image from "next/image";
 import { useState } from "react";
 interface ModalProps {
   newBtn: boolean;
-  deleteclick: boolean;
+  deleteBtn: boolean;
   title: string;
   children: React.ReactNode;
 }
 
 const ModalEdit: React.FC<ModalProps> = ({
   newBtn,
-  deleteclick,
+  deleteBtn,
   title,
   children,
 }) => {
@@ -42,7 +42,7 @@ const ModalEdit: React.FC<ModalProps> = ({
           <ModalTitle>{title}</ModalTitle>
           <ModalMiddle>{children}</ModalMiddle>
           <ModalFooter>
-            <ModalDeleteBtn active={deleteclick}>삭제</ModalDeleteBtn>
+            <ModalDeleteBtn active={deleteBtn}>삭제</ModalDeleteBtn>
             <ModalSaveBtn>저장</ModalSaveBtn>
           </ModalFooter>
         </ModalInfo>
@@ -116,7 +116,8 @@ const ModalTitle = styled.div`
 `;
 
 const ModalMiddle = styled.div`
-  padding: 50px 100px 50px 100px;
+  padding: 50px 100px 70px 100px;
+  overflow-y: auto;
 `;
 
 const ModalFooter = styled.div`
@@ -130,6 +131,7 @@ const ModalFooter = styled.div`
   display: flex;
   align-items: center;
   border-radius: 0 0 6px 6px;
+  background-color: white;
 `;
 
 interface ModalDeleteBtnProps {
@@ -148,7 +150,7 @@ const ModalDeleteBtn = styled.div<ModalDeleteBtnProps>`
   border-radius: 18px;
   position: absolute;
   cursor: pointer;
-  display: ${(props) => (props.active !== true ? "block" : "none")};
+  display: ${(props) => (props.active === true ? "block" : "none")};
 `;
 
 const ModalSaveBtn = styled.div`

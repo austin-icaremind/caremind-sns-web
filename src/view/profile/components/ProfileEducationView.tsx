@@ -1,26 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ProfileEducationInterface } from "@/model/entity/profile/ProfileInterface";
 import Modal from "@/view/components/ModalEdit";
 const ProfileEducationView: React.FC<{
   data: ProfileEducationInterface[];
   myProfile: boolean;
-}> = ({ data, myProfile }) => {
-  const [modalCheck, setModalCheck] = useState<boolean>(false);
+  profileId: number;
+}> = ({ data, myProfile, profileId }) => {
+  const router = useRouter();
 
-  const clickModal = (value: boolean) => {
-    setModalCheck(value);
-    if (value === false) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  };
   return (
     <ProfileEducationStyle>
-      <Modal click={clickModal} state={modalCheck} title="학업 수정"></Modal>
       {myProfile && (
         <Edit
           alt="수정 아이콘"
@@ -28,7 +20,7 @@ const ProfileEducationView: React.FC<{
           width={20}
           height={20}
           onClick={() => {
-            clickModal(true);
+            router.push(`/profile/${profileId}/details/education`);
           }}
         />
       )}

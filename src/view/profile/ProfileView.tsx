@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ProfileTitleView from "./ProfileTitleView";
-import ProfileEducationView from "./ProfileEducationView";
-import ProfileExperienceView from "./ProfileExperienceView";
+import ProfileTitleView from "./components/ProfileTitleView";
+import ProfileEducationView from "./components/ProfileEducationView";
+import ProfileExperienceView from "./components/ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import ProfileProjectsView from "./ProfileProjectsView";
+import ProfileProjectsView from "./components/ProfileProjectsView";
 
 const ProfileView = ({ id }: { id: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);

@@ -2,10 +2,8 @@
 
 import styled from "styled-components";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import Image from "next/image";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/ModalEdit";
 
 const ProfileProjectsView: React.FC<{
   data: ProfileProjectsInterface[];
@@ -14,16 +12,6 @@ const ProfileProjectsView: React.FC<{
 }> = ({ data, myProfile, profileId }) => {
   const router = useRouter();
   const selectedData = data.slice(0, 3);
-  const [modalCheck, setModalCheck] = useState<boolean>(false);
-
-  const clickModal = (value: boolean) => {
-    setModalCheck(value);
-    if (value === false) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  };
 
   return (
     <ProfileProjectsViewStyle>

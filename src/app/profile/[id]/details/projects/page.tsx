@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import DetailsProjectsView from "@/view/details/projects/DetailsProjectsView";
 interface pageProps {
   params: { id: number };

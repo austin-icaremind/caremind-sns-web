@@ -16,7 +16,6 @@ function getFieldValue(obj: any, field: string) {
   for (const f of fields) {
     value = value[f];
   }
-  console.log("테스트", fields, value);
   return value;
 }
 
@@ -24,7 +23,6 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
-  const [modalCheck, setModalCheck] = useState<boolean>(false);
 
   interface accountCheck {
     pic: string;
@@ -75,15 +73,6 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
 
   const myProfile: boolean = userIdFromLocalStorage === titleData.user.id;
 
-  const clickModal = (value: boolean) => {
-    setModalCheck(value);
-    if (value === false) {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  };
-  console.log(userInfo);
   return (
     <DetailsProjectViewStyle>
       <DetailsViewLayout>
@@ -93,47 +82,59 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
           width={20}
           height={20}
           onClick={() => {
-            router.back();
+            router.push(`/profile/${id}`);
           }}
         />
 
-        <ModalEdit newBtn={true} title="프로젝트 생성">
-          <>
-            {FIELD_DATA.map(({ name, type, placeholder, label }) => (
-              <InputBox key={name}>
-                <Title>{label}</Title>
-                <InputStyle
-                  name={name}
-                  type={type}
-                  placeholder={placeholder}
-                  onChange={handleUserInfo}
-                />
-              </InputBox>
-            ))}
-          </>
-        </ModalEdit>
+        {myProfile && (
+          <ModalEdit newBtn={true} deleteBtn={false} title="프로젝트 생성">
+            <>
+              {FIELD_DATA.map(({ name, type, placeholder, label }) => (
+                <InputBox key={name}>
+                  <Title>{label}</Title>
+                  <InputStyle
+                    name={name}
+                    type={type}
+                    placeholder={placeholder}
+                    onChange={handleUserInfo}
+                  />
+                </InputBox>
+              ))}
+            </>
+          </ModalEdit>
+        )}
+
         <ProfileBoxTitleBox>
           <ProfileBoxTitle>Projects</ProfileBoxTitle>
         </ProfileBoxTitleBox>
         <ProfileProjectsContent>
           {projectsData?.map((item: ProfileProjectsInterface) => (
             <ProfileProjectsCard>
-              <ModalEdit title="프로젝트 수정">
-                <>
-                  {FIELD_DATA.map(({ name, type, placeholder, label }) => (
-                    <InputBox key={name}>
-                      <Title>{label}</Title>
-                      <InputStyle
-                        value={getFieldValue(item, name)}
-                        name={name}
-                        type={type}
-                        placeholder={placeholder}
-                        onChange={handleUserInfo}
-                      />
-                    </InputBox>
-                  ))}
-                </>
-              </ModalEdit>
+              {myProfile && (
+                <ModalEdit
+                  newBtn={false}
+                  deleteBtn={true}
+                  title="프로젝트 수정"
+                >
+                  <>
+                    {FIELD_DATA.map(
+                      ({ name, key, type, placeholder, label }) => (
+                        <InputBox key={name}>
+                          <Title>{label}</Title>
+                          <InputStyle
+                            value={getFieldValue(item, key)}
+                            name={name}
+                            type={type}
+                            placeholder={placeholder}
+                            onChange={handleUserInfo}
+                          />
+                        </InputBox>
+                      )
+                    )}
+                  </>
+                </ModalEdit>
+              )}
+
               <ProfileProjectsPic
                 alt="사진"
                 key={item.coverImage.id}
@@ -254,7 +255,8 @@ const FIELD_DATA = [
   {
     label: "사진",
     type: "text",
-    name: "coverImage.image",
+    name: "image",
+    key: "coverImage.image",
     placeholder: "사진 URL을 입력해주세요",
     description: "사진 URL을 입력해주세요",
     alt: "필수입력사항",
@@ -263,6 +265,7 @@ const FIELD_DATA = [
     label: "프로젝트 이름",
     type: "text",
     name: "title",
+    key: "title",
     placeholder: "프로젝트 이름을 입력해주세요",
     description: "프로젝트 이름을 입력해주세요",
     alt: "필수입력사항",
@@ -271,20 +274,23 @@ const FIELD_DATA = [
     label: "설명",
     type: "text",
     name: "description",
+    key: "description",
     placeholder: "설명을 써 주세요.",
     alt: "필수입력사항",
   },
   {
-    label: "시작일 (예시 : 23-11-16)",
+    label: "시작일 (예시 : 2023-11-16)",
     type: "text",
     name: "startDate",
-    placeholder: "23-11-16 양식으로 해주세요",
+    key: "startDate",
+    placeholder: "2023-11-16 양식으로 해주세요",
     alt: "필수입력사항",
   },
   {
-    label: "종료일 (예시 : 23-11-17)",
+    label: "종료일 (예시 : 2023-11-17)",
     type: "text",
     name: "endDate",
+    key: "endDate",
     placeholder: "진행중이라면 비워주셔도 됩니다.",
     alt: "필수입력사항",
   },

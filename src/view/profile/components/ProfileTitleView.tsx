@@ -2,28 +2,68 @@
 
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "@/view/components/ModalEdit";
+import ModalEdit from "@/view/components/ModalEdit";
+
+function getFieldValue(obj: any, field: string) {
+  const fields = field.split(".");
+  let value = obj;
+
+  for (const f of fields) {
+    value = value[f];
+  }
+  return value;
+}
 
 const ProfileTitleView: React.FC<{ data: any; myProfile: boolean }> = ({
   data,
   myProfile,
 }) => {
-  const [modalCheck, setModalCheck] = useState<boolean>(false);
+  interface accountCheck {
+    pic: string;
+    title: string;
+    info: string;
+    startDate: string;
+    endDate: string;
+  }
 
-  const clickModal = (value: boolean) => {
-    setModalCheck(value);
-    if (value === false) {
-      document.body.style.overflow = "auto";
-    } else if (value === true) {
-      document.body.style.overflow = "hidden";
-    }
+  const [userInfo, setUserInfo] = useState<accountCheck>({
+    pic: "",
+    title: "",
+    info: "",
+    startDate: "",
+    endDate: "",
+  });
+
+  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
   };
 
   return (
     <ProfileTitleStyle>
-      <Modal click={clickModal} state={modalCheck} title="소개말 수정"></Modal>
       <ProfileTitleWrapper>
         {myProfile && (
+          <ModalPosition>
+            <ModalEdit deleteBtn={false} newBtn={false} title="프로필 수정">
+              <>
+                {FIELD_DATA.map(({ name, type, placeholder, label }) => (
+                  <InputBox key={name}>
+                    <Title>{label}</Title>
+                    <InputStyle
+                      value={getFieldValue(data, name)}
+                      name={name}
+                      type={type}
+                      placeholder={placeholder}
+                      onChange={handleUserInfo}
+                    />
+                  </InputBox>
+                ))}
+              </>
+            </ModalEdit>
+          </ModalPosition>
+        )}
+
+        {/* {myProfile && (
           <IconWrapper>
             <UpLoadContainer>
               <UpLoadImage
@@ -48,7 +88,8 @@ const ProfileTitleView: React.FC<{ data: any; myProfile: boolean }> = ({
               </HamburgerContainer>
             </RightIcon>
           </IconWrapper>
-        )}
+
+        )} */}
         <BackGroundImageWrapper
           imgSrc={data.profileBackImage}
         ></BackGroundImageWrapper>
@@ -105,6 +146,32 @@ const ProfileTitleWrapper = styled.div`
   box-shadow: 0px 20px 60px 0px rgba(241, 244, 248, 0.5);
   margin-bottom: 21px;
   position: relative;
+`;
+
+const ModalPosition = styled.div`
+  position: absolute;
+  top: 25px;
+  right: 25px;
+`;
+const InputBox = styled.div``;
+
+const Title = styled.div`
+  font-size: 16px;
+  margin-bottom: 15px;
+`;
+
+const InputStyle = styled.input`
+  width: 500px;
+  height: 30px;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 16px 10px 16px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  &::placeholder {
+    color: #e0e0e0;
+  }
 `;
 const IconWrapper = styled.div`
   width: 100%;
@@ -390,3 +457,51 @@ const ProfileMore = styled.div`
 `;
 
 export default ProfileTitleView;
+
+const FIELD_DATA = [
+  {
+    label: "이름",
+    type: "text",
+    name: "user.name",
+    placeholder: "이름을 입력해주세요",
+    description: "이름을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "직무",
+    type: "text",
+    name: "jobDescription",
+    placeholder: "직무를 간단하게 설명 해주세요",
+    description: "직무입력란",
+    alt: "필수입력사항",
+  },
+  {
+    label: "도시",
+    type: "text",
+    name: "location",
+    placeholder: "도시명을 써 주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "상세 주소",
+    type: "text",
+    name: "address",
+    placeholder: "예) 동작구 49길",
+    alt: "필수입력사항",
+  },
+  {
+    label: "프로필 URL",
+    type: "text",
+    name: "user.profileImage",
+    placeholder: "프로필 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+
+  {
+    label: "프로필 배경 URL",
+    type: "text",
+    name: "profileBackImage",
+    placeholder: "프로필 배경 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+];
