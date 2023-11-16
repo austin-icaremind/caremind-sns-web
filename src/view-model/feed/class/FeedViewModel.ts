@@ -3,13 +3,12 @@ import * as FeedViewModelInterface from "../interface/FeedViewModelInterface";
 import { AxiosResponse } from "axios";
 
 class FeedViewModel {
-  static async postFeedData(
-    content: string,
-    images: string | null
-  ): Promise<AxiosResponse> {
+  static async postFeedData(content: string, images: string | null) {
     try {
-      const response = FeedService.postFeed(content, images);
-      return response;
+      const response = await FeedService.postFeed(content, images);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
     } catch (error) {
       throw error;
     }

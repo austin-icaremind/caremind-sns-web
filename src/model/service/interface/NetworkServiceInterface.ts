@@ -1,21 +1,36 @@
 export interface NetwrokServiceInterface {
-  getNewConnection: () => Promise<getNewConnectionData>;
-  getRecentConnection: () => Promise<getRecentConnectionDate>;
+  getRecievedConnection: () => Promise<getRecievedConnectionData[]>;
+  getSentConnection: () => Promise<getSentConnectionData[]>;
+  getMyConnection: () => Promise<getMyConnectionData[]>;
+  postAccept: (id: number) => Promise<postAcceptOrDeclineData>;
+  postDecline: (id: number) => Promise<postAcceptOrDeclineData>;
 }
 
-export interface getNewConnectionData {
+export interface getRecievedConnectionData {
   id: number;
-  profileImage: string;
-  userName: string;
-  userJob: string;
-  connection: number;
-  explanation: string;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: { id: number; name: string; profileImage: string };
 }
 
-export interface getRecentConnectionDate {
+export interface getSentConnectionData {
   id: number;
-  profileImage: string;
-  userName: string;
-  position: string;
-  date: string;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: { id: number; name: string; profileImage: string };
+}
+
+export interface getMyConnectionData {
+  id: number;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
+}
+
+export interface postAcceptOrDeclineData {
+  id: number;
 }

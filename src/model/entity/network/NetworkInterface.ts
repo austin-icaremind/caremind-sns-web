@@ -1,16 +1,24 @@
-export interface NetworkNewConnectionInterface {
+export interface NetworkRecievedConnection {
   id: number;
-  profileImage: string;
-  userName: string;
-  userJob: string;
-  connection: number;
-  explanation: string;
+  isAccepted: boolean;
+  message: string;
+  connectedUser: { id: number; name: string; profileImage: string };
 }
 
-export interface NetworkRecentConnectionInterface {
+export interface NetworkSentConnection {
   id: number;
-  profileImage: string;
-  userName: string;
-  position: string;
-  date: string;
+  isAccepted: boolean;
+  message: string;
+  connectedUser: { id: number; name: string; profileImage: string };
+}
+
+export interface NetworkMyConnectionInterface {
+  id: number;
+  isAccepted: boolean;
+  message: string;
+  connectedUser: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
 }

@@ -1,10 +1,7 @@
 import { AxiosResponse } from "axios";
 
 export interface FeedServiceInterface {
-  postFeed: (
-    content: string,
-    images: string | null
-  ) => Promise<AxiosResponse<void>>;
+  postFeed: (content: string, images: string | null) => Promise<PostMyFeedData>;
   getFeedList: () => Promise<FeedListData[]>;
   getMyProfile: (id: number) => Promise<MyProfileData>;
   getMyHashtag: (id: number) => Promise<HashTagData>;

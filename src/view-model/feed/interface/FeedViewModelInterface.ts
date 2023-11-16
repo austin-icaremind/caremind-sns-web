@@ -1,18 +1,9 @@
 import { AxiosResponse } from "axios";
 
 export interface FeedViewModelInterface {
-  postFeedData: (
-    content: string,
-    images: { imageUrl: string | null }
-  ) => AxiosResponse<string>;
   getFeedListData: () => Promise<GetFeedListData[]>;
   getFeedMyProfileData: (id: number) => Promise<GetFeedMyProfileData>;
   getFeedMyHashtagData: () => Promise<GetFeedMyHashtagData>;
-}
-
-export interface PostFeedData {
-  content: string;
-  images: { imageUrl: string | null };
 }
 
 export interface GetFeedListData {

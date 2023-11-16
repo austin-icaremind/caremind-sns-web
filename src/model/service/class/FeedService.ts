@@ -9,17 +9,28 @@ export class FeedService {
   static async postFeed(
     content: string,
     images: string | null
-  ): Promise<AxiosResponse<void>> {
-    const response: AxiosResponse<void> = await axios.post(`${BASE_API}/feed`, {
-      content,
-      images,
-    });
-
+  ): Promise<AxiosResponse<FeedServiceInterface.PostMyFeedData>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.PostMyFeedData> =
+      await axios.post(
+        `${BASE_API}/feed`,
+        {
+          content,
+          images,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     return response;
   }
+
   static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
       await axios.get(`${BASE_API}/feed/Feed.json`);
+    // await axios.get(`${BASE_API}/feed`);
 
     const result = response.data.map(
       (feedList) =>
