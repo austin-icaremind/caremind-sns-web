@@ -9,22 +9,38 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
   sentData,
 }) => {
   const [currentData, setCurrentData] = useState(receivedData);
+  const [selectedIdx, setSelectedIdx] = useState(0);
 
-  const handleReceivedClick = () => {
-    setCurrentData(receivedData);
-  };
+  const BUTTON_DATA = [
+    {
+      text: "RECEIVED",
+      onClick: () => {
+        setSelectedIdx(0);
+        setCurrentData(receivedData);
+      },
+    },
+    {
+      text: "SENT",
+      onClick: () => {
+        setSelectedIdx(1);
+        setCurrentData(sentData);
+      },
+    },
+  ];
 
-  const handleSentClick = () => {
-    setCurrentData(sentData);
-  };
   return (
     <div>
       <PaddingWrapper>
         <ButtonContainer>
-          <ReceivedButton onClick={handleReceivedClick}>
-            RECEIVED
-          </ReceivedButton>
-          <SentButton onClick={handleSentClick}>SENT</SentButton>
+          {BUTTON_DATA.map(({ text, onClick }, idx) => (
+            <Button
+              key={text}
+              onClick={onClick}
+              $isSelected={idx === selectedIdx}
+            >
+              {text}
+            </Button>
+          ))}
         </ButtonContainer>
         <NewConnectionWrapper>
           <StyleWrapper>
@@ -58,12 +74,18 @@ const ButtonContainer = styled.div`
   border-bottom: 1px solid #e7e7e7;
 `;
 
-const ButtonStyle = styled.div`
+const Button = styled.button<{ $isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 240px;
-  height: 50px;
+  height: ${(props) => (props.$isSelected ? "50px" : "40px")};
+  background: ${(props) =>
+    props.$isSelected
+      ? "linear-gradient(180deg, #0077b5 0%, #0e6795 100%)"
+      : "#fff"};
+  color: ${(props) => (props.$isSelected ? "#fff" : "black")};
+  border: ${(props) => (!props.$isSelected ? "1px solid #e7e7e7" : "none")};
   border-radius: 4px 4px 0px 0px;
   text-align: center;
   font-family: Gotham Pro;
@@ -73,16 +95,6 @@ const ButtonStyle = styled.div`
   line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
-`;
-const ReceivedButton = styled(ButtonStyle)`
-  background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
-  color: #fff;
-`;
-
-const SentButton = styled(ButtonStyle)`
-  height: 40px;
-  border: 1px solid #e7e7e7;
-  background: #fff;
 `;
 
 const NewConnectionWrapper = styled.div`

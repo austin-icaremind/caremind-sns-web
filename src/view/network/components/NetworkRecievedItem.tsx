@@ -11,12 +11,18 @@ const NetworkRecievedItem: React.FC<{ data: any }> = ({ data }) => {
 
   const handleAccept = async () => {
     await NetworkViewModel.RecievedAccept(data.id);
+    await NetworkViewModel.getRecievedConnection();
   };
 
   const handledecline = async () => {
-    await NetworkViewModel.RecievedAccept(data.id);
+    await NetworkViewModel.RecievedDecline(data.id);
+    if (isSentData) {
+      await NetworkViewModel.getSentConnection();
+    } else {
+      await NetworkViewModel.getRecievedConnection();
+    }
   };
-
+  // const router = useRouter();
   return (
     <MapWrapper key={id}>
       <NewConnectionUserWrapper>
@@ -38,7 +44,6 @@ const NetworkRecievedItem: React.FC<{ data: any }> = ({ data }) => {
               <AcceptButton onClick={handleAccept}>ACCEPT</AcceptButton>
             )}
             <DeclineButton onClick={handledecline}>
-              {" "}
               {isSentData ? "CANCLE" : "DECLINE"}
             </DeclineButton>
           </ButtonContainer>
