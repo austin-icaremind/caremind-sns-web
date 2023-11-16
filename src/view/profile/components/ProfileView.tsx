@@ -2,23 +2,17 @@
 
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import ProfileTitleView from "./components/ProfileTitleView";
-import ProfileEducationView from "./components/ProfileEducationView";
-import ProfileExperienceView from "./components/ProfileExperienceView";
+import ProfileTitleView from "./ProfileTitleView";
+import ProfileEducationView from "./ProfileEducationView";
+import ProfileExperienceView from "./ProfileExperienceView";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import ProfileProjectsView from "./components/ProfileProjectsView";
-import Image from "next/image";
-import Modal from "../components/Modal";
-import { usePathname } from "next/navigation";
+import ProfileProjectsView from "./ProfileProjectsView";
 
 const ProfileView = ({ id }: { id: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
-  const [modalCheck, setModalCheck] = useState<any | null>("close");
-
-  const pathname = usePathname();
 
   useEffect(() => {
     const fetchData = async (id: number) => {
@@ -61,14 +55,6 @@ const ProfileView = ({ id }: { id: number }) => {
   );
 
   const myProfileCheck: boolean = userIdFromLocalStorage === titleData.user.id;
-  const clickModal = (value: string) => {
-    setModalCheck(value);
-    if (value === "close") {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
-  };
 
   return (
     <ProfileStyleBox>
@@ -85,6 +71,7 @@ const ProfileView = ({ id }: { id: number }) => {
                   <ProfileProjectsView
                     data={projectsData}
                     myProfile={myProfileCheck}
+                    profileId={id}
                   />
                 </ProfileOutSideBox>
               </ProfileBoxInside>
@@ -95,6 +82,7 @@ const ProfileView = ({ id }: { id: number }) => {
                   <ProfileExperienceView
                     data={experienceData}
                     myProfile={myProfileCheck}
+                    profileId={id}
                   />
                 </ProfileOutSideBox>
               </ProfileCareerWrap>
@@ -105,6 +93,7 @@ const ProfileView = ({ id }: { id: number }) => {
                   <ProfileEducationView
                     data={educationData}
                     myProfile={myProfileCheck}
+                    profileId={id}
                   />
                 </ProfileOutSideBox>
               </ProfileCareerWrap>

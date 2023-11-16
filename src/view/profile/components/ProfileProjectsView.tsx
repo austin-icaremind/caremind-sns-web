@@ -1,6 +1,7 @@
 "use Client";
 
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
@@ -9,7 +10,9 @@ import Modal from "@/view/components/Modal";
 const ProfileProjectsView: React.FC<{
   data: ProfileProjectsInterface[];
   myProfile: boolean;
-}> = ({ data, myProfile }) => {
+  profileId: number;
+}> = ({ data, myProfile, profileId }) => {
+  const router = useRouter();
   const selectedData = data.slice(0, 3);
   const [modalCheck, setModalCheck] = useState<boolean>(false);
 
@@ -21,13 +24,9 @@ const ProfileProjectsView: React.FC<{
       document.body.style.overflow = "hidden";
     }
   };
+
   return (
     <ProfileProjectsViewStyle>
-      <Modal
-        click={clickModal}
-        state={modalCheck}
-        title="프로젝트 수정"
-      ></Modal>
       {myProfile && (
         <Edit
           alt="수정 아이콘"
@@ -35,7 +34,7 @@ const ProfileProjectsView: React.FC<{
           width={20}
           height={20}
           onClick={() => {
-            clickModal(true);
+            router.push(`/profile/${profileId}/details/projects`);
           }}
         />
       )}
@@ -57,7 +56,7 @@ const ProfileProjectsView: React.FC<{
             />
             <ProfileProjectsTitle>P{item.title}</ProfileProjectsTitle>
             <ProfileProjectsDetail>
-              {item.description} {item.startDate}
+              {item.title} {item.startDate}
             </ProfileProjectsDetail>
           </ProfileProjectsCard>
         ))}

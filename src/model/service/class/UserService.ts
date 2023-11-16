@@ -5,12 +5,14 @@ import BASE_API from "@/model/config";
 export class UserService {
   static async SignUp(
     email: string,
-    password: string
+    password: string,
+    name: string
   ): Promise<AxiosResponse<UserServiceInterface.SignUpServiceInterface>> {
     const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
       await axios.post(`${BASE_API}/user/signup`, {
         email,
         password,
+        name,
       });
     return response;
   }
