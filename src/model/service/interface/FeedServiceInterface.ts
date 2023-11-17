@@ -2,6 +2,8 @@ import { AxiosResponse } from "axios";
 
 export interface FeedServiceInterface {
   postFeed: (content: string, images: string | null) => Promise<PostMyFeedData>;
+  postLike: (id: number) => Promise<PostLike>;
+  deleteFeed: (id: number) => Promise<DeleteMyFeed>;
   getFeedList: () => Promise<FeedListData[]>;
   getMyProfile: (id: number) => Promise<MyProfileData>;
   getMyHashtag: (id: number) => Promise<HashTagData>;
@@ -12,6 +14,13 @@ export interface PostMyFeedData {
   images: { imageUrl: string | null };
 }
 
+export interface DeleteMyFeed {
+  id: number;
+}
+
+export interface PostLike {
+  id: number;
+}
 //피드 리스트 get//
 export interface FeedListData {
   id: number;

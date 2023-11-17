@@ -27,6 +27,62 @@ export class FeedService {
     return response;
   }
 
+  static async deleteFeed(
+    id: number
+  ): Promise<AxiosResponse<FeedServiceInterface.DeleteMyFeed>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.DeleteMyFeed> =
+      await axios.delete(
+        `${BASE_API}/feed/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    return response;
+  }
+
+  static async postLike(
+    id: number
+  ): Promise<AxiosResponse<FeedServiceInterface.PostLike>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.PostLike> =
+      await axios.post(
+        `${BASE_API}/feed/${id}/like`,
+        {
+          id,
+        },
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+    return response;
+  }
+
+  static async deleteLike(
+    id: number
+  ): Promise<AxiosResponse<FeedServiceInterface.PostLike>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.PostLike> =
+      await axios.delete(
+        `${BASE_API}/feed/${id}/like`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+    return response;
+  }
+
   static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
       await axios.get(`${BASE_API}/feed/Feed.json`);

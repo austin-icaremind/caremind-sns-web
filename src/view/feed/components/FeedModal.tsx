@@ -3,18 +3,27 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState } from "react";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
-const FeedModal: React.FC<{ FeedId: any }> = ({ FeedId }) => {
-  const id = FeedId.id;
+const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
+  userId,
+  feedId,
+}) => {
+  const id = userId.id;
 
-  const userId: number | null = parseInt(
+  const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
     10
   );
+
+  const handleDelete = async () => {
+    await FeedViewModel.deleteFeed(feedId);
+  };
+
   return (
     <ModalWrapper>
       <ContentWrapper>
-        {id === userId ? (
+        {id === localId ? (
           <IconContainer>
             <IconWrapper>
               <Image
@@ -25,7 +34,7 @@ const FeedModal: React.FC<{ FeedId: any }> = ({ FeedId }) => {
               />
               수정
             </IconWrapper>
-            <IconWrapper>
+            <IconWrapper onClick={handleDelete}>
               <Image
                 alt="삭제 아이콘"
                 src="/images/bin.png"
@@ -34,9 +43,27 @@ const FeedModal: React.FC<{ FeedId: any }> = ({ FeedId }) => {
               />
               삭제
             </IconWrapper>
+            <IconWrapper>
+              <Image
+                alt="링크 아이콘"
+                src="/images/link.png"
+                width={20}
+                height={20}
+              />
+              링크 복사
+            </IconWrapper>
           </IconContainer>
         ) : (
           <IconContainer>
+            <IconWrapper>
+              <Image
+                alt="링크 아이콘"
+                src="/images/add-user.png"
+                width={20}
+                height={20}
+              />
+              친구 추가
+            </IconWrapper>
             <IconWrapper>
               <Image
                 alt="링크 아이콘"

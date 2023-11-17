@@ -3,12 +3,15 @@ import styled from "styled-components";
 import FeedModal from "@/view/feed/components/FeedModal";
 import Image from "next/image";
 import { useEffect } from "react";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
 const FeedItem: React.FC<{ data: any }> = ({ data }) => {
-  const { id } = data;
-  const feedId = data.author;
+  const id = data.id;
+  const userId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [likes, setLikes] = useState(data.likesCount);
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleModalOpen = (item: any) => {
     setSelectedOption(item);
@@ -38,7 +41,16 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
 
   const userInformation = data.author;
 
-  console.log(feedId, "dsafasfas");
+  const handleLike = async () => {
+    if (!isLiked) {
+      await FeedViewModel.postLikeData(id);
+      setLikes((prevLikes: number) => prevLikes + 1);
+    } else {
+      await FeedViewModel.deleteLikeData(id);
+      setLikes((prevLikes: number) => prevLikes - 1);
+    }
+    setIsLiked(!isLiked);
+  };
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
@@ -50,7 +62,7 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
         <HambergerIconWrapper>
           <HambergerIcon onClick={handleModalOpen}>
             <FeedLocation>
-              {isModalOpen && <FeedModal FeedId={feedId} />}
+              {isModalOpen && <FeedModal feedId={id} userId={userId} />}
             </FeedLocation>
           </HambergerIcon>
         </HambergerIconWrapper>
@@ -89,15 +101,18 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
       </FeedContentWrapper>
       <LikeAndCommentShareWrapper>
         <LikeAndCommentWrapper>
-          <LikeWrapper>
+          <LikeWrapper onClick={handleLike}>
             <LikeIcon
               alt="좋아요 아이콘"
-              src="/images/thumbs-up.png"
+              src={
+                !isLiked
+                  ? "/images/thumbs-up.png"
+                  : "/images/filled-thumbs-up.png"
+              }
               width={16}
               height={16}
             ></LikeIcon>
-
-            <LikeNumber>{data.likesCount}</LikeNumber>
+            <LikeNumber>{likes}</LikeNumber>
           </LikeWrapper>
           <CommentWrapper>
             <CommentIcon
@@ -106,7 +121,6 @@ const FeedItem: React.FC<{ data: any }> = ({ data }) => {
               width={16}
               height={16}
             ></CommentIcon>
-
             <CommentNumber>{data.commentsCount}</CommentNumber>
           </CommentWrapper>
         </LikeAndCommentWrapper>
@@ -179,7 +193,7 @@ const HambergerIcon = styled.div`
 
 const FeedLocation = styled.div`
   position: absolute;
-  bottom: -80px;
+  bottom: -100px;
   right: 5px;
 `;
 

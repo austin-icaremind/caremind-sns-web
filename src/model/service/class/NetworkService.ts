@@ -71,7 +71,7 @@ export class NetworkService {
     const token = localStorage.getItem("token");
 
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
-      await axios.post(
+      await axios.patch(
         `${BASE_API}connection/${id}`,
         { id },
         {

@@ -14,6 +14,39 @@ class FeedViewModel {
     }
   }
 
+  static async deleteFeed(id: number) {
+    try {
+      const response = await FeedService.deleteFeed(id);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async postLikeData(id: number) {
+    try {
+      const response = await FeedService.postLike(id);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async deleteLikeData(id: number) {
+    try {
+      const response = await FeedService.deleteLike(id);
+      if (response.status >= 200 && response.status < 300) {
+        return response.data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async getFeedListData(): Promise<
     FeedViewModelInterface.GetFeedListData[]
   > {
