@@ -45,10 +45,17 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
         <NewConnectionWrapper>
           <StyleWrapper>
             <NetworkConnectionUnderLine />
-            <NewConnectionLetter>
-              <Black>YOU HAVE</Black>
-              <Blue>{currentData.length} NEW CONNECTIONS</Blue>
-            </NewConnectionLetter>
+            {currentData === receivedData ? (
+              <NewConnectionLetter>
+                <Black>YOU HAVE</Black>
+                <Blue>{currentData.length} NEW CONNECTIONS</Blue>
+              </NewConnectionLetter>
+            ) : (
+              <NewConnectionLetter>
+                <Black>YOU SEND</Black>
+                <Blue>{currentData.length} CONNECTIONS</Blue>
+              </NewConnectionLetter>
+            )}
             <NetworkConnectionUnderLine />
           </StyleWrapper>
         </NewConnectionWrapper>

@@ -5,12 +5,15 @@ import styled from "styled-components";
 import FeedItem from "./FeedItem";
 import { GetFeedListData } from "@/view-model/feed/interface/FeedViewModelInterface";
 
-const FeedListView: React.FC<{ data: any }> = ({ data }) => {
+const FeedListView: React.FC<{ data: any; myProfileData: any }> = ({
+  data,
+  myProfileData,
+}) => {
   return (
     <FeedListWrapper>
       <ModalWrapper>
         {data.map((feed: GetFeedListData) => (
-          <FeedItem data={feed} />
+          <FeedItem data={feed} myProfileData={myProfileData} />
         ))}
       </ModalWrapper>
     </FeedListWrapper>

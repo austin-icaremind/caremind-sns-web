@@ -1,29 +1,25 @@
 "use client";
-// import { useRouter } from "next/router";
+
 import styled from "styled-components";
 import Image from "next/image";
-import { useState } from "react";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
-
-const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
+const FeedCommentModal: React.FC<{ id: any; userId: any }> = ({
+  id,
   userId,
-  feedId,
 }) => {
-  const id = userId.id;
-
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
     10
   );
 
   const handleDelete = async () => {
-    await FeedViewModel.deleteFeed(feedId);
+    await FeedViewModel.deleteComment(id);
   };
 
   return (
     <ModalWrapper>
       <ContentWrapper>
-        {id === localId ? (
+        {userId.id === localId ? (
           <IconContainer>
             <IconWrapper>
               <Image
@@ -89,7 +85,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
   );
 };
 
-export default FeedModal;
+export default FeedCommentModal;
 
 const ModalWrapper = styled.div`
   border: 1px solid #f4f4f4;

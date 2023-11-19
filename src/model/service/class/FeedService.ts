@@ -44,6 +44,24 @@ export class FeedService {
     return response;
   }
 
+  static async deleteComment(
+    id: number
+  ): Promise<AxiosResponse<FeedServiceInterface.DeleteMyComment>> {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const response: AxiosResponse<FeedServiceInterface.DeleteMyComment> =
+      await axios.delete(
+        `${BASE_API}/feed/${id}/comment/${userId}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    return response;
+  }
+
   static async postLike(
     id: number
   ): Promise<AxiosResponse<FeedServiceInterface.PostLike>> {
@@ -54,6 +72,26 @@ export class FeedService {
         {
           id,
         },
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+    return response;
+  }
+
+  static async postComment(
+    id: number,
+    content: string
+  ): Promise<AxiosResponse<FeedServiceInterface.PostMyComment>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.PostMyComment> =
+      await axios.post(
+        `${BASE_API}/feed/${id}/comment`,
+        { id, content },
 
         {
           headers: {

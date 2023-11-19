@@ -66,7 +66,7 @@ const FeedView = ({ id }: { id: number }) => {
             </SortSection>
           </SortLetterContainer>
         </SortContainer>
-        <FeedListView data={feedListData} />
+        <FeedListView data={feedListData} myProfileData={myProfileData} />
       </FeedLeftContent>
       <FeedRightContent>
         <FeedMyProfileView data={myProfileData} />

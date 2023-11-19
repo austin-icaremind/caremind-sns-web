@@ -4,6 +4,8 @@ export interface FeedServiceInterface {
   postFeed: (content: string, images: string | null) => Promise<PostMyFeedData>;
   postLike: (id: number) => Promise<PostLike>;
   deleteFeed: (id: number) => Promise<DeleteMyFeed>;
+  postComment: (id: number, content: string) => Promise<PostMyComment>;
+  deleteComment: (id: number) => Promise<DeleteMyComment>;
   getFeedList: () => Promise<FeedListData[]>;
   getMyProfile: (id: number) => Promise<MyProfileData>;
   getMyHashtag: (id: number) => Promise<HashTagData>;
@@ -21,6 +23,14 @@ export interface DeleteMyFeed {
 export interface PostLike {
   id: number;
 }
+export interface PostMyComment {
+  id: number;
+  content: string;
+}
+export interface DeleteMyComment {
+  id: number;
+}
+
 //피드 리스트 get//
 export interface FeedListData {
   id: number;
