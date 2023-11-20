@@ -57,7 +57,6 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
 
         {myProfile && (
           <ModalEdit
-            data={}
             deleteBtn={false}
             newBtn={true}
             title="프로젝트 생성"
