@@ -32,6 +32,8 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
     fetchData(id);
   }, []);
 
+  const putTitle = ProfileViewModel.putProfileTitle(id);
+
   if (titleData === null || projectsData === null) {
     return <div>Loading...</div>;
   }
@@ -77,6 +79,7 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
                   deleteBtn={true}
                   title="프로젝트 수정"
                   layout="projects"
+                  click={putTitle}
                 ></ModalEdit>
               )}
 

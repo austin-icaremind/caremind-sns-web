@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import FeedModal from "@/view/components/FeedModal";
+import FeedModal from "./FeedModal";
+
 import Image from "next/image";
 import { useEffect } from "react";
 

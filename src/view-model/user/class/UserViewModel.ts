@@ -32,6 +32,28 @@ export class UserViewModel {
     }
   }
 
+  static async CreateProfile() {
+    try {
+      const response = await UserService.CreateProfile();
+      if (response.status >= 200 && response.status < 300) {
+        return response.status;
+      }
+    } catch (error) {
+      return "wrong";
+    }
+  }
+
+  static async CheckProfileId() {
+    try {
+      const response = await UserService.CheckProfileId();
+      if (response.status >= 200 && response.status < 300) {
+        return "exist";
+      }
+    } catch (error) {
+      return "notExist";
+    }
+  }
+
   static async Login(email: string, password: string) {
     if (email === "") {
       return "emailEmpty";

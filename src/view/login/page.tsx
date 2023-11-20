@@ -54,6 +54,15 @@ const LoginPage: React.FC = () => {
     }
 
     alert("로그인 성공");
+
+    const profileCheck = await UserViewModel.CheckProfileId();
+    console.log("아오", profileCheck);
+    if (profileCheck === "notExist") {
+      const createProfile = await UserViewModel.CreateProfile();
+      alert("프로필생성");
+    } else {
+    }
+
     router.push("/");
   };
 

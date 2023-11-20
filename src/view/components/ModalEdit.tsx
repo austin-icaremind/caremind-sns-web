@@ -9,6 +9,7 @@ interface ModalProps {
   title: string;
   data: any;
   layout: string;
+  click: any;
 }
 
 const ModalEdit: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ const ModalEdit: React.FC<ModalProps> = ({
   title,
   data,
   layout,
+  click,
 }) => {
   const [modalCheck, setModalCheck] = useState<boolean>(false);
   const clickModal = (value: boolean) => {
@@ -52,102 +54,101 @@ const ModalEdit: React.FC<ModalProps> = ({
     return value;
   };
 
-  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
+  // const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setUserInfo({ ...userInfo, [name]: value });
+  // };
 
-  let userInfoInitialState;
+  // let userInfoInitialState;
 
-  switch (layout) {
-    case "title":
-      userInfoInitialState = {
-        name: data?.user.name,
-        jobDescription: data?.jobDescription,
-        location: data?.location,
-        address: data?.address,
-        profileImage: data?.user.profileImage,
-        profileBackImage: data?.user.profileBackImage,
-      };
-      break;
-    case "title_null":
-      userInfoInitialState = {
-        name: "",
-        jobDescription: "",
-        location: "",
-        address: "",
-        profileImage: "",
-        profileBackImage: "",
-      };
-      break;
-    case "projects":
-      userInfoInitialState = {
-        pic: data?.coverImage?.image,
-        title: data?.title,
-        info: data?.description,
-        startDate: data?.startDate,
-        endDate: data?.endDate,
-      };
-      break;
-    case "projects_null":
-      userInfoInitialState = {
-        pic: "",
-        title: "",
-        info: "",
-        startDate: "",
-        endDate: "",
-      };
-      break;
-    case "experience":
-      userInfoInitialState = {
-        position: data?.position,
-        companyName: data?.experienceCompany?.name,
-        location: data?.experienceCompany?.location,
-        logoUrl: data?.experienceCompany?.logo,
-        startDate: data?.startDate,
-        endDate: data?.endDate,
-        description: data?.description,
-      };
-      break;
-    case "experience":
-      userInfoInitialState = {
-        position: "",
-        companyName: "",
-        location: "",
-        logoUrl: "",
-        startDate: "",
-        endDate: "",
-        description: "",
-      };
-      break;
-    case "education":
-      userInfoInitialState = {
-        name: data?.educationInstitute?.name,
-        description: data?.description,
-        logoUrl: data?.educationInstitute?.logo,
-        course: data?.course,
-        startDate: data?.startDate,
-        endDate: data?.endDate,
-      };
-      break;
-    case "education":
-      userInfoInitialState = {
-        name: "",
-        description: "",
-        logoUrl: "",
-        course: "",
-        startDate: "",
-        endDate: "",
-      };
-      break;
-    default:
-      userInfoInitialState = {}; // Default state
-      break;
-  }
+  // switch (layout) {
+  //   case "title":
+  //     userInfoInitialState = {
+  //       name: data?.user.name,
+  //       jobDescription: data?.jobDescription,
+  //       location: data?.location,
+  //       address: data?.address,
+  //       profileImage: data?.user.profileImage,
+  //       profileBackImage: data?.user.profileBackImage,
+  //     };
+  //     break;
+  //   case "title_null":
+  //     userInfoInitialState = {
+  //       name: "",
+  //       jobDescription: "",
+  //       location: "",
+  //       address: "",
+  //       profileImage: "",
+  //       profileBackImage: "",
+  //     };
+  //     break;
+  //   case "projects":
+  //     userInfoInitialState = {
+  //       pic: data?.coverImage?.image,
+  //       title: data?.title,
+  //       info: data?.description,
+  //       startDate: data?.startDate,
+  //       endDate: data?.endDate,
+  //     };
+  //     break;
+  //   case "projects_null":
+  //     userInfoInitialState = {
+  //       pic: "",
+  //       title: "",
+  //       info: "",
+  //       startDate: "",
+  //       endDate: "",
+  //     };
+  //     break;
+  //   case "experience":
+  //     userInfoInitialState = {
+  //       position: data?.position,
+  //       companyName: data?.experienceCompany?.name,
+  //       location: data?.experienceCompany?.location,
+  //       logoUrl: data?.experienceCompany?.logo,
+  //       startDate: data?.startDate,
+  //       endDate: data?.endDate,
+  //       description: data?.description,
+  //     };
+  //     break;
+  //   case "experience":
+  //     userInfoInitialState = {
+  //       position: "",
+  //       companyName: "",
+  //       location: "",
+  //       logoUrl: "",
+  //       startDate: "",
+  //       endDate: "",
+  //       description: "",
+  //     };
+  //     break;
+  //   case "education":
+  //     userInfoInitialState = {
+  //       name: data?.educationInstitute?.name,
+  //       description: data?.description,
+  //       logoUrl: data?.educationInstitute?.logo,
+  //       course: data?.course,
+  //       startDate: data?.startDate,
+  //       endDate: data?.endDate,
+  //     };
+  //     break;
+  //   case "education":
+  //     userInfoInitialState = {
+  //       name: "",
+  //       description: "",
+  //       logoUrl: "",
+  //       course: "",
+  //       startDate: "",
+  //       endDate: "",
+  //     };
+  //     break;
+  //   default:
+  //     userInfoInitialState = {}; // Default state
+  //     break;
+  // }
 
-  const [userInfo, setUserInfo] = useState(userInfoInitialState);
+  // const [userInfo, setUserInfo] = useState(userInfoInitialState);
 
-  console.log("테스트2", userInfo);
   return (
     <ModalEditStyle>
       <ModalBox active={modalCheck}>
@@ -191,7 +192,13 @@ const ModalEdit: React.FC<ModalProps> = ({
           </ModalMiddle>
           <ModalFooter>
             <ModalDeleteBtn active={deleteBtn}>삭제</ModalDeleteBtn>
-            <ModalSaveBtn onClick={() => {}}>저장</ModalSaveBtn>
+            <ModalSaveBtn
+              onClick={() => {
+                click();
+              }}
+            >
+              저장
+            </ModalSaveBtn>
           </ModalFooter>
         </ModalInfo>
       </ModalBox>
@@ -345,15 +352,15 @@ const Edit = styled(Image)`
 `;
 
 const TITLE_MODAL_LAYOUT = [
-  {
-    label: "이름",
-    type: "text",
-    name: "name",
-    key: "user.name",
-    placeholder: "이름을 입력해주세요",
-    description: "이름을 입력해주세요",
-    alt: "필수입력사항",
-  },
+  // {
+  //   label: "이름",
+  //   type: "text",
+  //   name: "name",
+  //   key: "user.name",
+  //   placeholder: "이름을 입력해주세요",
+  //   description: "이름을 입력해주세요",
+  //   alt: "필수입력사항",
+  // },
   {
     label: "직무",
     type: "text",
@@ -379,14 +386,14 @@ const TITLE_MODAL_LAYOUT = [
     placeholder: "예) 동작구 49길",
     alt: "필수입력사항",
   },
-  {
-    label: "프로필 URL",
-    type: "text",
-    name: "profileImage",
-    key: "user.profileImage",
-    placeholder: "프로필 URL을 입력해주세요.",
-    alt: "필수입력사항",
-  },
+  // {
+  //   label: "프로필 URL",
+  //   type: "text",
+  //   name: "profileImage",
+  //   key: "user.profileImage",
+  //   placeholder: "프로필 URL을 입력해주세요.",
+  //   alt: "필수입력사항",
+  // },
 
   {
     label: "프로필 배경 URL",

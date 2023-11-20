@@ -50,11 +50,9 @@ export class ProfileViewModel {
     }
   }
 
-  static putProfileTitle(
-    id: number
-  ): Promise<ProfileViewModelInterface.ProfileEducationInterface[]> {
+  static putProfileTitle(id: number): Promise<any> {
     try {
-      const response = ProfileService.getEducation(id);
+      const response = ProfileService.putTitle(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);

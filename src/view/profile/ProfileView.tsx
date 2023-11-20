@@ -16,6 +16,14 @@ const ProfileView = ({ id }: { id: number }) => {
   const [projectsData, setProjectsData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
+  const [userInfo, setUserInfo] = useState<any | null>({
+    name: titleData?.user.name,
+    jobDescription: titleData?.jobDescription,
+    location: titleData?.location,
+    address: titleData?.address,
+    profileImage: titleData?.user.profileImage,
+    profileBackImage: titleData?.user.profileBackImage,
+  });
 
   useEffect(() => {
     const fetchData = async (id: number) => {
@@ -61,6 +69,13 @@ const ProfileView = ({ id }: { id: number }) => {
 
   const myProfile: boolean = userIdFromLocalStorage === titleData.user.id;
 
+  const putTitle = ProfileViewModel.putProfileTitle(id);
+
+  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+
   return (
     <>
       <ProfileStyleBox>
@@ -75,6 +90,7 @@ const ProfileView = ({ id }: { id: number }) => {
                   newBtn={false}
                   title="프로필 수정"
                   layout="title"
+                  click={putTitle}
                 />
               )}
             </ProfileOutSideBox>

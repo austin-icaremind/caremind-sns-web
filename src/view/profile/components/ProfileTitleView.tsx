@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import ModalEdit from "@/view/components/ModalEdit";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
+import { userInfo } from "os";
 
 function getFieldValue(obj: any, field: string) {
   const fields = field.split(".");
@@ -57,7 +58,6 @@ const ProfileTitleView: React.FC<{
   // };
 
   // const putProfileTitle = ProfileViewModel.putProfileTitle(id);
-
   return (
     <ProfileTitleStyle>
       <ProfileTitleWrapper>
