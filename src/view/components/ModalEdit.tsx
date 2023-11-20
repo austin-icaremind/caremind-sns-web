@@ -7,14 +7,16 @@ interface ModalProps {
   newBtn: boolean;
   deleteBtn: boolean;
   title: string;
-  children: React.ReactNode;
+  data: any;
+  layout: string;
 }
 
 const ModalEdit: React.FC<ModalProps> = ({
   newBtn,
   deleteBtn,
   title,
-  children,
+  data,
+  layout,
 }) => {
   const [modalCheck, setModalCheck] = useState<boolean>(false);
   const clickModal = (value: boolean) => {
@@ -25,6 +27,127 @@ const ModalEdit: React.FC<ModalProps> = ({
       document.body.style.overflow = "hidden";
     }
   };
+
+  const item = (() => {
+    if (layout === ("title" || "title_null")) {
+      return TITLE_MODAL_LAYOUT;
+    } else if (layout === "projects") {
+      return PROJECTS_MODAL_LAYOUT;
+    } else if (layout === "projects_null") {
+      return PROJECTS_MODAL_LAYOUT;
+    } else if (layout === ("experience" || "experience_null")) {
+      return EXPERIENCE_MODAL_LAYOUT;
+    } else if (layout === ("education" || "education_null")) {
+      return EDUCATION_MODAL_LAYOUT;
+    }
+  })();
+
+  const getFieldValue = (obj: any, field: string) => {
+    const fields = field.split(".");
+    let value = obj;
+
+    for (const f of fields) {
+      value = value[f];
+    }
+    return value;
+  };
+
+  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+
+  let userInfoInitialState;
+
+  switch (layout) {
+    case "title":
+      userInfoInitialState = {
+        name: data?.user.name,
+        jobDescription: data?.jobDescription,
+        location: data?.location,
+        address: data?.address,
+        profileImage: data?.user.profileImage,
+        profileBackImage: data?.user.profileBackImage,
+      };
+      break;
+    case "title_null":
+      userInfoInitialState = {
+        name: "",
+        jobDescription: "",
+        location: "",
+        address: "",
+        profileImage: "",
+        profileBackImage: "",
+      };
+      break;
+    case "projects":
+      userInfoInitialState = {
+        pic: data?.coverImage?.image,
+        title: data?.title,
+        info: data?.description,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+      };
+      break;
+    case "projects_null":
+      userInfoInitialState = {
+        pic: "",
+        title: "",
+        info: "",
+        startDate: "",
+        endDate: "",
+      };
+      break;
+    case "experience":
+      userInfoInitialState = {
+        position: data?.position,
+        companyName: data?.experienceCompany?.name,
+        location: data?.experienceCompany?.location,
+        logoUrl: data?.experienceCompany?.logo,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+        description: data?.description,
+      };
+      break;
+    case "experience":
+      userInfoInitialState = {
+        position: "",
+        companyName: "",
+        location: "",
+        logoUrl: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      };
+      break;
+    case "education":
+      userInfoInitialState = {
+        name: data?.educationInstitute?.name,
+        description: data?.description,
+        logoUrl: data?.educationInstitute?.logo,
+        course: data?.course,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+      };
+      break;
+    case "education":
+      userInfoInitialState = {
+        name: "",
+        description: "",
+        logoUrl: "",
+        course: "",
+        startDate: "",
+        endDate: "",
+      };
+      break;
+    default:
+      userInfoInitialState = {}; // Default state
+      break;
+  }
+
+  const [userInfo, setUserInfo] = useState(userInfoInitialState);
+
+  console.log("테스트2", userInfo);
   return (
     <ModalEditStyle>
       <ModalBox active={modalCheck}>
@@ -40,10 +163,35 @@ const ModalEdit: React.FC<ModalProps> = ({
             }}
           />
           <ModalTitle>{title}</ModalTitle>
-          <ModalMiddle>{children}</ModalMiddle>
+          <ModalMiddle>
+            <>
+              {item?.map(({ name, key, type, placeholder, label }) => (
+                <InputBox key={name}>
+                  <Title>{label}</Title>
+                  <InputStyle
+                    defaultValue={
+                      layout !==
+                      ("title_null" ||
+                        "projects_null" ||
+                        "experience_null" ||
+                        "education_null")
+                        ? getFieldValue(data, key)
+                        : null
+                    }
+                    name={name}
+                    type={type}
+                    placeholder={placeholder}
+                    onChange={(e) => {
+                      handleUserInfo(e);
+                    }}
+                  />
+                </InputBox>
+              ))}
+            </>
+          </ModalMiddle>
           <ModalFooter>
             <ModalDeleteBtn active={deleteBtn}>삭제</ModalDeleteBtn>
-            <ModalSaveBtn>저장</ModalSaveBtn>
+            <ModalSaveBtn onClick={() => {}}>저장</ModalSaveBtn>
           </ModalFooter>
         </ModalInfo>
       </ModalBox>
@@ -115,6 +263,27 @@ const ModalTitle = styled.div`
   align-items: center;
 `;
 
+const InputBox = styled.div``;
+
+const Title = styled.div`
+  font-size: 16px;
+  margin-bottom: 15px;
+`;
+
+const InputStyle = styled.input`
+  width: 500px;
+  height: 30px;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px 16px 10px 16px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  &::placeholder {
+    color: #e0e0e0;
+  }
+`;
+
 const ModalMiddle = styled.div`
   padding: 50px 100px 70px 100px;
   overflow-y: auto;
@@ -170,7 +339,230 @@ const ModalSaveBtn = styled.div`
 
 const Edit = styled(Image)`
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 25px;
+  top: 25px;
   cursor: pointer;
 `;
+
+const TITLE_MODAL_LAYOUT = [
+  {
+    label: "이름",
+    type: "text",
+    name: "name",
+    key: "user.name",
+    placeholder: "이름을 입력해주세요",
+    description: "이름을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "직무",
+    type: "text",
+    name: "jobDescription",
+    key: "jobDescription",
+    placeholder: "직무를 간단하게 설명 해주세요",
+    description: "직무입력란",
+    alt: "필수입력사항",
+  },
+  {
+    label: "도시",
+    type: "text",
+    name: "location",
+    key: "location",
+    placeholder: "도시명을 써 주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "상세 주소",
+    type: "text",
+    name: "address",
+    key: "address",
+    placeholder: "예) 동작구 49길",
+    alt: "필수입력사항",
+  },
+  {
+    label: "프로필 URL",
+    type: "text",
+    name: "profileImage",
+    key: "user.profileImage",
+    placeholder: "프로필 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+
+  {
+    label: "프로필 배경 URL",
+    type: "text",
+    name: "profileBackImage",
+    key: "profileBackImage",
+    placeholder: "프로필 배경 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+];
+
+const PROJECTS_MODAL_LAYOUT = [
+  {
+    label: "사진",
+    type: "text",
+    name: "image",
+    key: "coverImage.image",
+    placeholder: "사진 URL을 입력해주세요",
+    description: "사진 URL을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "프로젝트 이름",
+    type: "text",
+    name: "title",
+    key: "title",
+    placeholder: "프로젝트 이름을 입력해주세요",
+    description: "프로젝트 이름을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "설명",
+    type: "text",
+    name: "description",
+    key: "description",
+    placeholder: "설명을 써 주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "시작일 (예시 : 2023-11-16)",
+    type: "text",
+    name: "startDate",
+    key: "startDate",
+    placeholder: "2023-11-16 양식으로 해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "종료일 (예시 : 2023-11-17)",
+    type: "text",
+    name: "endDate",
+    key: "endDate",
+    placeholder: "진행중이라면 비워주셔도 됩니다.",
+    alt: "필수입력사항",
+  },
+];
+
+const EXPERIENCE_MODAL_LAYOUT = [
+  {
+    label: "직무",
+    type: "text",
+    name: "position",
+    key: "position",
+    placeholder: "직무를 입력해주세요",
+    description: "직무를 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "회사명",
+    type: "text",
+    name: "companyName",
+    key: "experienceCompany.name",
+    placeholder: "회사명을 입력해주세요",
+    description: "회사명을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "회사 위치",
+    type: "text",
+    name: "location",
+    key: "experienceCompany.location",
+    placeholder: "회사 위치를 입력해주세요.",
+    description: "회사 위치를 입력해주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "회사로고 URL",
+    type: "text",
+    name: "logoUrl",
+    key: "experienceCompany.logo",
+    placeholder: "회사로고 URL을 입력해주세요.",
+    description: "회사로고 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "시작일 (예시 : 2023-11-16)",
+    type: "text",
+    name: "startDate",
+    key: "startDate",
+    placeholder: "2023-11-16 양식으로 해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "종료일 (예시 : 2023-11-17)",
+    type: "text",
+    name: "endDate",
+    key: "endDate",
+    placeholder: "재직중이라면 비워주셔도 됩니다.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "설명",
+    type: "text",
+    name: "description",
+    key: "description",
+    placeholder: "설명을 써주세요.",
+    alt: "필수입력사항",
+  },
+];
+
+const EDUCATION_MODAL_LAYOUT = [
+  {
+    label: "교육기관명",
+    type: "text",
+    name: "name",
+    key: "educationInstitute.name",
+    placeholder: "교육기관을 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "세부사항 (예시 : 경영학부)",
+    type: "text",
+    name: "description",
+    key: "description",
+    placeholder: "세부사항 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "교육기관 로고 URL",
+    type: "text",
+    name: "logoUrl",
+    key: "educationInstitute.logo",
+    placeholder: "교육기관 로고 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "세부 코스 (예시 : 회계직렬을 집중적으로 수료했습니다.)",
+    type: "text",
+    name: "course",
+    key: "course",
+    placeholder: "세부 코스를 입력해주세요.",
+    description: "회사로고 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "시작일 (예시 : 2023-11-16)",
+    type: "text",
+    name: "startDate",
+    key: "startDate",
+    placeholder: "2023-11-16 양식으로 해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "종료일 (예시 : 2023-11-17)",
+    type: "text",
+    name: "endDate",
+    key: "endDate",
+    placeholder: "재직중이라면 비워주셔도 됩니다.",
+    alt: "필수입력사항",
+  },
+];
+
+interface accountCheck {
+  name: string;
+  jobDescription: string;
+  location: string;
+  address: string;
+  profileImage: string;
+  profileBackImage: string;
+}

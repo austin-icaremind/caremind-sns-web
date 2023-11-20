@@ -49,6 +49,18 @@ export class ProfileViewModel {
       throw error;
     }
   }
+
+  static putProfileTitle(
+    id: number
+  ): Promise<ProfileViewModelInterface.ProfileEducationInterface[]> {
+    try {
+      const response = ProfileService.getEducation(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
 }
 
 export default ProfileViewModel;

@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
     fetchData();
   }, [pathname]);
-  console.log(headerData);
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>

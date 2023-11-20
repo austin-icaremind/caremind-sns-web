@@ -44,7 +44,6 @@ export class ProfileService {
         )
     );
 
-    console.log("테스트", result);
     return result;
   }
 
@@ -95,5 +94,13 @@ export class ProfileService {
     );
 
     return result;
+  }
+
+  static async postTitle(
+    id: number
+  ): Promise<ProfileInterface.PutTitleInterface> {
+    const response: AxiosResponse<ProfileServiceInterface.PutTitleInterface> =
+      await axios.put(`${BASE_API}/profile/${id}`);
+    return response;
   }
 }

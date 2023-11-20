@@ -9,41 +9,10 @@ import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
 import ModalEdit from "@/view/components/ModalEdit";
 
-function getFieldValue(obj: any, field: string) {
-  const fields = field.split(".");
-  let value = obj;
-
-  for (const f of fields) {
-    value = value[f];
-  }
-  return value;
-}
-
 const DetailsProjectsView = ({ id }: { id: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
-
-  interface accountCheck {
-    pic: string;
-    title: string;
-    info: string;
-    startDate: string;
-    endDate: string;
-  }
-
-  const [userInfo, setUserInfo] = useState<accountCheck>({
-    pic: "",
-    title: "",
-    info: "",
-    startDate: "",
-    endDate: "",
-  });
-
-  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
 
   useEffect(() => {
     const fetchData = async (id: number) => {
@@ -87,21 +56,13 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
         />
 
         {myProfile && (
-          <ModalEdit newBtn={true} deleteBtn={false} title="프로젝트 생성">
-            <>
-              {FIELD_DATA.map(({ name, type, placeholder, label }) => (
-                <InputBox key={name}>
-                  <Title>{label}</Title>
-                  <InputStyle
-                    name={name}
-                    type={type}
-                    placeholder={placeholder}
-                    onChange={handleUserInfo}
-                  />
-                </InputBox>
-              ))}
-            </>
-          </ModalEdit>
+          <ModalEdit
+            data={}
+            deleteBtn={false}
+            newBtn={true}
+            title="프로젝트 생성"
+            layout="projects_null"
+          />
         )}
 
         <ProfileBoxTitleBox>
@@ -112,27 +73,12 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
             <ProfileProjectsCard>
               {myProfile && (
                 <ModalEdit
+                  data={item}
                   newBtn={false}
                   deleteBtn={true}
                   title="프로젝트 수정"
-                >
-                  <>
-                    {FIELD_DATA.map(
-                      ({ name, key, type, placeholder, label }) => (
-                        <InputBox key={name}>
-                          <Title>{label}</Title>
-                          <InputStyle
-                            value={getFieldValue(item, key)}
-                            name={name}
-                            type={type}
-                            placeholder={placeholder}
-                            onChange={handleUserInfo}
-                          />
-                        </InputBox>
-                      )
-                    )}
-                  </>
-                </ModalEdit>
+                  layout="projects"
+                ></ModalEdit>
               )}
 
               <ProfileProjectsPic
