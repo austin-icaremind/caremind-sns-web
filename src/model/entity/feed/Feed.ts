@@ -1,20 +1,5 @@
 import * as FeedInterface from "./FeedInterface";
 
-// export class FeedPostImp implements FeedInterface.FeedPostInterface {
-//   id: number;
-//   content: string;
-//   images: { imageUrl: string | null };
-//   constructor(
-//     id: number,
-//     content: string,
-//     images: { imageUrl: string | null }
-//   ) {
-//     this.id = id;
-//     this.content = content;
-//     this.images = images;
-//   }
-// }
-
 export class FeedListImp implements FeedInterface.FeedListInterface {
   id: number;
   content: string;
@@ -24,6 +9,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
   images: { imageUrl: string | null };
   video: string;
+  isLiked: boolean;
   comments: {
     id: number;
     content: string;
@@ -43,6 +29,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
     likes: { id: number; createdAt: string },
     images: { imageUrl: string | null },
     video: string,
+    isLiked: boolean,
     comments: {
       id: number;
       content: string;
@@ -59,6 +46,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
     this.updatedAt = updatedAt;
     this.author = author;
     this.likes = likes;
+    this.isLiked = isLiked;
     this.images = images;
     this.video = video;
     this.comments = comments;
@@ -69,22 +57,28 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
 
 export class FeedMyProfileImp implements FeedInterface.FeedMyProfileInterface {
   id: number;
-  profileImage: string;
+
   profileBackImage: string;
-  myName: string;
   about: string;
+  user: {
+    id: number;
+    name: string;
+    profileImage: string;
+  };
 
   constructor(
     id: number,
-    profileImage: string,
     profileBackImage: string,
-    myName: string,
-    about: string
+    about: string,
+    user: {
+      id: number;
+      name: string;
+      profileImage: string;
+    }
   ) {
     this.id = id;
-    this.profileImage = profileImage;
     this.profileBackImage = profileBackImage;
-    this.myName = myName;
+    this.user = user;
     this.about = about;
   }
 }

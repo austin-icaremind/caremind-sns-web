@@ -8,7 +8,7 @@
       "id": 2,
       "name": "User",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
-      "job": "백수"
+      "job": "나다"
     },
     "likes": [
       {
@@ -16,37 +16,48 @@
         "createdAt": "2023-11-06T08:49:14.816Z"
       }
     ],
-    "images": [],
+    "images": [
+      {
+        "id": 1,
+        "image": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg"
+      }
+    ],
     "video": null,
     "comments": [
       {
-        "id": 17,
-        "content": "cccccc",
+        "id": 1000,
+        "content": "1번댓글의 1번",
         "createdAt": "2023-11-06T08:59:20.816Z",
         "updatedAt": "2023-11-06T08:59:20.816Z",
         "commenter": {
-          "id": 2,
-          "name": "User"
+          "id": 500,
+          "name": "User",
+          "profileImage": "",
+          "job": "1번 직업"
         }
       },
       {
         "id": 16,
-        "content": "cccccc",
+        "content": "1번댓글의 2번",
         "createdAt": "2023-11-06T08:59:20.467Z",
         "updatedAt": "2023-11-06T08:59:20.467Z",
         "commenter": {
           "id": 2,
-          "name": "User"
+          "name": "2번유저",
+          "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
+          "job": "2번 직업"
         }
       },
       {
         "id": 15,
-        "content": "cccccc",
+        "content": "1번댓글의 3번",
         "createdAt": "2023-11-06T08:59:20.057Z",
         "updatedAt": "2023-11-06T08:59:20.057Z",
         "commenter": {
-          "id": 2,
-          "name": "User"
+          "id": 3,
+          "name": "3번유저",
+          "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
+          "job": "1번 직업"
         }
       }
     ],
@@ -59,8 +70,8 @@
     "createdAt": "2023-11-07T00:50:12.561Z",
     "updatedAt": "2023-11-07T00:50:12.570Z",
     "author": {
-      "id": 2,
-      "name": "User",
+      "id": 1,
+      "name": "1번유저",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
       "job": "2목"
     },
@@ -80,17 +91,9 @@
         "updatedAt": "2023-11-06T08:59:20.816Z",
         "commenter": {
           "id": 2,
-          "name": "User"
-        }
-      },
-      {
-        "id": 16,
-        "content": "cccccc",
-        "createdAt": "2023-11-06T08:59:20.467Z",
-        "updatedAt": "2023-11-06T08:59:20.467Z",
-        "commenter": {
-          "id": 2,
-          "name": "User"
+          "name": "User",
+          "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
+          "job": "2번 직업"
         }
       },
       {
@@ -100,12 +103,14 @@
         "updatedAt": "2023-11-06T08:59:20.057Z",
         "commenter": {
           "id": 2,
-          "name": "User"
+          "name": "User",
+          "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
+          "job": "2번 직업"
         }
       }
     ],
     "likesCount": 1,
-    "commentsCount": 3
+    "commentsCount": 2
   },
   {
     "id": 3,
@@ -113,8 +118,8 @@
     "createdAt": "2023-11-07T00:50:12.561Z",
     "updatedAt": "2023-11-07T00:50:12.570Z",
     "author": {
-      "id": 2,
-      "name": "User",
+      "id": 3,
+      "name": "3번유저",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
       "job": "백수"
     },
@@ -126,39 +131,8 @@
     ],
     "images": [],
     "video": null,
-    "comments": [
-      {
-        "id": 17,
-        "content": "cccccc",
-        "createdAt": "2023-11-06T08:59:20.816Z",
-        "updatedAt": "2023-11-06T08:59:20.816Z",
-        "commenter": {
-          "id": 2,
-          "name": "User"
-        }
-      },
-      {
-        "id": 16,
-        "content": "cccccc",
-        "createdAt": "2023-11-06T08:59:20.467Z",
-        "updatedAt": "2023-11-06T08:59:20.467Z",
-        "commenter": {
-          "id": 2,
-          "name": "User"
-        }
-      },
-      {
-        "id": 15,
-        "content": "cccccc",
-        "createdAt": "2023-11-06T08:59:20.057Z",
-        "updatedAt": "2023-11-06T08:59:20.057Z",
-        "commenter": {
-          "id": 2,
-          "name": "User"
-        }
-      }
-    ],
+    "comments": [],
     "likesCount": 1,
-    "commentsCount": 3
+    "commentsCount": 0
   }
 ]

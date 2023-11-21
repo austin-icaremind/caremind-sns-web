@@ -1,15 +1,60 @@
 "use client";
 
 import NetworkRecievedView from "./components/NetworkRecievedView";
-
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import NetworkRecentConnectView from "./components/NetworkRecentConnectView";
-
+import NetworkRecentConnectView from "./components/NetworkMyConnectView";
+import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
 const NetworkView = () => {
+  const [recievedData, setRecievedData] = useState<any | null>(null);
+  const [sentData, setSentData] = useState<any | null>(null);
+  const [myConnectionData, setMyConnectionData] = useState<any | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const getRecievedData = await NetworkViewModel.getRecievedConnection();
+
+        setRecievedData(getRecievedData);
+
+        const getSentData = await NetworkViewModel.getSentConnection();
+
+        setSentData(getSentData);
+
+        const getMyConnectionData = await NetworkViewModel.getMyConnection();
+        setMyConnectionData(getMyConnectionData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (recievedData === null || sentData === null || myConnectionData == null) {
+    return <div>Loading...</div>;
+  }
+
+  const postAccept = (id: number) => {
+    NetworkViewModel.RecievedAccept(id).then((res) => {
+      setRecievedData(res);
+    });
+  };
+
+  const postdecline = (id: number) => {
+    NetworkViewModel.RecievedDecline(id).then((res) => {
+      setSentData(res);
+    });
+  };
   return (
     <PaddingWrapper>
-      <NetworkRecievedView />
-      <NetworkRecentConnectView />
+      <NetworkRecievedView
+        receivedData={recievedData}
+        sentData={sentData}
+        postAccept={postAccept}
+        postdecline={postdecline}
+      />
+      <NetworkRecentConnectView data={myConnectionData} />
     </PaddingWrapper>
   );
 };

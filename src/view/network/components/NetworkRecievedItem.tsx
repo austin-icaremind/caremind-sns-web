@@ -2,41 +2,64 @@
 
 import styled from "styled-components";
 import Image from "next/image";
+import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
+import { useState, useEffect } from "react";
 
-const NetworkNewConnectionUserItem: React.FC<{ data: any }> = ({ data }) => {
-  const { id, profileImageSrc, userName, userJob, connection, explanation } =
-    data;
+const NetworkRecievedItem: React.FC<{
+  isSentData: boolean;
+  data: any;
+  postAccept: any;
+  postdecline: any;
+}> = ({ data, isSentData, postAccept, postdecline }) => {
+  const handleAccept = async () => {
+    postAccept(data.id);
+  };
+
+  const handledecline = async () => {
+    postdecline(data.id);
+  };
 
   return (
-    <MapWrapper key={id}>
+    <MapWrapper key={data.id}>
       <NewConnectionUserWrapper>
         <PaddingWrapper>
           <UserImage
             alt="profileImage"
-            src={profileImageSrc}
+            src={data.connectedUser.profileImage}
             width={52}
             height={52}
           ></UserImage>
           <UserNameInformationWrapper>
-            <FirstLine>{userName}</FirstLine>
-            <SecondLine>{userJob}</SecondLine>
-            <ThirdLine>{connection} connections</ThirdLine>
+            <FirstLine>{data.connectedUser.name}</FirstLine>
+            <SecondLine></SecondLine>
+            <ThirdLine>connections</ThirdLine>
           </UserNameInformationWrapper>
-          <UserIntroductionWrapper>{explanation}</UserIntroductionWrapper>
-          <AcceptButton>ACCEPT</AcceptButton>
-          <DeclineButton>DECLINE</DeclineButton>
+          <UserIntroductionWrapper>{data.message}</UserIntroductionWrapper>
+          <ButtonContainer>
+            {isSentData ? null : (
+              <AcceptButton onClick={handleAccept}>ACCEPT</AcceptButton>
+            )}
+            <DeclineButton onClick={handledecline}>
+              {isSentData ? "CANCLE" : "DECLINE"}
+            </DeclineButton>
+          </ButtonContainer>
         </PaddingWrapper>
       </NewConnectionUserWrapper>
     </MapWrapper>
   );
 };
 
-export default NetworkNewConnectionUserItem;
+export default NetworkRecievedItem;
 
 const MapWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
+const ButtonContainer = styled.div`
+  width: 230px;
+  display: flex;
+  justify-content: flex-end;
+`;
 const NewConnectionUserWrapper = styled.div`
   min-height: 95px;
   width: 850px;
@@ -117,7 +140,6 @@ const ButtonStyle = styled.div`
   text-transform: uppercase;
 `;
 const AcceptButton = styled(ButtonStyle)`
-  margin-left: 44px;
   background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
   color: #fff;
 `;

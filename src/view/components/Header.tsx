@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
+import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -16,21 +17,32 @@ const Header: React.FC = () => {
   const handleNetwork = () => handleRouting("/network");
   const handleHome = () => handleRouting("/");
 
-  const [headerData, setHeaderData] = useState<any | null>({});
+  const [headerData, setHeaderData] = useState<any | null>(null);
+  const [headerFeedData, setHeaderFeedData] = useState<any | null>(null);
   const pathname = usePathname();
-  const hideHeaderOnPaths: string[] = ["/login", "/signup"];
+  const hideHeaderOnPaths: string[] = ["/login", "/signup", "/"];
   const pageGaFeed: string[] = ["/feed"];
   const pageGaNetwork: string[] = ["/network"];
   const changeFeedColor = pageGaFeed.includes(pathname);
   const changeNetworkColor = pageGaNetwork.includes(pathname);
   const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
+  const mainPage: string[] = ["/"];
+  const mainPageHideHeader = mainPage.includes(pathname);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
-
         setHeaderData(getHeaderProfile);
+        const userId: number | null = parseInt(
+          localStorage.getItem("userId") || "-1",
+          10
+        );
+        // const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
+
+        const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
+
+        setHeaderFeedData(getHeaderFeedData);
       } catch (error) {
         console.error(error);
       }
@@ -39,12 +51,29 @@ const Header: React.FC = () => {
     fetchData();
   }, [pathname]);
 
+
+  const handleLogin = () => {
+    router.push("/login");
+  };
+
+  const handleSignUp = () => {
+    router.push("/signup");
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    router.push("/");
+  };
+
+  if (headerFeedData === null || headerData === null) {
+    return <div>Loading...</div>;
+  }
+  const isLogined = localStorage.getItem("token");
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
         <Logo alt="로고" src="/images/Logo.png" width={46} height={46}></Logo>
       </IconWrapper>
-
       {!shouldHideHeader && (
         <>
           <FeedAndNetworkWrapper>
@@ -107,22 +136,38 @@ const Header: React.FC = () => {
           <ProfileWrapper key={headerData.id}>
             <ProfileImage
               alt="프로필 이미지"
-              src={headerData.profileImage} //data 프로필 이미지 넣기
+              src={headerFeedData.user.profileImage} //data 프로필 이미지 넣기
               height={42}
               width={42}
             />
             <UserNameWrapper>
               <MyWrapper>
-                <UserName>{headerData.myName}</UserName>
+                <UserName>{headerFeedData.user.name}</UserName>
                 <YouLetter>YOU</YouLetter>
               </MyWrapper>
               <VisitorWrapper>
-                <TodayView>{headerData.todayView} views today</TodayView>
-                <AddedNumber>{headerData.viewChange}</AddedNumber>
+                <TodayView></TodayView>
+                <AddedNumber></AddedNumber>
               </VisitorWrapper>
             </UserNameWrapper>
+            {/* {main && (
+              <LoginAndSignUpWrapper>
+                <Login onClick={handleLogin}>로그인</Login>
+                <SignUp onClick={handleSignUp}>회원가입</SignUp>
+              </LoginAndSignUpWrapper>
+            )} */}
           </ProfileWrapper>
         </>
+      )}
+      {isLogined ? (
+        <LogOutWrapper>
+          {isLogined && <LogOut onClick={handleLogOut}>로그아웃</LogOut>}
+        </LogOutWrapper>
+      ) : (
+        <SignUpAndLoginWrapper>
+          <SignUp onClick={handleSignUp}>회원가입</SignUp>
+          <Login onClick={handleLogin}>로그인</Login>
+        </SignUpAndLoginWrapper>
       )}
     </HeaderWrapper>
   );
@@ -140,9 +185,11 @@ const IconLetterWrapper = styled.div`
 const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   height: 80px;
   flex-shrink: 0;
+  align-items: center;
   background: #fff;
   box-shadow: 0px 10px 40px 0pxrgba (89, 120, 150, 0.06);
 `;
@@ -285,4 +332,53 @@ const MyWrapper = styled.div``;
 
 const VisitorWrapper = styled.div`
   margin-top: 10px;
+`;
+
+const LogOutWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 30px;
+`;
+
+const Login = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 30px;
+  border: 1px solid #0a66c2;
+  color: #0a66c2;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: #edf3f8;
+  }
+`;
+
+const LogOut = styled.div`
+  width: 100px;
+  cursor: pointer;
+  &:hover {
+    background-color: #edf3f8;
+  }
+`;
+const SignUpAndLoginWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+`;
+
+const SignUp = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  width: 80px;
+  cursor: pointer;
+  height: 30px;
+  &:hover {
+    background-color: #edf3f8;
+  }
 `;

@@ -1,32 +1,31 @@
 "use client";
-// import { useRouter } from "next/router";
+
 import styled from "styled-components";
 import Image from "next/image";
-
-import { useEffect, useState } from "react";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
-
-const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
-  userId,
-  feedId,
-  deleteFeed,
+const FeedCommentModal: React.FC<{
+  id: number;
+  commentId: number;
+  deleteComment: any;
+}> = ({
+  id,
+  //commenter안에 id
+  commentId,
+  //comment게시글의 id
+  deleteComment,
 }) => {
-  const id = userId.id;
-  //여기 아이디는 게시글에 author id
-
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
     10
   );
 
   const handleDelete = async () => {
-    deleteFeed(feedId);
+    deleteComment(commentId);
   };
 
   const handleAddConnection = async () => {
-    await FeedViewModel.postConnectionData(id, "");
+    await FeedViewModel.deleteComment(id);
   };
-
 
   return (
     <ModalWrapper>
@@ -41,11 +40,8 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
                 height={20}
               />
               수정
-              </IconWrapper>
-            <IconWrapper>
-
+            </IconWrapper>
             <IconWrapper onClick={handleDelete}>
-
               <Image
                 alt="삭제 아이콘"
                 src="/images/bin.png"
@@ -54,7 +50,6 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
               />
               삭제
             </IconWrapper>
-
             <IconWrapper>
               <Image
                 alt="링크 아이콘"
@@ -76,7 +71,6 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
               />
               친구 추가
             </IconWrapper>
-
             <IconWrapper>
               <Image
                 alt="링크 아이콘"
@@ -102,7 +96,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
   );
 };
 
-export default FeedModal;
+export default FeedCommentModal;
 
 const ModalWrapper = styled.div`
   border: 1px solid #f4f4f4;

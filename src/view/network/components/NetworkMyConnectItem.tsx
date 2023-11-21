@@ -1,32 +1,31 @@
 import styled from "styled-components";
 import Image from "next/image";
 
-const NetworkRecentConnectItem: React.FC<{ data: any }> = ({ data }) => {
-  const { id, profileImageSrc, userName, position, date } = data;
+const NetworkMyConnectItem: React.FC<{ data: any }> = ({ data }) => {
   return (
-    <ItemWrapper key={id}>
+    <ItemWrapper key={data.id}>
       <PaddinWrapper>
         <ContentWrapper>
           <UserImage
             alt="유저 이미지"
-            src={profileImageSrc}
+            src={data.connectedUser.profileImage}
             width={52}
             height={52}
           ></UserImage>
           <InformationWrapper>
-            <Name>{userName}</Name>
-            <Position>{position}</Position>
+            <Name>{data.connectedUser.name}</Name>
+            <Position>{data.message}</Position>
           </InformationWrapper>
         </ContentWrapper>
         <DateWrapper>
-          <Date>{date}</Date>
+          <Date></Date>
         </DateWrapper>
       </PaddinWrapper>
     </ItemWrapper>
   );
 };
 
-export default NetworkRecentConnectItem;
+export default NetworkMyConnectItem;
 
 const ItemWrapper = styled.div`
   width: 420px;

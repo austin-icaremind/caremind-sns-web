@@ -20,13 +20,13 @@ const FeedMyProfileView: React.FC<{ data: GetFeedMyProfileData }> = ({
         <ProfileImageWrapper>
           <ProfileImage
             alt="프로필 사진"
-            src={data.profileImage}
+            src={data.user.profileImage}
             width={100}
             height={100}
           ></ProfileImage>
         </ProfileImageWrapper>
         <UserNameWrapper>
-          <UserName>{data.myName}</UserName>
+          <UserName>{data.user.name}</UserName>
           <LinkInIcon
             alt="링크인 아이콘 뱃지"
             src="/images/Logo-yellow.png"
