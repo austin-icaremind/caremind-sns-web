@@ -8,17 +8,12 @@ import { GetFeedListData } from "@/view-model/feed/interface/FeedViewModelInterf
 const FeedListView: React.FC<{
   data: any;
   myProfileData: any;
-  clickFunction: any;
-}> = ({ data, myProfileData, clickFunction }) => {
+}> = ({ data, myProfileData }) => {
   return (
     <FeedListWrapper>
       <ModalWrapper>
         {data.map((feed: GetFeedListData) => (
-          <FeedItem
-            clickFunction={clickFunction}
-            data={feed}
-            myProfileData={myProfileData}
-          />
+          <FeedItem data={feed} myProfileData={myProfileData} />
         ))}
       </ModalWrapper>
     </FeedListWrapper>

@@ -1,6 +1,6 @@
 import { FeedService } from "@/model/service/class/FeedService";
 import * as FeedViewModelInterface from "../interface/FeedViewModelInterface";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 class FeedViewModel {
   static async postFeedData(content: string, images: string | null) {
@@ -101,6 +101,24 @@ class FeedViewModel {
       return response;
     } catch (error) {
       throw error;
+    }
+  }
+
+  static async postConnectionData(id: number, message: string | null) {
+    try {
+      const response = await FeedService.postConnection(id, message);
+
+      if ((response.status = 201)) {
+        alert("친구 신청을 보냈습니다");
+
+        return response.data;
+      }
+    } catch (error: any) {
+      if (error.response.status === 400) {
+        alert("이미 친구 신청을 보냈습니다");
+      } else {
+        alert("서버 오류");
+      }
     }
   }
 }

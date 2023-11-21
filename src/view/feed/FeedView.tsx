@@ -9,12 +9,11 @@ import FeedMyProfileView from "./components/FeedMyProfileView";
 import FeedHashTagView from "./components/FeedHashTagView";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
-const FeedView = ({ id }: { id: number }) => {
+const FeedView = () => {
   const [index, setIndex] = useState<string>("0");
   const [myProfileData, setMyProfileData] = useState<any | null>(null);
   const [myHashtagData, setMyHashtagData] = useState<any | null>(null);
   const [feedListData, setFeedListData] = useState<any | null>(null);
-  const [getCheck, setGetCheck] = useState<boolean>(false);
   const router = useRouter();
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIndex(e.target.value);
@@ -54,9 +53,6 @@ const FeedView = ({ id }: { id: number }) => {
     return <div>Loading...</div>;
   }
   const postFeed = FeedViewModel.postFeedData;
-  const isGetCheck = () => {
-    setGetCheck((prev) => !prev);
-  };
   return (
     <FeedWrapper>
       <FeedLeftContent>
@@ -71,11 +67,7 @@ const FeedView = ({ id }: { id: number }) => {
             </SortSection>
           </SortLetterContainer>
         </SortContainer>
-        <FeedListView
-          clickFunction={isGetCheck}
-          data={feedListData}
-          myProfileData={myProfileData}
-        />
+        <FeedListView data={feedListData} myProfileData={myProfileData} />
       </FeedLeftContent>
       <FeedRightContent>
         <FeedMyProfileView data={myProfileData} />

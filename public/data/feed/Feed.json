@@ -8,7 +8,7 @@
       "id": 2,
       "name": "User",
       "profileImage": "https://cdn.dtnews24.com/news/photo/201705/102022_422465.jpg",
-      "job": "백수"
+      "job": "나다"
     },
     "likes": [
       {
@@ -25,12 +25,12 @@
     "video": null,
     "comments": [
       {
-        "id": 17,
+        "id": 1000,
         "content": "1번댓글의 1번",
         "createdAt": "2023-11-06T08:59:20.816Z",
         "updatedAt": "2023-11-06T08:59:20.816Z",
         "commenter": {
-          "id": 1,
+          "id": 500,
           "name": "User",
           "profileImage": "",
           "job": "1번 직업"

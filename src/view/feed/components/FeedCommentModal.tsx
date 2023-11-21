@@ -3,9 +3,11 @@
 import styled from "styled-components";
 import Image from "next/image";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
-const FeedCommentModal: React.FC<{ id: any; commentId: any }> = ({
+const FeedCommentModal: React.FC<{ id: number; commentId: number }> = ({
   id,
+  //commenter안에 id
   commentId,
+  //comment게시글의 id
 }) => {
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
@@ -14,6 +16,10 @@ const FeedCommentModal: React.FC<{ id: any; commentId: any }> = ({
 
   const handleDelete = async () => {
     await FeedViewModel.deleteComment(commentId);
+  };
+
+  const handleAddConnection = async () => {
+    await FeedViewModel.postConnectionData(id, "");
   };
 
   return (
@@ -51,7 +57,7 @@ const FeedCommentModal: React.FC<{ id: any; commentId: any }> = ({
           </IconContainer>
         ) : (
           <IconContainer>
-            {/* <IconWrapper>
+            <IconWrapper onClick={handleAddConnection}>
               <Image
                 alt="링크 아이콘"
                 src="/images/add-user.png"
@@ -59,7 +65,7 @@ const FeedCommentModal: React.FC<{ id: any; commentId: any }> = ({
                 height={20}
               />
               친구 추가
-            </IconWrapper> */}
+            </IconWrapper>
             <IconWrapper>
               <Image
                 alt="링크 아이콘"

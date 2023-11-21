@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
+import { useState, useEffect } from "react";
 
 const NetworkRecievedItem: React.FC<{ isSentData: boolean; data: any }> = ({
   data,
@@ -10,20 +11,12 @@ const NetworkRecievedItem: React.FC<{ isSentData: boolean; data: any }> = ({
 }) => {
   const handleAccept = async () => {
     await NetworkViewModel.RecievedAccept(data.id);
-
-    // await NetworkViewModel.getRecievedConnection();
   };
 
   const handledecline = async () => {
     await NetworkViewModel.RecievedDecline(data.id);
-    // if (isSentData) {
-    //   await NetworkViewModel.getSentConnection();
-    // } else {
-    //   await NetworkViewModel.getRecievedConnection();
-    // }
   };
 
-  // const router = useRouter();
   return (
     <MapWrapper key={data.id}>
       <NewConnectionUserWrapper>

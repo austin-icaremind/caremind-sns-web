@@ -9,7 +9,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
   images: { imageUrl: string | null };
   video: string;
-  isLiked: Boolean;
+  isLiked: boolean;
   comments: {
     id: number;
     content: string;

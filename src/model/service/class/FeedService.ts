@@ -121,8 +121,8 @@ export class FeedService {
   static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-      await axios.get(`${BASE_API}/feed/Feed.json`, {
-        // await axios.get(`${BASE_API}/feed`, {
+      // await axios.get(`${BASE_API}/feed/Feed.json`, {
+      await axios.get(`${BASE_API}/feed`, {
         // await axios.get(`${BASE_API}/feed?sort=${e.target.innerText}`, {
         headers: {
           Authorization: token,
@@ -155,7 +155,7 @@ export class FeedService {
   ): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
       await axios.get(`${BASE_API}/profile/6`);
-    // await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
+    // await axios.get(`${BASE_API}/profile/ProfileTitle1.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
       response.data.profileBackImage,
@@ -174,5 +174,23 @@ export class FeedService {
       response.data.hashTag
     );
     return result;
+  }
+
+  static async postConnection(
+    id: number,
+    message: string | null
+  ): Promise<AxiosResponse<FeedServiceInterface.PostConnection>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.PostConnection> =
+      await axios.post(
+        `${BASE_API}/connection/user/${id}`,
+        { message },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+    return response;
   }
 }

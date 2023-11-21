@@ -31,6 +31,11 @@ export interface DeleteMyComment {
   id: number;
 }
 
+export interface PostConnection {
+  id: number;
+  message: string | null;
+}
+
 //피드 리스트 get//
 export interface FeedListData {
   id: number;

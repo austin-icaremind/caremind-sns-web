@@ -2,7 +2,7 @@
 // import { useRouter } from "next/router";
 import styled from "styled-components";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
 const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
@@ -10,6 +10,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
   feedId,
 }) => {
   const id = userId.id;
+  //여기 아이디는 게시글에 author id
 
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
@@ -18,6 +19,10 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
 
   const handleDelete = async () => {
     await FeedViewModel.deleteFeed(feedId);
+  };
+
+  const handleAddConnection = async () => {
+    await FeedViewModel.postConnectionData(id, "");
   };
 
   return (
@@ -55,7 +60,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
           </IconContainer>
         ) : (
           <IconContainer>
-            {/* <IconWrapper>
+            <IconWrapper onClick={handleAddConnection}>
               <Image
                 alt="링크 아이콘"
                 src="/images/add-user.png"
@@ -63,7 +68,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
                 height={20}
               />
               친구 추가
-            </IconWrapper> */}
+            </IconWrapper>
             <IconWrapper>
               <Image
                 alt="링크 아이콘"

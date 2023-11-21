@@ -36,6 +36,7 @@ const FeedCommentItem: React.FC<{ id: any; commenter: any }> = ({
     };
   }, [isCommentModalOpen]);
 
+  console.log(commenter, "danlfafnlaln");
   return (
     <CommenterWrapper>
       <CommenterPaddingWrapper>

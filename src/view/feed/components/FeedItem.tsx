@@ -12,8 +12,7 @@ import FeedCommentItem from "./FeedCommentItem";
 const FeedItem: React.FC<{
   data: any;
   myProfileData: any;
-  clickFunction: any;
-}> = ({ data, myProfileData, clickFunction }) => {
+}> = ({ data, myProfileData }) => {
   const id = data.id;
   const userId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,9 +98,9 @@ const FeedItem: React.FC<{
     setIsLiked(!isLiked);
   };
 
-  // const handlePostComment = async () => {
-  //   FeedViewModel.postMyComment(id, commentText);
-  // };
+  const handlePostComment = async () => {
+    FeedViewModel.postMyComment(id, commentText);
+  };
 
   return (
     <MapWrapper key={id}>
@@ -229,7 +228,7 @@ const FeedItem: React.FC<{
           {showPostButton && commentText && commentText.trim().length > 0 && (
             <PostCommentButton
               onClick={() => {
-                handlePostComment(), clickFunction();
+                handlePostComment();
               }}
             >
               올리기

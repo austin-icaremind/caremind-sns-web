@@ -53,7 +53,6 @@ const ProfileView = ({ id }: { id: number }) => {
     return <div>Loading...</div>;
   }
 
-
   const userIdFromLocalStorage = localStorage.getItem("userId");
   const userId = userIdFromLocalStorage
     ? parseInt(userIdFromLocalStorage, 10)
@@ -67,7 +66,6 @@ const ProfileView = ({ id }: { id: number }) => {
       document.body.style.overflow = "hidden";
     }
   };
-  console.log("테스트", modalCheck);
 
   return (
     <ProfileStyleBox>
