@@ -47,7 +47,7 @@ export class UserViewModel {
     try {
       const response = await UserService.CheckProfileId();
       if (response.status >= 200 && response.status < 300) {
-        return "exist";
+        return response.data;
       }
     } catch (error) {
       return "notExist";

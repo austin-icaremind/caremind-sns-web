@@ -9,10 +9,15 @@ import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
 import ModalEdit from "@/view/components/ModalEdit";
 
-const DetailsProjectsView = ({ id }: { id: number }) => {
+const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
+  const [change, setChange] = useState<boolean>(false);
+
+  const isChange = () => {
+    setChange((prev) => !prev);
+  };
 
   useEffect(() => {
     const fetchData = async (id: number) => {
@@ -31,8 +36,6 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
 
     fetchData(id);
   }, []);
-
-  const putTitle = ProfileViewModel.putProfileTitle(id);
 
   if (titleData === null || projectsData === null) {
     return <div>Loading...</div>;
@@ -53,7 +56,7 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
           width={20}
           height={20}
           onClick={() => {
-            router.push(`/profile/${id}`);
+            router.push(`/profile/${profileId}`);
           }}
         />
 
@@ -63,6 +66,7 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
             newBtn={true}
             title="프로젝트 생성"
             layout="projects_null"
+            click={isChange}
           />
         )}
 
@@ -79,7 +83,8 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
                   deleteBtn={true}
                   title="프로젝트 수정"
                   layout="projects"
-                  click={putTitle}
+                  click={isChange}
+                  id={projectsData.id}
                 ></ModalEdit>
               )}
 

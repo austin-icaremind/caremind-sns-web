@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import UserViewModel from "@/view-model/user/class/UserViewModel";
+import { profile } from "console";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
@@ -54,23 +55,26 @@ const LoginPage: React.FC = () => {
     }
 
     alert("로그인 성공");
-
-    const profileCheck = await UserViewModel.CheckProfileId();
-    console.log("아오", profileCheck);
-    if (profileCheck === "notExist") {
-      const createProfile = await UserViewModel.CreateProfile();
-      alert("프로필생성");
-    } else {
-    }
-
-    router.push("/");
   };
 
   useEffect(() => {
-    if (loginCheck.token) {
-      localStorage.setItem("token", loginCheck.token);
-      localStorage.setItem("userId", loginCheck.user.id);
-    }
+    const fetchData = async () => {
+      if (loginCheck.token) {
+        localStorage.setItem("token", loginCheck.token);
+        localStorage.setItem("userId", loginCheck.user.id);
+      } else {
+        return;
+      }
+      const profileCheck = await UserViewModel.CheckProfileId();
+      localStorage.setItem("profileId", profileCheck.id);
+      if (profileCheck === "notExist") {
+        const createProfile = await UserViewModel.CreateProfile();
+        alert("프로필 생성");
+      }
+      router.push("/");
+    };
+
+    fetchData();
   }, [loginCheck]);
 
   return (

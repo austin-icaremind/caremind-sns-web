@@ -15,10 +15,11 @@ export class ProfileViewModel {
   }
 
   static getProjectsData(
+    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileProjectsInterface[]> {
     try {
-      const response = ProfileService.getProjects(id);
+      const response = ProfileService.getProjects(profileId, id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -27,10 +28,11 @@ export class ProfileViewModel {
   }
 
   static getProfileExperience(
+    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileExperienceInterface[]> {
     try {
-      const response = ProfileService.getExperience(id);
+      const response = ProfileService.getExperience(profileId, id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -39,10 +41,11 @@ export class ProfileViewModel {
   }
 
   static getProfileEducation(
+    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileEducationInterface[]> {
     try {
-      const response = ProfileService.getEducation(id);
+      const response = ProfileService.getEducation(profileId, id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -50,9 +53,9 @@ export class ProfileViewModel {
     }
   }
 
-  static putProfileTitle(id: number): Promise<any> {
+  static putProfileTitle(userInfo: any): Promise<any> {
     try {
-      const response = ProfileService.putTitle(id);
+      const response = ProfileService.putTitle(userInfo);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);

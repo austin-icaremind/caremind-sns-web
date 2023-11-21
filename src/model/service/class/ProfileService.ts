@@ -28,12 +28,13 @@ export class ProfileService {
   }
 
   static async getProjects(
-    id: number
+    profileId: number,
+    id?: number
   ): Promise<ProfileInterface.ProfileProjectsInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileProjectsInterface[]
     > = await axios.get(
-      `${BASE_API}/profile/${id}/project`,
+      `${BASE_API}/profile/${profileId}/project/${id}`,
 
       {
         headers: {
@@ -113,9 +114,16 @@ export class ProfileService {
     return result;
   }
 
-  static async putTitle(id: number): Promise<any> {
+  static async putTitle(userInfo: any): Promise<any> {
     const response: AxiosResponse<any> = await axios.put(
-      `${BASE_API}/profile/${id}`,
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}`,
+      {
+        jobDescription: userInfo.jobDescription,
+        location: userInfo.location,
+        address: userInfo.address,
+        profileBackImage: userInfo.profileBackImage,
+        about: userInfo.about,
+      },
       {
         headers: {
           authorization: localStorage.getItem("token"), // 헤더에 토큰 추가

@@ -2,14 +2,17 @@
 
 import styled from "styled-components";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
+
 interface ModalProps {
   newBtn: boolean;
   deleteBtn: boolean;
   title: string;
-  data: any;
+  data?: any;
   layout: string;
-  click: any;
+  click?: any;
+  id?: number;
 }
 
 const ModalEdit: React.FC<ModalProps> = ({
@@ -19,8 +22,10 @@ const ModalEdit: React.FC<ModalProps> = ({
   data,
   layout,
   click,
+  id,
 }) => {
   const [modalCheck, setModalCheck] = useState<boolean>(false);
+  const [oneData, setOneData] = useState<any | null>(null);
   const clickModal = (value: boolean) => {
     setModalCheck(value);
     if (value === false) {
@@ -54,100 +59,136 @@ const ModalEdit: React.FC<ModalProps> = ({
     return value;
   };
 
-  // const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setUserInfo({ ...userInfo, [name]: value });
-  // };
+  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
 
-  // let userInfoInitialState;
+  let userInfoInitialState;
 
-  // switch (layout) {
-  //   case "title":
-  //     userInfoInitialState = {
-  //       name: data?.user.name,
-  //       jobDescription: data?.jobDescription,
-  //       location: data?.location,
-  //       address: data?.address,
-  //       profileImage: data?.user.profileImage,
-  //       profileBackImage: data?.user.profileBackImage,
-  //     };
-  //     break;
-  //   case "title_null":
-  //     userInfoInitialState = {
-  //       name: "",
-  //       jobDescription: "",
-  //       location: "",
-  //       address: "",
-  //       profileImage: "",
-  //       profileBackImage: "",
-  //     };
-  //     break;
-  //   case "projects":
-  //     userInfoInitialState = {
-  //       pic: data?.coverImage?.image,
-  //       title: data?.title,
-  //       info: data?.description,
-  //       startDate: data?.startDate,
-  //       endDate: data?.endDate,
-  //     };
-  //     break;
-  //   case "projects_null":
-  //     userInfoInitialState = {
-  //       pic: "",
-  //       title: "",
-  //       info: "",
-  //       startDate: "",
-  //       endDate: "",
-  //     };
-  //     break;
-  //   case "experience":
-  //     userInfoInitialState = {
-  //       position: data?.position,
-  //       companyName: data?.experienceCompany?.name,
-  //       location: data?.experienceCompany?.location,
-  //       logoUrl: data?.experienceCompany?.logo,
-  //       startDate: data?.startDate,
-  //       endDate: data?.endDate,
-  //       description: data?.description,
-  //     };
-  //     break;
-  //   case "experience":
-  //     userInfoInitialState = {
-  //       position: "",
-  //       companyName: "",
-  //       location: "",
-  //       logoUrl: "",
-  //       startDate: "",
-  //       endDate: "",
-  //       description: "",
-  //     };
-  //     break;
-  //   case "education":
-  //     userInfoInitialState = {
-  //       name: data?.educationInstitute?.name,
-  //       description: data?.description,
-  //       logoUrl: data?.educationInstitute?.logo,
-  //       course: data?.course,
-  //       startDate: data?.startDate,
-  //       endDate: data?.endDate,
-  //     };
-  //     break;
-  //   case "education":
-  //     userInfoInitialState = {
-  //       name: "",
-  //       description: "",
-  //       logoUrl: "",
-  //       course: "",
-  //       startDate: "",
-  //       endDate: "",
-  //     };
-  //     break;
-  //   default:
-  //     userInfoInitialState = {}; // Default state
-  //     break;
-  // }
+  switch (layout) {
+    case "title":
+      userInfoInitialState = {
+        jobDescription: data.jobDescription,
+        location: data.location,
+        address: data.address,
+        profileBackImage: data.profileBackImage,
+        about: data.about,
+      };
+      break;
+    case "title_null":
+      userInfoInitialState = {
+        jobDescription: "",
+        location: "",
+        address: "",
+        profileBackImage: "",
+      };
+      break;
+    case "projects":
+      userInfoInitialState = {
+        pic: data?.coverImage?.image,
+        title: data?.title,
+        info: data?.description,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+      };
+      break;
+    case "projects_null":
+      userInfoInitialState = {
+        pic: "",
+        title: "",
+        info: "",
+        startDate: "",
+        endDate: "",
+      };
+      break;
+    case "experience":
+      userInfoInitialState = {
+        position: data?.position,
+        companyName: data?.experienceCompany?.name,
+        location: data?.experienceCompany?.location,
+        logoUrl: data?.experienceCompany?.logo,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+        description: data?.description,
+      };
+      break;
+    case "experience":
+      userInfoInitialState = {
+        position: "",
+        companyName: "",
+        location: "",
+        logoUrl: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      };
+      break;
+    case "education":
+      userInfoInitialState = {
+        name: data?.educationInstitute?.name,
+        description: data?.description,
+        logoUrl: data?.educationInstitute?.logo,
+        course: data?.course,
+        startDate: data?.startDate,
+        endDate: data?.endDate,
+      };
+      break;
+    case "education":
+      userInfoInitialState = {
+        name: "",
+        description: "",
+        logoUrl: "",
+        course: "",
+        startDate: "",
+        endDate: "",
+      };
+      break;
+    default:
+      userInfoInitialState = {}; // Default state
+      break;
+  }
 
-  // const [userInfo, setUserInfo] = useState(userInfoInitialState);
+  const [userInfo, setUserInfo] = useState(userInfoInitialState);
+
+  useEffect(() => {
+    const fetchData = async (id: number, title: string) => {
+      try {
+        let data;
+        const profileId: string | null = localStorage.getItem("profileId");
+        if (title === "프로젝트 수정") {
+          data = await ProfileViewModel.getProjectsData(profileId, id);
+        } else if (title === "이력 수정") {
+          data = await ProfileViewModel.getProfileExperience(profileId, id);
+        } else if (title === "경험 수정") {
+          data = await ProfileViewModel.getProfileEducation(profileId, id);
+        }
+
+        setOneData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData(id, title);
+  }, [change, title]);
+
+  const handleSaveClick = async () => {
+    try {
+      const profileId = localStorage.getItem("profileId");
+      if (profileId) {
+        await ProfileViewModel.putProfileTitle(userInfo);
+      } else {
+        console.error("프로필 ID를 찾을 수 없습니다");
+      }
+    } catch (error) {
+      console.error("저장 중 오류 발생:", error);
+    }
+    clickModal(false);
+    click();
+  };
+
+  console.log(userInfo);
 
   return (
     <ModalEditStyle>
@@ -194,7 +235,7 @@ const ModalEdit: React.FC<ModalProps> = ({
             <ModalDeleteBtn active={deleteBtn}>삭제</ModalDeleteBtn>
             <ModalSaveBtn
               onClick={() => {
-                click();
+                handleSaveClick();
               }}
             >
               저장
@@ -401,6 +442,14 @@ const TITLE_MODAL_LAYOUT = [
     name: "profileBackImage",
     key: "profileBackImage",
     placeholder: "프로필 배경 URL을 입력해주세요.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "자기소개",
+    type: "text",
+    name: "about",
+    key: "about",
+    placeholder: "자기소개를 입력해주세요.",
     alt: "필수입력사항",
   },
 ];

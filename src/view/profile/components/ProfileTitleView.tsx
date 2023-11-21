@@ -19,45 +19,8 @@ function getFieldValue(obj: any, field: string) {
 const ProfileTitleView: React.FC<{
   data: any;
 
-  id: number;
-}> = ({ data, id }) => {
-  // interface accountCheck {
-  //   name: string;
-  //   jobDescription: string;
-  //   location: string;
-  //   address: string;
-  //   profileImage: string;
-  //   profileBackImage: string;
-  // }
-
-  // const [userInfo, setUserInfo] = useState<accountCheck>({
-  //   name: data.user.name,
-  //   jobDescription: data.jobDescription,
-  //   location: data.location,
-  //   address: data.address,
-  //   profileImage: data.user.profileImage,
-  //   profileBackImage: data.user.profileBackImage,
-  // });
-
-  // const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setUserInfo({ ...userInfo, [name]: value });
-  // };
-
-  // console.log("타이틀", userInfo);
-
-  // const cancle = () => {
-  //   setUserInfo({
-  //     name: data.user.name,
-  //     jobDescription: data.jobDescription,
-  //     location: data.location,
-  //     address: data.address,
-  //     profileImage: data.user.profileImage,
-  //     profileBackImage: data.user.profileBackImage,
-  //   });
-  // };
-
-  // const putProfileTitle = ProfileViewModel.putProfileTitle(id);
+  profileId: number;
+}> = ({ data, profileId }) => {
   return (
     <ProfileTitleStyle>
       <ProfileTitleWrapper>

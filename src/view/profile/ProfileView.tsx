@@ -11,46 +11,49 @@ import ProfileDashBoardView from "./components/ProfileDashBoardView";
 import ProfileVisitorsView from "./components/ProfileVisitorsView";
 import ModalEdit from "../components/ModalEdit";
 
-const ProfileView = ({ id }: { id: number }) => {
+const ProfileView = ({ profileId }: { profileId: number }) => {
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
-  const [userInfo, setUserInfo] = useState<any | null>({
-    name: titleData?.user.name,
-    jobDescription: titleData?.jobDescription,
-    location: titleData?.location,
-    address: titleData?.address,
-    profileImage: titleData?.user.profileImage,
-    profileBackImage: titleData?.user.profileBackImage,
-  });
+  const [change, setChange] = useState<boolean>(false);
+
+  const isChange = () => {
+    setChange((prev) => !prev);
+  };
 
   useEffect(() => {
-    const fetchData = async (id: number) => {
+    const fetchData = async (profileId: number) => {
       try {
-        const getProfileData = await ProfileViewModel.getProfileTitleData(id);
+        const getProfileData = await ProfileViewModel.getProfileTitleData(
+          profileId
+        );
 
         setTitleData(getProfileData);
 
-        const getProjectsData = await ProfileViewModel.getProjectsData(id);
+        const getProjectsData = await ProfileViewModel.getProjectsData(
+          profileId
+        );
 
         setProjectsData(getProjectsData);
 
         const getExperienceData = await ProfileViewModel.getProfileExperience(
-          id
+          profileId
         );
 
         setExperienceData(getExperienceData);
 
-        const getEducationData = await ProfileViewModel.getProfileEducation(id);
+        const getEducationData = await ProfileViewModel.getProfileEducation(
+          profileId
+        );
         setEducationData(getEducationData);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchData(id);
-  }, []);
+    fetchData(profileId);
+  }, [change]);
 
   if (
     titleData === null ||
@@ -69,20 +72,13 @@ const ProfileView = ({ id }: { id: number }) => {
 
   const myProfile: boolean = userIdFromLocalStorage === titleData.user.id;
 
-  const putTitle = ProfileViewModel.putProfileTitle(id);
-
-  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
-  };
-
   return (
     <>
       <ProfileStyleBox>
         <ProfileStyle>
           <ProfileLeft>
             <ProfileOutSideBox>
-              <ProfileTitleView data={titleData} id={id} />
+              <ProfileTitleView data={titleData} id={profileId} />
               {myProfile && (
                 <ModalEdit
                   data={titleData}
@@ -90,7 +86,7 @@ const ProfileView = ({ id }: { id: number }) => {
                   newBtn={false}
                   title="프로필 수정"
                   layout="title"
-                  click={putTitle}
+                  click={isChange}
                 />
               )}
             </ProfileOutSideBox>
@@ -102,7 +98,7 @@ const ProfileView = ({ id }: { id: number }) => {
                     <ProfileProjectsView
                       data={projectsData}
                       myProfile={myProfileCheck}
-                      profileId={id}
+                      profileId={profileId}
                     />
                   </ProfileOutSideBox>
                 </ProfileBoxInside>
@@ -113,7 +109,7 @@ const ProfileView = ({ id }: { id: number }) => {
                     <ProfileExperienceView
                       data={experienceData}
                       myProfile={myProfileCheck}
-                      profileId={id}
+                      profileId={profileId}
                     />
                   </ProfileOutSideBox>
                 </ProfileCareerWrap>
@@ -124,7 +120,7 @@ const ProfileView = ({ id }: { id: number }) => {
                     <ProfileEducationView
                       data={educationData}
                       myProfile={myProfileCheck}
-                      profileId={id}
+                      profileId={profileId}
                     />
                   </ProfileOutSideBox>
                 </ProfileCareerWrap>

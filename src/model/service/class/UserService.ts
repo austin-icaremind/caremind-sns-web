@@ -17,20 +17,6 @@ export class UserService {
     return response;
   }
 
-  static async CreateProfile(): Promise<any> {
-    const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
-      await axios.post(
-        `${BASE_API}/profile`,
-        {},
-        {
-          headers: {
-            authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
-          },
-        }
-      );
-    return response;
-  }
-
   static async Login(
     email: string,
     password: string
@@ -45,12 +31,27 @@ export class UserService {
 
   static async CheckProfileId(): Promise<any> {
     const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
-      await axios.post(
+      await axios.get(
         `${BASE_API}/profile/profileId`,
-        {},
+
         {
           headers: {
             authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          },
+        }
+      );
+
+    return response;
+  }
+
+  static async CreateProfile(): Promise<any> {
+    const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
+      await axios.post(
+        `${BASE_API}/profile`,
+
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
           },
         }
       );
