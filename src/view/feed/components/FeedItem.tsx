@@ -105,7 +105,6 @@ const FeedItem: React.FC<{
     createComment(id, commentText);
     setCommentText("");
   };
-  //완료
 
   return (
     <MapWrapper key={id}>
