@@ -2,7 +2,7 @@ export interface NetworkRecievedConnection {
   id: number;
   isAccepted: boolean;
   message: string | null;
-  user: { id: number; name: string; profileImage: string };
+  connectedUser: { id: number; name: string; profileImage: string };
 }
 
 export interface NetworkSentConnection {

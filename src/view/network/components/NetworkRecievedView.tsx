@@ -4,11 +4,12 @@ import styled from "styled-components";
 import NetworkRecievedItem from "./NetworkRecievedItem";
 import { useState } from "react";
 
-const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
-  receivedData,
-  sentData,
-}) => {
-  const [currentData, setCurrentData] = useState(receivedData);
+const NetworkRecievedView: React.FC<{
+  receivedData: any;
+  sentData: any;
+  postAccept: any;
+  postdecline: any;
+}> = ({ receivedData, sentData, postAccept, postdecline }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [isSentData, setIsSentData] = useState(false);
 
@@ -17,7 +18,6 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
       text: "RECEIVED",
       onClick: () => {
         setSelectedIdx(0);
-        setCurrentData(receivedData);
         setIsSentData(false);
       },
     },
@@ -25,7 +25,6 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
       text: "SENT",
       onClick: () => {
         setSelectedIdx(1);
-        setCurrentData(sentData);
         setIsSentData(true);
       },
     },
@@ -48,15 +47,15 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
         <NewConnectionWrapper>
           <StyleWrapper>
             <NetworkConnectionUnderLine />
-            {currentData === receivedData ? (
+            {!isSentData ? (
               <NewConnectionLetter>
                 <Black>YOU HAVE</Black>
-                <Blue>{currentData.length} NEW CONNECTIONS</Blue>
+                <Blue>{receivedData.length} NEW CONNECTIONS</Blue>
               </NewConnectionLetter>
             ) : (
               <NewConnectionLetter>
                 <Black>YOU SEND</Black>
-                <Blue>{currentData.length} CONNECTIONS</Blue>
+                <Blue>{sentData.length} CONNECTIONS</Blue>
               </NewConnectionLetter>
             )}
             <NetworkConnectionUnderLine />
@@ -64,8 +63,13 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
         </NewConnectionWrapper>
       </PaddingWrapper>
       <div>
-        {currentData.map((data: any) => (
-          <NetworkRecievedItem data={data} isSentData={isSentData} />
+        {(isSentData ? sentData : receivedData).map((data: any) => (
+          <NetworkRecievedItem
+            data={data}
+            isSentData={isSentData}
+            postAccept={postAccept}
+            postdecline={postdecline}
+          />
         ))}
       </div>
     </div>

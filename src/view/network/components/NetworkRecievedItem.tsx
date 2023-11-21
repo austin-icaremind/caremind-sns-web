@@ -5,16 +5,18 @@ import Image from "next/image";
 import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
 import { useState, useEffect } from "react";
 
-const NetworkRecievedItem: React.FC<{ isSentData: boolean; data: any }> = ({
-  data,
-  isSentData,
-}) => {
+const NetworkRecievedItem: React.FC<{
+  isSentData: boolean;
+  data: any;
+  postAccept: any;
+  postdecline: any;
+}> = ({ data, isSentData, postAccept, postdecline }) => {
   const handleAccept = async () => {
-    await NetworkViewModel.RecievedAccept(data.id);
+    postAccept(data.id);
   };
 
   const handledecline = async () => {
-    await NetworkViewModel.RecievedDecline(data.id);
+    postdecline(data.id);
   };
 
   return (

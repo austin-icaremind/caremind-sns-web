@@ -35,9 +35,25 @@ const NetworkView = () => {
     return <div>Loading...</div>;
   }
 
+  const postAccept = (id: number) => {
+    NetworkViewModel.RecievedAccept(id).then((res) => {
+      setRecievedData(res);
+    });
+  };
+
+  const postdecline = (id: number) => {
+    NetworkViewModel.RecievedDecline(id).then((res) => {
+      setSentData(res);
+    });
+  };
   return (
     <PaddingWrapper>
-      <NetworkRecievedView receivedData={recievedData} sentData={sentData} />
+      <NetworkRecievedView
+        receivedData={recievedData}
+        sentData={sentData}
+        postAccept={postAccept}
+        postdecline={postdecline}
+      />
       <NetworkRecentConnectView data={myConnectionData} />
     </PaddingWrapper>
   );

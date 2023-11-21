@@ -41,8 +41,10 @@ export class NetworkViewModel {
   static async RecievedAccept(id: number) {
     try {
       const response = await NetworkService.postAccept(id);
+      console.log(response);
       if (response.status >= 200 && response.status < 300) {
-        return response.data;
+        const result = await this.getRecievedConnection();
+        return result;
       }
     } catch (error) {
       return "wrong";
@@ -53,7 +55,8 @@ export class NetworkViewModel {
     try {
       const response = await NetworkService.postDecline(id);
       if (response.status >= 200 && response.status < 300) {
-        return response.data;
+        const result = await this.getSentConnection();
+        return result;
       }
     } catch (error) {
       return "wrong";
