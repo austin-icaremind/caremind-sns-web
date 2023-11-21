@@ -8,12 +8,22 @@ import { GetFeedListData } from "@/view-model/feed/interface/FeedViewModelInterf
 const FeedListView: React.FC<{
   data: any;
   myProfileData: any;
-}> = ({ data, myProfileData }) => {
+  createComment: any;
+  deleteComment: any;
+  deleteFeed: any;
+}> = ({ data, myProfileData, createComment, deleteComment, deleteFeed }) => {
+  console.log(data, "dsanflasnlfasdflknfknls");
   return (
     <FeedListWrapper>
       <ModalWrapper>
         {data.map((feed: GetFeedListData) => (
-          <FeedItem data={feed} myProfileData={myProfileData} />
+          <FeedItem
+            data={feed}
+            myProfileData={myProfileData}
+            createComment={createComment}
+            deleteComment={deleteComment}
+            deleteFeed={deleteFeed}
+          />
         ))}
       </ModalWrapper>
     </FeedListWrapper>

@@ -52,22 +52,50 @@ const FeedView = () => {
   ) {
     return <div>Loading...</div>;
   }
-  const postFeed = FeedViewModel.postFeedData;
+
+  const createFeed = (content: any, image: string | null) => {
+    FeedViewModel.postFeedData(content, image).then((res) => {
+      setFeedListData(res);
+    });
+  };
+  const createComment = (id: number, content: string) => {
+    FeedViewModel.postMyComment(id, content).then((res) => {
+      setFeedListData(res);
+    });
+  };
+
+  const deleteComment = (id: number) => {
+    FeedViewModel.deleteComment(id).then((res) => {
+      setFeedListData(res);
+    });
+  };
+
+  const deleteFeed = (id: number) => {
+    FeedViewModel.deleteFeed(id).then((res) => {
+      setFeedListData(res);
+    });
+  };
+
   return (
     <FeedWrapper>
       <FeedLeftContent>
-        <FeedPostView postFeed={postFeed} />
+        <FeedPostView postFeed={createFeed} />
         <SortContainer>
           <SortLine />
           <SortLetterContainer>
             <SortBy>Sort By:</SortBy>
             <SortSection value={index} onChange={onSelect}>
               <option value="0">recent</option>
-              <option value="1">trending</option>
             </SortSection>
           </SortLetterContainer>
         </SortContainer>
-        <FeedListView data={feedListData} myProfileData={myProfileData} />
+        <FeedListView
+          data={feedListData}
+          myProfileData={myProfileData}
+          createComment={createComment}
+          deleteComment={deleteComment}
+          deleteFeed={deleteFeed}
+        />
       </FeedLeftContent>
       <FeedRightContent>
         <FeedMyProfileView data={myProfileData} />

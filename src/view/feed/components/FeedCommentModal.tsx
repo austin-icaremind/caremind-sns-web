@@ -3,11 +3,16 @@
 import styled from "styled-components";
 import Image from "next/image";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
-const FeedCommentModal: React.FC<{ id: number; commentId: number }> = ({
+const FeedCommentModal: React.FC<{
+  id: number;
+  commentId: number;
+  deleteComment: any;
+}> = ({
   id,
   //commenter안에 id
   commentId,
   //comment게시글의 id
+  deleteComment,
 }) => {
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
@@ -15,11 +20,11 @@ const FeedCommentModal: React.FC<{ id: number; commentId: number }> = ({
   );
 
   const handleDelete = async () => {
-    await FeedViewModel.deleteComment(commentId);
+    deleteComment(commentId);
   };
 
   const handleAddConnection = async () => {
-    await FeedViewModel.postConnectionData(id, "");
+    await FeedViewModel.deleteComment(id);
   };
 
   return (

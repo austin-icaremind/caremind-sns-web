@@ -12,7 +12,10 @@ import FeedCommentItem from "./FeedCommentItem";
 const FeedItem: React.FC<{
   data: any;
   myProfileData: any;
-}> = ({ data, myProfileData }) => {
+  createComment: any;
+  deleteComment: any;
+  deleteFeed: any;
+}> = ({ data, myProfileData, createComment, deleteComment, deleteFeed }) => {
   const id = data.id;
   const userId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,21 +102,29 @@ const FeedItem: React.FC<{
   };
 
   const handlePostComment = async () => {
-    FeedViewModel.postMyComment(id, commentText);
+    createComment(id, commentText);
+    setCommentText("");
   };
+  //완료
 
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
         <RecommandedTitle>
-          <BlueText>Ted Bell, Annette Nguyen</BlueText>
-          <BlackText>and</BlackText>
-          <BlueText>Cody Hawkins</BlueText> <BlackText>liked this</BlackText>
+          <BlueText></BlueText>
+          <BlackText></BlackText>
+          <BlueText></BlueText> <BlackText></BlackText>
         </RecommandedTitle>
         <HambergerIconWrapper>
           <HambergerIcon onClick={handleModalOpen}>
             <FeedLocation>
-              {isModalOpen && <FeedModal feedId={id} userId={userId} />}
+              {isModalOpen && (
+                <FeedModal
+                  feedId={id}
+                  userId={userId}
+                  deleteFeed={deleteFeed}
+                />
+              )}
             </FeedLocation>
           </HambergerIcon>
         </HambergerIconWrapper>
@@ -238,7 +249,11 @@ const FeedItem: React.FC<{
             {comment
               .slice(0, showAllComments ? comment.length : maxCommentsToShow)
               .map((commenter: any) => (
-                <FeedCommentItem id={id} commenter={commenter} />
+                <FeedCommentItem
+                  id={id}
+                  commenter={commenter}
+                  deleteComment={deleteComment}
+                />
               ))}
             {!showAllComments && comment.length > maxCommentsToShow && (
               <ShowMoreButtonWrapper>

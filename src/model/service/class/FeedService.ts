@@ -154,7 +154,7 @@ export class FeedService {
     id: number
   ): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/6`);
+      await axios.get(`${BASE_API}/profile/12`);
     // await axios.get(`${BASE_API}/profile/ProfileTitle1.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,

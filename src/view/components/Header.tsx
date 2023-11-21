@@ -145,8 +145,8 @@ const Header: React.FC = () => {
                 <YouLetter>YOU</YouLetter>
               </MyWrapper>
               <VisitorWrapper>
-                <TodayView>{headerData.todayView} views today</TodayView>
-                <AddedNumber>{headerData.viewChange}</AddedNumber>
+                <TodayView></TodayView>
+                <AddedNumber></AddedNumber>
               </VisitorWrapper>
             </UserNameWrapper>
             {/* {main && (

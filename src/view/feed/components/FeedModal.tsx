@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
-const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
+const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
   userId,
   feedId,
+  deleteFeed,
 }) => {
   const id = userId.id;
   //여기 아이디는 게시글에 author id
@@ -18,7 +19,7 @@ const FeedModal: React.FC<{ userId: any; feedId: any }> = ({
   );
 
   const handleDelete = async () => {
-    await FeedViewModel.deleteFeed(feedId);
+    deleteFeed(feedId);
   };
 
   const handleAddConnection = async () => {

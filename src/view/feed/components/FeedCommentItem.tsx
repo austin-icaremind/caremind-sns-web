@@ -3,10 +3,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import FeedCommentModal from "./FeedCommentModal";
 
-const FeedCommentItem: React.FC<{ id: any; commenter: any }> = ({
-  id,
-  commenter,
-}) => {
+const FeedCommentItem: React.FC<{
+  id: any;
+  commenter: any;
+  deleteComment: any;
+}> = ({ id, commenter, deleteComment }) => {
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedCommentOption, setSelectedCommentOption] = useState(null);
 
@@ -36,7 +37,6 @@ const FeedCommentItem: React.FC<{ id: any; commenter: any }> = ({
     };
   }, [isCommentModalOpen]);
 
-  console.log(commenter, "danlfafnlaln");
   return (
     <CommenterWrapper>
       <CommenterPaddingWrapper>
@@ -60,6 +60,7 @@ const FeedCommentItem: React.FC<{ id: any; commenter: any }> = ({
                       <FeedCommentModal
                         id={commenter.commenter.id}
                         commentId={commenter.id}
+                        deleteComment={deleteComment}
                       />
                     )}
                   </FeedLocation>

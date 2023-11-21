@@ -18,6 +18,8 @@ const FeedPostView: React.FC<{ postFeed: any }> = ({ postFeed }) => {
     setPostInput("");
   };
 
+  //완료
+
   return (
     <FeedPostWrapper>
       <PaddingContainer>
