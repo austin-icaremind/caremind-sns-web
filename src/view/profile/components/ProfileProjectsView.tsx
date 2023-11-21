@@ -1,16 +1,31 @@
 "use Client";
 
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
 
-const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
-  data,
-}) => {
+const ProfileProjectsView: React.FC<{
+  data: ProfileProjectsInterface[];
+  myProfile: boolean;
+  profileId: number;
+}> = ({ data, myProfile, profileId }) => {
+  const router = useRouter();
   const selectedData = data.slice(0, 3);
 
   return (
     <ProfileProjectsViewStyle>
+      {myProfile && (
+        <Edit
+          alt="수정 아이콘"
+          src="/images/blackpencil.png"
+          width={20}
+          height={20}
+          onClick={() => {
+            router.push(`/profile/${profileId}/details/projects`);
+          }}
+        />
+      )}
       <ProfileBoxTitleBox>
         <ProfileBoxTitle>Projects</ProfileBoxTitle>
         <ProfileProjectsNumber>
@@ -27,7 +42,7 @@ const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
               height={160}
               src={item.coverImage.image}
             />
-            <ProfileProjectsTitle>P{item.title}</ProfileProjectsTitle>
+            <ProfileProjectsTitle>{item.title}</ProfileProjectsTitle>
             <ProfileProjectsDetail>
               {item.description} {item.startDate}
             </ProfileProjectsDetail>
@@ -40,6 +55,13 @@ const ProfileProjectsView: React.FC<{ data: ProfileProjectsInterface[] }> = ({
 };
 
 const ProfileProjectsViewStyle = styled.div``;
+
+const Edit = styled(Image)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+`;
 
 const ProfileBoxTitleBox = styled.div`
   display: flex;

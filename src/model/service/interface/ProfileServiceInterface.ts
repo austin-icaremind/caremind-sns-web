@@ -3,6 +3,7 @@ export interface ProfileServiceInterface {
   getProjects: (id: number) => Promise<ProfileProjectsInterface[]>;
   getExperience: (id: number) => Promise<ProfileExperienceInterface[]>;
   getEducation: (id: number) => Promise<ProfileEducationInterface[]>;
+  // postTitle: (id: number) => Promise<PutTitleInterface>;
 }
 
 export interface ProfileTitleInterface {
@@ -59,3 +60,11 @@ export interface ProfileEducationInterface {
     logo: string;
   };
 }
+
+// export interface PutTitleInterface {}
+
+// export interface PutProjectsInterface {}
+
+// export interface PutExperienceInterface {}
+
+// export interface PutEducationInterface {}
