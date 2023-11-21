@@ -10,42 +10,14 @@ import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import { ProfileEducationInterface } from "@/model/entity/profile/ProfileInterface";
 import ModalEdit from "@/view/components/ModalEdit";
 
-function getFieldValue(obj: any, field: string) {
-  const fields = field.split(".");
-  let value = obj;
-
-  for (const f of fields) {
-    value = value[f];
-  }
-  return value;
-}
-
 const DetailsEducationView = ({ id }: { id: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [educationData, setEducationData] = useState<any | null>(null);
+  const [change, setChange] = useState<boolean>(false);
 
-  interface accountCheck {
-    name: string;
-    description: string;
-    logoUrl: string;
-    course: string;
-    startDate: string;
-    endDate: string;
-  }
-
-  const [userInfo, setUserInfo] = useState<accountCheck>({
-    name: "",
-    description: "",
-    logoUrl: "",
-    course: "",
-    startDate: "",
-    endDate: "",
-  });
-
-  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
+  const isChange = () => {
+    setChange((prev) => !prev);
   };
 
   useEffect(() => {
@@ -90,21 +62,13 @@ const DetailsEducationView = ({ id }: { id: number }) => {
         />
 
         {myProfile && (
-          <ModalEdit newBtn={true} deleteBtn={false} title="교육이력 생성">
-            <>
-              {FIELD_DATA.map(({ name, type, placeholder, label }) => (
-                <InputBox key={name}>
-                  <Title>{label}</Title>
-                  <InputStyle
-                    name={name}
-                    type={type}
-                    placeholder={placeholder}
-                    onChange={handleUserInfo}
-                  />
-                </InputBox>
-              ))}
-            </>
-          </ModalEdit>
+          <ModalEdit
+            deleteBtn={false}
+            newBtn={true}
+            title="교육 생성"
+            layout="education_null"
+            click={isChange}
+          />
         )}
 
         <CareerCategory>Education</CareerCategory>
@@ -112,24 +76,15 @@ const DetailsEducationView = ({ id }: { id: number }) => {
           <CareerContentBox key={item.id}>
             <ModalPosition>
               {myProfile && (
-                <ModalEdit newBtn={false} deleteBtn={true} title="이력 수정">
-                  <>
-                    {FIELD_DATA.map(
-                      ({ name, key, type, placeholder, label }) => (
-                        <InputBox key={name}>
-                          <Title>{label}</Title>
-                          <InputStyle
-                            value={getFieldValue(item, key)}
-                            name={name}
-                            type={type}
-                            placeholder={placeholder}
-                            onChange={handleUserInfo}
-                          />
-                        </InputBox>
-                      )
-                    )}
-                  </>
-                </ModalEdit>
+                <ModalEdit
+                  data={item}
+                  newBtn={false}
+                  deleteBtn={true}
+                  title="교육 수정"
+                  layout="education"
+                  click={isChange}
+                  id={educationData.id}
+                />
               )}
             </ModalPosition>
             <CareerPic

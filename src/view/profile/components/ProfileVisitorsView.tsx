@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Image from "next/image";
 
 const ProfileVisitorsView = () => {
   return (
@@ -11,38 +12,63 @@ const ProfileVisitorsView = () => {
         </BoardTitleBox>
         <VisitorsBoardContentBox>
           <VisitorsBoardContent>
-            <VisitorsBoardPic />
+            <VisitorsBoardPic
+              alt="사진`"
+              src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=2788&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={52}
+              height={52}
+            />
             <VisitorsBoardDetailBox>
-              <VisitorsBoardName>Darlene Black</VisitorsBoardName>
-              <VisitorsBoardRole>HR-manager</VisitorsBoardRole>
+              <VisitorsBoardName>박경재</VisitorsBoardName>
+              <VisitorsBoardRole>경영지원 팀장</VisitorsBoardRole>
             </VisitorsBoardDetailBox>
           </VisitorsBoardContent>
           <VisitorsBoardContent>
-            <VisitorsBoardPic />
+            <VisitorsBoardPic
+              alt="사진`"
+              src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={52}
+              height={52}
+            />
             <VisitorsBoardDetailBox>
-              <VisitorsBoardName>Theresa Steward</VisitorsBoardName>
-              <VisitorsBoardRole>iOS developer</VisitorsBoardRole>
+              <VisitorsBoardName>박병춘</VisitorsBoardName>
+              <VisitorsBoardRole>서비스 기획</VisitorsBoardRole>
             </VisitorsBoardDetailBox>
           </VisitorsBoardContent>
           <VisitorsBoardContent>
-            <VisitorsBoardPic />
+            <VisitorsBoardPic
+              alt="사진`"
+              src="https://images.unsplash.com/photo-1491349174775-aaafddd81942?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={52}
+              height={52}
+            />
             <VisitorsBoardDetailBox>
-              <VisitorsBoardName>Brandom Wilson</VisitorsBoardName>
-              <VisitorsBoardRole>Senior UX designer</VisitorsBoardRole>
+              <VisitorsBoardName>박성운</VisitorsBoardName>
+              <VisitorsBoardRole>외과 의사</VisitorsBoardRole>
             </VisitorsBoardDetailBox>
           </VisitorsBoardContent>
           <VisitorsBoardContent>
-            <VisitorsBoardPic />
+            <VisitorsBoardPic
+              alt="사진`"
+              src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?q=80&w=2952&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={52}
+              height={52}
+            />
             <VisitorsBoardDetailBox>
-              <VisitorsBoardName>Kyle Fish</VisitorsBoardName>
-              <VisitorsBoardRole>Product designer</VisitorsBoardRole>
+              <VisitorsBoardName>박지혜</VisitorsBoardName>
+              <VisitorsBoardRole>출입국 단속</VisitorsBoardRole>
             </VisitorsBoardDetailBox>
           </VisitorsBoardContent>
           <VisitorsBoardContent>
-            <VisitorsBoardPic />
+            <VisitorsBoardPic
+              alt="사진`"
+              src="https://images.unsplash.com/photo-1500048993953-d23a436266cf?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              width={52}
+              height={52}
+            />
             <VisitorsBoardDetailBox>
-              <VisitorsBoardName>Audrey Alexander</VisitorsBoardName>
-              <VisitorsBoardRole>Team lead at Google</VisitorsBoardRole>
+              <VisitorsBoardName>박건국</VisitorsBoardName>
+              <VisitorsBoardRole>개발자</VisitorsBoardRole>
             </VisitorsBoardDetailBox>
           </VisitorsBoardContent>
         </VisitorsBoardContentBox>
@@ -107,12 +133,10 @@ const VisitorsBoardContent = styled.div`
   align-items: center;
 `;
 
-const VisitorsBoardPic = styled.div`
-  width: 52px;
-  height: 52px;
+const VisitorsBoardPic = styled(Image)`
   flex-shrink: 0;
   border-radius: 26px;
-  background-color: orange;
+  object-fit: cover;
   margin-right: 15px;
 `;
 

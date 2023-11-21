@@ -28,13 +28,12 @@ export class ProfileService {
   }
 
   static async getProjects(
-    profileId: number,
     id?: number
   ): Promise<ProfileInterface.ProfileProjectsInterface[]> {
     const response: AxiosResponse<
       ProfileServiceInterface.ProfileProjectsInterface[]
     > = await axios.get(
-      `${BASE_API}/profile/${profileId}/project/${id}`,
+      `${BASE_API}/profile/${id}/project`,
 
       {
         headers: {
@@ -123,6 +122,57 @@ export class ProfileService {
         address: userInfo.address,
         profileBackImage: userInfo.profileBackImage,
         about: userInfo.about,
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        },
+      }
+    );
+    return response;
+  }
+
+  static async makeProject(userInfo: any): Promise<any> {
+    const response: AxiosResponse<any> = await axios.post(
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}/project`,
+      {
+        title: userInfo.title,
+        description: userInfo.description,
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        projectImages: [userInfo.image],
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        },
+      }
+    );
+    return response;
+  }
+
+  static async removeProject(id: number): Promise<any> {
+    const response: AxiosResponse<any> = await axios.delete(
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}/project/${id}`,
+
+      {
+        headers: {
+          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        },
+      }
+    );
+    return response;
+  }
+
+  static async updateProject(userInfo: any, id: number): Promise<any> {
+    const response: AxiosResponse<any> = await axios.put(
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}/project/${id}`,
+      {
+        title: userInfo.title,
+        description: userInfo.description,
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        projectImages: [userInfo.image],
       },
       {
         headers: {

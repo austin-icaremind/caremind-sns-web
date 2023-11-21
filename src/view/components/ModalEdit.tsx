@@ -25,7 +25,7 @@ const ModalEdit: React.FC<ModalProps> = ({
   id,
 }) => {
   const [modalCheck, setModalCheck] = useState<boolean>(false);
-  const [oneData, setOneData] = useState<any | null>(null);
+
   const clickModal = (value: boolean) => {
     setModalCheck(value);
     if (value === false) {
@@ -36,15 +36,21 @@ const ModalEdit: React.FC<ModalProps> = ({
   };
 
   const item = (() => {
-    if (layout === ("title" || "title_null")) {
+    if (layout === "title") {
+      return TITLE_MODAL_LAYOUT;
+    } else if (layout === "title_null") {
       return TITLE_MODAL_LAYOUT;
     } else if (layout === "projects") {
       return PROJECTS_MODAL_LAYOUT;
     } else if (layout === "projects_null") {
       return PROJECTS_MODAL_LAYOUT;
-    } else if (layout === ("experience" || "experience_null")) {
+    } else if (layout === "experience") {
       return EXPERIENCE_MODAL_LAYOUT;
-    } else if (layout === ("education" || "education_null")) {
+    } else if (layout === "experience_null") {
+      return EXPERIENCE_MODAL_LAYOUT;
+    } else if (layout === "education") {
+      return EDUCATION_MODAL_LAYOUT;
+    } else if (layout === "education_null") {
       return EDUCATION_MODAL_LAYOUT;
     }
   })();
@@ -82,22 +88,23 @@ const ModalEdit: React.FC<ModalProps> = ({
         location: "",
         address: "",
         profileBackImage: "",
+        about: "",
       };
       break;
     case "projects":
       userInfoInitialState = {
-        pic: data?.coverImage?.image,
+        image: data?.coverImage?.image,
         title: data?.title,
-        info: data?.description,
+        description: data?.description,
         startDate: data?.startDate,
         endDate: data?.endDate,
       };
       break;
     case "projects_null":
       userInfoInitialState = {
-        pic: "",
+        image: "",
         title: "",
-        info: "",
+        description: "",
         startDate: "",
         endDate: "",
       };
@@ -145,39 +152,16 @@ const ModalEdit: React.FC<ModalProps> = ({
       };
       break;
     default:
-      userInfoInitialState = {}; // Default state
+      userInfoInitialState = {};
       break;
   }
 
   const [userInfo, setUserInfo] = useState(userInfoInitialState);
-
-  useEffect(() => {
-    const fetchData = async (id: number, title: string) => {
-      try {
-        let data;
-        const profileId: string | null = localStorage.getItem("profileId");
-        if (title === "프로젝트 수정") {
-          data = await ProfileViewModel.getProjectsData(profileId, id);
-        } else if (title === "이력 수정") {
-          data = await ProfileViewModel.getProfileExperience(profileId, id);
-        } else if (title === "경험 수정") {
-          data = await ProfileViewModel.getProfileEducation(profileId, id);
-        }
-
-        setOneData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData(id, title);
-  }, [change, title]);
-
-  const handleSaveClick = async () => {
+  const profileId = localStorage.getItem("profileId");
+  const handleRemoveClick = async () => {
     try {
-      const profileId = localStorage.getItem("profileId");
       if (profileId) {
-        await ProfileViewModel.putProfileTitle(userInfo);
+        await ProfileViewModel.removeProject(userInfo, id);
       } else {
         console.error("프로필 ID를 찾을 수 없습니다");
       }
@@ -187,6 +171,40 @@ const ModalEdit: React.FC<ModalProps> = ({
     clickModal(false);
     click();
   };
+
+  const handleMakeClick = async () => {
+    try {
+      if (profileId) {
+        await ProfileViewModel.makeProject(userInfo);
+      } else {
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
+    clickModal(false);
+    click();
+  };
+
+  const handleUpdateClick = async () => {
+    try {
+      if (profileId) {
+        await ProfileViewModel.updateProject(userInfo, id);
+      } else {
+        console.error("프로필 ID를 찾을 수 없습니다");
+      }
+    } catch (error) {
+      console.error("저장 중 오류 발생:", error);
+    }
+    clickModal(false);
+    click();
+  };
+
+  const nullLayouts = [
+    "title_null",
+    "projects_null",
+    "experience_null",
+    "education_null",
+  ];
 
   console.log(userInfo);
 
@@ -212,13 +230,9 @@ const ModalEdit: React.FC<ModalProps> = ({
                   <Title>{label}</Title>
                   <InputStyle
                     defaultValue={
-                      layout !==
-                      ("title_null" ||
-                        "projects_null" ||
-                        "experience_null" ||
-                        "education_null")
-                        ? getFieldValue(data, key)
-                        : null
+                      nullLayouts.includes(layout)
+                        ? ""
+                        : getFieldValue(data, key)
                     }
                     name={name}
                     type={type}
@@ -232,10 +246,21 @@ const ModalEdit: React.FC<ModalProps> = ({
             </>
           </ModalMiddle>
           <ModalFooter>
-            <ModalDeleteBtn active={deleteBtn}>삭제</ModalDeleteBtn>
+            <ModalDeleteBtn
+              active={deleteBtn}
+              onClick={() => {
+                handleRemoveClick();
+              }}
+            >
+              삭제
+            </ModalDeleteBtn>
             <ModalSaveBtn
               onClick={() => {
-                handleSaveClick();
+                if (newBtn === true) {
+                  handleMakeClick();
+                } else if (newBtn === false) {
+                  handleUpdateClick();
+                }
               }}
             >
               저장
@@ -393,15 +418,6 @@ const Edit = styled(Image)`
 `;
 
 const TITLE_MODAL_LAYOUT = [
-  // {
-  //   label: "이름",
-  //   type: "text",
-  //   name: "name",
-  //   key: "user.name",
-  //   placeholder: "이름을 입력해주세요",
-  //   description: "이름을 입력해주세요",
-  //   alt: "필수입력사항",
-  // },
   {
     label: "직무",
     type: "text",
@@ -427,14 +443,6 @@ const TITLE_MODAL_LAYOUT = [
     placeholder: "예) 동작구 49길",
     alt: "필수입력사항",
   },
-  // {
-  //   label: "프로필 URL",
-  //   type: "text",
-  //   name: "profileImage",
-  //   key: "user.profileImage",
-  //   placeholder: "프로필 URL을 입력해주세요.",
-  //   alt: "필수입력사항",
-  // },
 
   {
     label: "프로필 배경 URL",

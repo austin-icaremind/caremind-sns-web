@@ -42,9 +42,9 @@ const ProfileProjectsView: React.FC<{
               height={160}
               src={item.coverImage.image}
             />
-            <ProfileProjectsTitle>P{item.title}</ProfileProjectsTitle>
+            <ProfileProjectsTitle>{item.title}</ProfileProjectsTitle>
             <ProfileProjectsDetail>
-              {item.title} {item.startDate}
+              {item.description} {item.startDate}
             </ProfileProjectsDetail>
           </ProfileProjectsCard>
         ))}

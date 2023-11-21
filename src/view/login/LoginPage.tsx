@@ -70,6 +70,8 @@ const LoginPage: React.FC = () => {
       if (profileCheck === "notExist") {
         const createProfile = await UserViewModel.CreateProfile();
         alert("프로필 생성");
+        const profileCheck = await UserViewModel.CheckProfileId();
+        localStorage.setItem("profileId", profileCheck.id);
       }
       router.push("/");
     };

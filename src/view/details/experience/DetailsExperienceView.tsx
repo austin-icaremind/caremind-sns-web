@@ -9,44 +9,14 @@ import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import { ProfileExperienceInterface } from "@/model/entity/profile/ProfileInterface";
 import ModalEdit from "@/view/components/ModalEdit";
 
-function getFieldValue(obj: any, field: string) {
-  const fields = field.split(".");
-  let value = obj;
-
-  for (const f of fields) {
-    value = value[f];
-  }
-  return value;
-}
-
 const DetailsExperienceView = ({ id }: { id: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [experienceData, setExperienceData] = useState<any | null>(null);
+  const [change, setChange] = useState<boolean>(false);
 
-  interface accountCheck {
-    position: string;
-    companyName: string;
-    location: string;
-    logoUrl: string;
-    startDate: string;
-    endDate: string;
-    description: string;
-  }
-
-  const [userInfo, setUserInfo] = useState<accountCheck>({
-    position: "",
-    companyName: "",
-    location: "",
-    logoUrl: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-  });
-
-  const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserInfo({ ...userInfo, [name]: value });
+  const isChange = () => {
+    setChange((prev) => !prev);
   };
 
   useEffect(() => {
@@ -56,16 +26,16 @@ const DetailsExperienceView = ({ id }: { id: number }) => {
 
         setTitleData(getProfileData);
 
-        const getProjectsData = await ProfileViewModel.getProfileExperience(id);
+        const getExperience = await ProfileViewModel.getProfileExperience(id);
 
-        setExperienceData(getProjectsData);
+        setExperienceData(getExperience);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData(id);
-  }, []);
+  }, [change]);
 
   if (titleData === null || experienceData === null) {
     return <div>Loading...</div>;
@@ -91,21 +61,13 @@ const DetailsExperienceView = ({ id }: { id: number }) => {
         />
 
         {myProfile && (
-          <ModalEdit newBtn={true} deleteBtn={false} title="이력 생성">
-            <>
-              {FIELD_DATA.map(({ name, type, placeholder, label }) => (
-                <InputBox key={name}>
-                  <Title>{label}</Title>
-                  <InputStyle
-                    name={name}
-                    type={type}
-                    placeholder={placeholder}
-                    onChange={handleUserInfo}
-                  />
-                </InputBox>
-              ))}
-            </>
-          </ModalEdit>
+          <ModalEdit
+            deleteBtn={false}
+            newBtn={true}
+            title="이력 생성"
+            layout="experience_null"
+            click={isChange}
+          />
         )}
 
         <CareerCategory>Experience</CareerCategory>
@@ -113,24 +75,15 @@ const DetailsExperienceView = ({ id }: { id: number }) => {
           <CareerContentBox key={item.id}>
             <ModalPosition>
               {myProfile && (
-                <ModalEdit newBtn={false} deleteBtn={true} title="이력 수정">
-                  <>
-                    {FIELD_DATA.map(
-                      ({ name, key, type, placeholder, label }) => (
-                        <InputBox key={name}>
-                          <Title>{label}</Title>
-                          <InputStyle
-                            value={getFieldValue(item, key)}
-                            name={name}
-                            type={type}
-                            placeholder={placeholder}
-                            onChange={handleUserInfo}
-                          />
-                        </InputBox>
-                      )
-                    )}
-                  </>
-                </ModalEdit>
+                <ModalEdit
+                  data={item}
+                  newBtn={false}
+                  deleteBtn={true}
+                  title="이력 수정"
+                  layout="experience"
+                  click={isChange}
+                  id={experienceData.id}
+                />
               )}
             </ModalPosition>
             <CareerPic

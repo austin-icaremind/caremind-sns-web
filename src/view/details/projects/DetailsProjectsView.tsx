@@ -9,7 +9,7 @@ import DetailsViewLayout from "@/view/components/DetailsViewLayout";
 import { ProfileProjectsInterface } from "@/model/entity/profile/ProfileInterface";
 import ModalEdit from "@/view/components/ModalEdit";
 
-const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
+const DetailsProjectsView = ({ id }: { id: number }) => {
   const router = useRouter();
   const [titleData, setTitleData] = useState<any | null>(null);
   const [projectsData, setProjectsData] = useState<any | null>(null);
@@ -35,7 +35,7 @@ const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
     };
 
     fetchData(id);
-  }, []);
+  }, [change]);
 
   if (titleData === null || projectsData === null) {
     return <div>Loading...</div>;
@@ -56,7 +56,7 @@ const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
           width={20}
           height={20}
           onClick={() => {
-            router.push(`/profile/${profileId}`);
+            router.push(`/profile/${id}`);
           }}
         />
 
@@ -85,7 +85,7 @@ const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
                   layout="projects"
                   click={isChange}
                   id={projectsData.id}
-                ></ModalEdit>
+                />
               )}
 
               <ProfileProjectsPic
@@ -96,7 +96,7 @@ const DetailsProjectsView = ({ profileId }: { profileId: number }) => {
                 src={item.coverImage.image}
               />
               <ProfileProjectsInfoBox>
-                <ProfileProjectsTitle>P{item.title}</ProfileProjectsTitle>
+                <ProfileProjectsTitle>{item.title}</ProfileProjectsTitle>
                 <ProfileProjectsDetail>
                   {item.description}
 

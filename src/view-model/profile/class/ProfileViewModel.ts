@@ -15,11 +15,10 @@ export class ProfileViewModel {
   }
 
   static getProjectsData(
-    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileProjectsInterface[]> {
     try {
-      const response = ProfileService.getProjects(profileId, id);
+      const response = ProfileService.getProjects(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -28,11 +27,10 @@ export class ProfileViewModel {
   }
 
   static getProfileExperience(
-    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileExperienceInterface[]> {
     try {
-      const response = ProfileService.getExperience(profileId, id);
+      const response = ProfileService.getExperience(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -41,11 +39,10 @@ export class ProfileViewModel {
   }
 
   static getProfileEducation(
-    profileId: number,
     id: number
   ): Promise<ProfileViewModelInterface.ProfileEducationInterface[]> {
     try {
-      const response = ProfileService.getEducation(profileId, id);
+      const response = ProfileService.getEducation(id);
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
@@ -57,6 +54,36 @@ export class ProfileViewModel {
     try {
       const response = ProfileService.putTitle(userInfo);
       return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static makeProject(userInfo: any): Promise<number> {
+    try {
+      const response = ProfileService.makeProject(userInfo);
+      return response.status;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static removeProject(id: number): Promise<number> {
+    try {
+      const response = ProfileService.removeProject(id);
+      return response.status;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static updateProject(userInfo: any, id: number): Promise<number> {
+    try {
+      const response = ProfileService.updateProject(userInfo, id);
+      return response.status;
     } catch (error) {
       console.error("Error getting profile title data:", error);
       throw error;
