@@ -20,7 +20,6 @@ export class ProfileViewModel {
     try {
       const response = ProfileService.getProjects(id);
 
-
       return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);

@@ -1,67 +1,71 @@
 "use client";
 
 import styled from "styled-components";
-import NetworkNewConnectionUserItem from "./NetworkNewConnectionUserItem";
+import NetworkRecievedItem from "./NetworkRecievedItem";
+import { useState } from "react";
 
-const NetworkRecievedView = () => {
-  type FeedData = {
-    // 나중에 키값 백엔드랑 맞추기//
-    id: number;
-    profileImageSrc: string;
-    userName: string;
-    userJob: string;
-    connection: number;
-    explanation: string;
-  };
+const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
+  receivedData,
+  sentData,
+}) => {
+  const [currentData, setCurrentData] = useState(receivedData);
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [isSentData, setIsSentData] = useState(false);
 
-  const UserData: FeedData[] = [
+  const BUTTON_DATA = [
     {
-      id: 1,
-      profileImageSrc: "/images/thumbs-up.png",
-      userName: "Theresa Steward",
-      userJob: "iOS developer",
-      connection: 132,
-      explanation:
-        "Hey, I saw your works. I like it! Can we do something together? Or,",
+      text: "RECEIVED",
+      onClick: () => {
+        setSelectedIdx(0);
+        setCurrentData(receivedData);
+        setIsSentData(false);
+      },
     },
     {
-      id: 2,
-      profileImageSrc: "/images/Logo.png",
-      userName: "2번 목데이터",
-      userJob: "백수",
-      connection: 555,
-      explanation: "2번 목데이터",
-    },
-    {
-      id: 3,
-      profileImageSrc: "/images/Logo.png",
-      userName: "3번 목데이터",
-      userJob: "돈많은 백수",
-      connection: 333,
-      explanation: "3번 목데이터",
+      text: "SENT",
+      onClick: () => {
+        setSelectedIdx(1);
+        setCurrentData(sentData);
+        setIsSentData(true);
+      },
     },
   ];
+
   return (
     <div>
       <PaddingWrapper>
         <ButtonContainer>
-          <ReceivedButton>RECEIVED</ReceivedButton>
-          <SentButton>SENT</SentButton>
+          {BUTTON_DATA.map(({ text, onClick }, idx) => (
+            <Button
+              key={text}
+              onClick={onClick}
+              $isSelected={idx === selectedIdx}
+            >
+              {text}
+            </Button>
+          ))}
         </ButtonContainer>
         <NewConnectionWrapper>
           <StyleWrapper>
             <NetworkConnectionUnderLine />
-            <NewConnectionLetter>
-              <Black>YOU HAVE</Black>
-              <Blue>{UserData.length} NEW CONNECTIONS</Blue>
-            </NewConnectionLetter>
+            {currentData === receivedData ? (
+              <NewConnectionLetter>
+                <Black>YOU HAVE</Black>
+                <Blue>{currentData.length} NEW CONNECTIONS</Blue>
+              </NewConnectionLetter>
+            ) : (
+              <NewConnectionLetter>
+                <Black>YOU SEND</Black>
+                <Blue>{currentData.length} CONNECTIONS</Blue>
+              </NewConnectionLetter>
+            )}
             <NetworkConnectionUnderLine />
           </StyleWrapper>
         </NewConnectionWrapper>
       </PaddingWrapper>
       <div>
-        {UserData.map((data) => (
-          <NetworkNewConnectionUserItem data={data} />
+        {currentData.map((data: any) => (
+          <NetworkRecievedItem data={data} isSentData={isSentData} />
         ))}
       </div>
     </div>
@@ -80,12 +84,18 @@ const ButtonContainer = styled.div`
   border-bottom: 1px solid #e7e7e7;
 `;
 
-const ButtonStyle = styled.div`
+const Button = styled.button<{ $isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 240px;
-  height: 50px;
+  height: ${(props) => (props.$isSelected ? "50px" : "40px")};
+  background: ${(props) =>
+    props.$isSelected
+      ? "linear-gradient(180deg, #0077b5 0%, #0e6795 100%)"
+      : "#fff"};
+  color: ${(props) => (props.$isSelected ? "#fff" : "black")};
+  border: ${(props) => (!props.$isSelected ? "1px solid #e7e7e7" : "none")};
   border-radius: 4px 4px 0px 0px;
   text-align: center;
   font-family: Gotham Pro;
@@ -95,16 +105,6 @@ const ButtonStyle = styled.div`
   line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
-`;
-const ReceivedButton = styled(ButtonStyle)`
-  background: linear-gradient(180deg, #0077b5 0%, #0e6795 100%);
-  color: #fff;
-`;
-
-const SentButton = styled(ButtonStyle)`
-  height: 40px;
-  border: 1px solid #e7e7e7;
-  background: #fff;
 `;
 
 const NewConnectionWrapper = styled.div`
@@ -126,7 +126,6 @@ const NewConnectionLetter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 8px;
 `;
 
 const Black = styled.p`

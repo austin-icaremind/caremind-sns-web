@@ -4,6 +4,7 @@ import FeedPostView from "./components/FeedPostView";
 import FeedListView from "./components/FeedListView";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import FeedMyProfileView from "./components/FeedMyProfileView";
 import FeedHashTagView from "./components/FeedHashTagView";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
@@ -13,33 +14,35 @@ const FeedView = ({ id }: { id: number }) => {
   const [myProfileData, setMyProfileData] = useState<any | null>(null);
   const [myHashtagData, setMyHashtagData] = useState<any | null>(null);
   const [feedListData, setFeedListData] = useState<any | null>(null);
+  const [getCheck, setGetCheck] = useState<boolean>(false);
+  const router = useRouter();
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIndex(e.target.value);
+    // router.push(`/?sort=${e.target.innerText}`);
   };
 
+  const fetchData = async () => {
+    try {
+      const getFeedList = await FeedViewModel.getFeedListData();
+
+      setFeedListData(getFeedList);
+
+      const getMyHashtag = await FeedViewModel.getFeedMyHashtagData();
+
+      setMyHashtagData(getMyHashtag);
+
+      const userId: number | null = parseInt(
+        localStorage.getItem("userId") || "-1",
+        10
+      );
+      const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
+
+      setMyProfileData(getMyProfile);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const getFeedList = await FeedViewModel.getFeedListData();
-
-        setFeedListData(getFeedList);
-
-        const getMyHashtag = await FeedViewModel.getFeedMyHashtagData();
-
-        setMyHashtagData(getMyHashtag);
-
-        const userId: number | null = parseInt(
-          localStorage.getItem("userId") || "-1",
-          10
-        );
-        const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
-
-        setMyProfileData(getMyProfile);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -51,7 +54,9 @@ const FeedView = ({ id }: { id: number }) => {
     return <div>Loading...</div>;
   }
   const postFeed = FeedViewModel.postFeedData;
-
+  const isGetCheck = () => {
+    setGetCheck((prev) => !prev);
+  };
   return (
     <FeedWrapper>
       <FeedLeftContent>
@@ -61,12 +66,16 @@ const FeedView = ({ id }: { id: number }) => {
           <SortLetterContainer>
             <SortBy>Sort By:</SortBy>
             <SortSection value={index} onChange={onSelect}>
-              <option value="0">trending</option>
-              <option value="1">latest</option>
+              <option value="0">recent</option>
+              <option value="1">trending</option>
             </SortSection>
           </SortLetterContainer>
         </SortContainer>
-        <FeedListView data={feedListData} />
+        <FeedListView
+          clickFunction={isGetCheck}
+          data={feedListData}
+          myProfileData={myProfileData}
+        />
       </FeedLeftContent>
       <FeedRightContent>
         <FeedMyProfileView data={myProfileData} />

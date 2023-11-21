@@ -1,11 +1,17 @@
-export interface NetworkRecievedConnection {
+export interface NetworkViewModelInterface {
+  getRecievedConnection: () => Promise<NetworkRecievedInterface[]>;
+  getSentConnection: () => Promise<NetworkSentInterface[]>;
+  getMyConnection: () => Promise<NetworkMyConnectionInterface[]>;
+}
+
+export interface NetworkRecievedInterface {
   id: number;
   isAccepted: boolean;
   message: string | null;
-  user: { id: number; name: string; profileImage: string };
+  connectedUser: { id: number; name: string; profileImage: string };
 }
 
-export interface NetworkSentConnection {
+export interface NetworkSentInterface {
   id: number;
   isAccepted: boolean;
   message: string | null;

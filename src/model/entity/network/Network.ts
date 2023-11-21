@@ -1,51 +1,62 @@
 import * as NetworkInterface from "./NetworkInterface";
 
-export class NetworkNewConnectionImp
-  implements NetworkInterface.NetworkNewConnectionInterface
+export class NetworkRecievedConnectionImp
+  implements NetworkInterface.NetworkRecievedConnection
 {
   id: number;
-  profileImage: string;
-  userName: string;
-  userJob: string;
-  connection: number;
-  explanation: string;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: { id: number; name: string; profileImage: string };
 
   constructor(
     id: number,
-    profileImage: string,
-    userName: string,
-    userJob: string,
-    connection: number,
-    explanation: string
+    isAccepted: boolean,
+    message: string | null,
+    connectedUser: { id: number; name: string; profileImage: string }
   ) {
     this.id = id;
-    this.profileImage = profileImage;
-    this.userName = userName;
-    this.userJob = userJob;
-    this.connection = connection;
-    this.explanation = explanation;
+    this.isAccepted = isAccepted;
+    this.message = message;
+    this.connectedUser = connectedUser;
   }
 }
 
-export class NetworkRecentConnectionImp
-  implements NetworkInterface.NetworkRecentConnectionInterface
+export class NetworkSentConnectionImp
+  implements NetworkInterface.NetworkSentConnection
 {
   id: number;
-  profileImage: string;
-  userName: string;
-  position: string;
-  date: string;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: { id: number; name: string; profileImage: string };
   constructor(
     id: number,
-    profileImage: string,
-    userName: string,
-    position: string,
-    date: string
+    isAccepted: boolean,
+    message: string | null,
+    connectedUser: { id: number; name: string; profileImage: string }
   ) {
     this.id = id;
-    this.profileImage = profileImage;
-    this.userName = userName;
-    this.position = position;
-    this.date = date;
+    this.isAccepted = isAccepted;
+    this.message = message;
+    this.connectedUser = connectedUser;
+  }
+}
+
+export class NetwrokMyconnectionImp
+  implements NetworkInterface.NetworkMyConnectionInterface
+{
+  id: number;
+  isAccepted: boolean;
+  message: string | null;
+  connectedUser: { id: number; name: string; profileImage: string };
+  constructor(
+    id: number,
+    isAccepted: boolean,
+    message: string | null,
+    connectedUser: { id: number; name: string; profileImage: string }
+  ) {
+    this.id = id;
+    this.isAccepted = isAccepted;
+    this.message = message;
+    this.connectedUser = connectedUser;
   }
 }

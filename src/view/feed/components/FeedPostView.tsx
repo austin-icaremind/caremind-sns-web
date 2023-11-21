@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { ChangeEvent } from "react";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
 
 const FeedPostView: React.FC<{ postFeed: any }> = ({ postFeed }) => {
   const [postInput, setPostInput] = useState<string>("");
@@ -12,7 +13,7 @@ const FeedPostView: React.FC<{ postFeed: any }> = ({ postFeed }) => {
     setPostInput(e.target.value);
   };
 
-  const handlePostClick = () => {
+  const handlePostClick = async () => {
     postFeed(postInput);
   };
 

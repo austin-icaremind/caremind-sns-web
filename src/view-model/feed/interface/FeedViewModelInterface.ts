@@ -1,18 +1,9 @@
 import { AxiosResponse } from "axios";
 
 export interface FeedViewModelInterface {
-  postFeedData: (
-    content: string,
-    images: { imageUrl: string | null }
-  ) => AxiosResponse<string>;
   getFeedListData: () => Promise<GetFeedListData[]>;
   getFeedMyProfileData: (id: number) => Promise<GetFeedMyProfileData>;
   getFeedMyHashtagData: () => Promise<GetFeedMyHashtagData>;
-}
-
-export interface PostFeedData {
-  content: string;
-  images: { imageUrl: string | null };
 }
 
 export interface GetFeedListData {
@@ -24,6 +15,7 @@ export interface GetFeedListData {
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
   images: { imageUrl: string | null };
   video: string;
+  isLiked: boolean;
   comments: {
     id: number;
     content: string;
