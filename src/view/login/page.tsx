@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
     }
 
     alert("로그인 성공");
-    router.push("/");
+    router.push("/feed");
   };
 
   useEffect(() => {

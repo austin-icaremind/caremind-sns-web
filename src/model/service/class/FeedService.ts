@@ -153,8 +153,9 @@ export class FeedService {
   static async getMyProfile(
     id: number
   ): Promise<FeedInterface.FeedMyProfileInterface> {
+    const userId = localStorage.getItem("userId");
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/12`);
+      await axios.get(`${BASE_API}/profile/${userId}`);
     // await axios.get(`${BASE_API}/profile/ProfileTitle1.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,

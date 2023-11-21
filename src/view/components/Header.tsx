@@ -61,6 +61,9 @@ const Header: React.FC = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("profileId");
+
     router.push("/");
   };
 
@@ -190,7 +193,7 @@ const HeaderWrapper = styled.div`
   flex-shrink: 0;
   align-items: center;
   background: #fff;
-  box-shadow: 0px 10px 40px 0pxrgba (89, 120, 150, 0.06);
+  box-shadow: 0px 10px 40px 0px rgba (89, 120, 150, 0.06);
 `;
 
 const IconWrapper = styled.div`
@@ -339,6 +342,7 @@ const LogOutWrapper = styled.div`
   justify-content: center;
   width: 60px;
   height: 30px;
+  padding-right: 30px;
 `;
 
 const Login = styled.span`
@@ -358,6 +362,7 @@ const Login = styled.span`
 
 const LogOut = styled.div`
   width: 100px;
+
   cursor: pointer;
   &:hover {
     background-color: #edf3f8;
@@ -367,6 +372,7 @@ const SignUpAndLoginWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 16px;
+  margin-right: 30px;
 `;
 
 const SignUp = styled.span`
