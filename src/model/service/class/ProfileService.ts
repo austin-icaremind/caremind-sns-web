@@ -152,7 +152,6 @@ export class ProfileService {
   }
 
   static async removeProject(id: number): Promise<any> {
-    console.log("id", id);
     const response: AxiosResponse<any> = await axios.delete(
       `${BASE_API}/profile/${localStorage.getItem("profileId")}/project/${id}`,
 
@@ -176,6 +175,139 @@ export class ProfileService {
         startDate: userInfo.startDate,
         endDate: userInfo.endDate,
         projectImages: [userInfo.image],
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        },
+      }
+    );
+    return response;
+  }
+
+  ///////////////////////////////////////////
+
+  static async makeExperience(userInfo: any): Promise<any> {
+    const response: AxiosResponse<any> = await axios.post(
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}/experience`,
+      {
+        position: userInfo.position,
+        description: userInfo.description,
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        experienceCompany: {
+          name: userInfo.companyName,
+          logo: userInfo.logoUrl,
+          location: userInfo.location,
+        },
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    return response;
+  }
+
+  static async removeExperience(id: number): Promise<any> {
+    const response: AxiosResponse<any> = await axios.delete(
+      `${BASE_API}/profile/${localStorage.getItem(
+        "profileId"
+      )}/experience/${id}`,
+
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+
+    alert("삭제완료");
+    return response;
+  }
+
+  static async updateExperience(userInfo: any, id: number): Promise<any> {
+    console.log("체크", id);
+    const response: AxiosResponse<any> = await axios.put(
+      `${BASE_API}/profile/${localStorage.getItem(
+        "profileId"
+      )}/experience/${id}`,
+      {
+        position: userInfo.position,
+        description: userInfo.description,
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        experienceCompany: {
+          name: userInfo.companyName,
+          logo: userInfo.logoUrl,
+          location: userInfo.location,
+        },
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        },
+      }
+    );
+    return response;
+  }
+
+  /////////////////////////////////////////////
+
+  static async makeEducation(userInfo: any): Promise<any> {
+    const response: AxiosResponse<any> = await axios.post(
+      `${BASE_API}/profile/${localStorage.getItem("profileId")}/education`,
+      {
+        course: userInfo.course, // 학과, 전공 설명 입력
+        description: userInfo.description, // 추가 정보
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        educationInstitute: {
+          name: userInfo.name,
+          logo: userInfo.logoUrl,
+        },
+      },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    return response;
+  }
+
+  static async removeEducation(id: number): Promise<any> {
+    const response: AxiosResponse<any> = await axios.delete(
+      `${BASE_API}/profile/${localStorage.getItem(
+        "profileId"
+      )}/education/${id}`,
+
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+
+    alert("삭제완료");
+    return response;
+  }
+
+  static async updateEducation(userInfo: any, id: number): Promise<any> {
+    const response: AxiosResponse<any> = await axios.put(
+      `${BASE_API}/profile/${localStorage.getItem(
+        "profileId"
+      )}/education/${id}`,
+      {
+        course: userInfo.course, // 학과, 전공 설명 입력
+        description: userInfo.description, // 추가 정보
+        startDate: userInfo.startDate,
+        endDate: userInfo.endDate,
+        educationInstitute: {
+          name: userInfo.name,
+          logo: userInfo.logoUrl,
+        },
       },
       {
         headers: {

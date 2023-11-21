@@ -120,7 +120,7 @@ const ModalEdit: React.FC<ModalProps> = ({
         description: data?.description,
       };
       break;
-    case "experience":
+    case "experience_null":
       userInfoInitialState = {
         position: "",
         companyName: "",
@@ -141,7 +141,7 @@ const ModalEdit: React.FC<ModalProps> = ({
         endDate: data?.endDate,
       };
       break;
-    case "education":
+    case "education_null":
       userInfoInitialState = {
         name: "",
         description: "",
@@ -162,8 +162,10 @@ const ModalEdit: React.FC<ModalProps> = ({
     try {
       if (layout === "projects") {
         await ProfileViewModel.removeProject(id);
-      } else {
-        console.error("프로필 ID를 찾을 수 없습니다");
+      } else if (layout === "experience") {
+        await ProfileViewModel.removeExperience(id);
+      } else if (layout === "education") {
+        await ProfileViewModel.removeEducation(id);
       }
     } catch (error) {
       console.error("저장 중 오류 발생:", error);
@@ -174,9 +176,12 @@ const ModalEdit: React.FC<ModalProps> = ({
 
   const handleMakeClick = async () => {
     try {
-      if (profileId) {
-        await ProfileViewModel.makeProject(userInfo);
-      } else {
+      if (layout === "projects_null") {
+        await ProfileViewModel.makeProject(userInfo, id);
+      } else if (layout === "experience_null") {
+        await ProfileViewModel.makeExperience(userInfo, id);
+      } else if (layout === "education_null") {
+        await ProfileViewModel.makeEducation(userInfo, id);
       }
     } catch (error) {
       console.error("오류 발생:", error);
@@ -191,12 +196,11 @@ const ModalEdit: React.FC<ModalProps> = ({
         await ProfileViewModel.putProfileTitle(userInfo);
       } else if (layout === "projects") {
         await ProfileViewModel.updateProject(userInfo, id);
+      } else if (layout === "experience") {
+        await ProfileViewModel.updateExperience(userInfo, id);
+      } else if (layout === "education") {
+        await ProfileViewModel.updateEducation(userInfo, id);
       }
-      // else if (layout==="experience"){
-      //   await ProfileViewModel.updateExperience(userInfo, id);
-      // } else if (layout==="education"){
-      //   await ProfileViewModel.updateEducation(userInfo, id);
-      // }
     } catch (error) {
       console.error("저장 중 오류 발생:", error);
     }
@@ -251,9 +255,9 @@ const ModalEdit: React.FC<ModalProps> = ({
           <ModalFooter>
             <ModalDeleteBtn
               active={deleteBtn}
-              // onClick={() => {
-              //   handleRemoveClick();
-              // }}
+              onClick={() => {
+                handleRemoveClick();
+              }}
             >
               삭제
             </ModalDeleteBtn>

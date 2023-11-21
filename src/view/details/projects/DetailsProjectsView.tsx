@@ -174,6 +174,7 @@ const ProfileProjectsCard = styled.div`
 const ProfileProjectsPic = styled(Image)`
   flex-shrink: 0;
   display: block;
+  object-fit: cover;
 `;
 
 const ProfileProjectsInfoBox = styled.div`

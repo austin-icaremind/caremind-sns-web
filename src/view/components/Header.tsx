@@ -66,9 +66,9 @@ const Header: React.FC = () => {
     router.push("/");
   };
 
-  if (headerFeedData === null || headerData === null) {
-    return <div>Loading...</div>;
-  }
+  // if (headerFeedData === null || headerData === null) {
+  //   return <div>Loading...</div>;
+  // }
   const isLogined = localStorage.getItem("token");
   return (
     <HeaderWrapper>

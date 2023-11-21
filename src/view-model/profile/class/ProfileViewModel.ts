@@ -64,7 +64,7 @@ export class ProfileViewModel {
   static makeProject(userInfo: any): Promise<number> {
     try {
       const response = ProfileService.makeProject(userInfo);
-      return response.status;
+      return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
       throw error;
@@ -74,7 +74,7 @@ export class ProfileViewModel {
   static removeProject(id: number): Promise<number> {
     try {
       const response = ProfileService.removeProject(id);
-      return response.status;
+      return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
       throw error;
@@ -84,7 +84,71 @@ export class ProfileViewModel {
   static updateProject(userInfo: any, id: number): Promise<number> {
     try {
       const response = ProfileService.updateProject(userInfo, id);
-      return response.status;
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  ///////////////////
+
+  static makeExperience(userInfo: any): Promise<number> {
+    try {
+      const response = ProfileService.makeExperience(userInfo);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static removeExperience(id: number): Promise<number> {
+    try {
+      const response = ProfileService.removeExperience(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static updateExperience(userInfo: any, id: number): Promise<number> {
+    try {
+      const response = ProfileService.updateExperience(userInfo, id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  ////////////////
+
+  static makeEducation(userInfo: any): Promise<number> {
+    try {
+      const response = ProfileService.makeEducation(userInfo);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static removeEducation(id: number): Promise<number> {
+    try {
+      const response = ProfileService.removeEducation(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static updateEducation(userInfo: any, id: number): Promise<number> {
+    try {
+      const response = ProfileService.updateEducation(userInfo, id);
+      return response;
     } catch (error) {
       console.error("Error getting profile title data:", error);
       throw error;
