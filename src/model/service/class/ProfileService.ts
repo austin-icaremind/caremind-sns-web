@@ -144,7 +144,7 @@ export class ProfileService {
       },
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
@@ -152,15 +152,18 @@ export class ProfileService {
   }
 
   static async removeProject(id: number): Promise<any> {
+    console.log("id", id);
     const response: AxiosResponse<any> = await axios.delete(
       `${BASE_API}/profile/${localStorage.getItem("profileId")}/project/${id}`,
 
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
+
+    alert("삭제완료");
     return response;
   }
 

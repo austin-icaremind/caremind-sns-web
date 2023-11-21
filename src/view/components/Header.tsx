@@ -34,13 +34,15 @@ const Header: React.FC = () => {
       try {
         const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
         setHeaderData(getHeaderProfile);
-        const userId: number | null = parseInt(
-          localStorage.getItem("userId") || "-1",
+        const profileId: number | null = parseInt(
+          localStorage.getItem("profileId") || "-1",
           10
         );
         // const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
 
-        const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
+        const getHeaderFeedData = await HeaderViewModel.getHeaderData(
+          profileId
+        );
 
         setHeaderFeedData(getHeaderFeedData);
       } catch (error) {
@@ -50,7 +52,6 @@ const Header: React.FC = () => {
 
     fetchData();
   }, [pathname]);
-
 
   const handleLogin = () => {
     router.push("/login");

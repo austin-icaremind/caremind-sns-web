@@ -84,7 +84,7 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
                   title="프로젝트 수정"
                   layout="projects"
                   click={isChange}
-                  id={projectsData.id}
+                  id={item.id}
                 />
               )}
 
