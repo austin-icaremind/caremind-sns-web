@@ -1,24 +1,28 @@
 "use Client";
 
 import styled from "styled-components";
+import { useState } from "react";
+import ModalEdit from "@/view/components/ModalEdit";
+import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
+import { userInfo } from "os";
 
+function getFieldValue(obj: any, field: string) {
+  const fields = field.split(".");
+  let value = obj;
 
-const ProfileTitleView: React.FC<{ data: any; click: any; state: any }> = ({
-  data,
-  click,
-  state,
-}) => {
+  for (const f of fields) {
+    value = value[f];
+  }
+  return value;
+}
 
+const ProfileTitleView: React.FC<{
+  data: any;
+
+  profileId: number;
+}> = ({ data, profileId }) => {
   return (
     <ProfileTitleStyle>
-      <ModalBox active={state}>
-        <ModalBlack />
-        <ModalInfo
-          onClick={() => {
-            click("close");
-          }}
-        ></ModalInfo>
-      </ModalBox>
       <ProfileTitleWrapper>
         <BackGroundImageWrapper
           imgSrc={data.profileBackImage}
@@ -45,13 +49,7 @@ const ProfileTitleView: React.FC<{ data: any; click: any; state: any }> = ({
             </NameAndLocationWrapper>
             <JobExplanitionWrapper>{data.jobDescription}</JobExplanitionWrapper>
             <ButtonWrapper>
-              <LeftButton
-                onClick={() => {
-                  click("profile");
-                }}
-              >
-                CONTACT INFO
-              </LeftButton>
+              <LeftButton>CONTACT INFO</LeftButton>
               <RightButton>{data.connections} CONNECTIONS</RightButton>
             </ButtonWrapper>
           </AboutMeWrapper>
@@ -72,36 +70,6 @@ const ProfileTitleView: React.FC<{ data: any; click: any; state: any }> = ({
   );
 };
 
-interface ModalBoxProps {
-  active: string;
-}
-
-const ModalBox = styled.div<ModalBoxProps>`
-  display: ${(props) => (props.active !== "close" ? "block" : "none")};
-`;
-
-const ModalBlack = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-`;
-
-const ModalInfo = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 11;
-`;
-
 const ProfileTitleStyle = styled.div``;
 
 const ProfileTitleWrapper = styled.div`
@@ -111,13 +79,7 @@ const ProfileTitleWrapper = styled.div`
   background-color: #fff;
   box-shadow: 0px 20px 60px 0px rgba(241, 244, 248, 0.5);
   margin-bottom: 21px;
-`;
-const BackGroundImageWrapper = styled.div<{ imgSrc: string }>`
-  display: block;
-  width: 100%;
-  height: 50%;
-  background-image: ${(props) =>
-    props.imgSrc ? `url(${props.imgSrc})` : null};
+  position: relative;
 `;
 
 const IconContainerStyle = styled.div`
@@ -130,6 +92,14 @@ const IconContainerStyle = styled.div`
   height: 36px;
   width: 36px;
   cursor: pointer;
+`;
+
+const BackGroundImageWrapper = styled.div<{ imgSrc: string }>`
+  display: block;
+  width: 100%;
+  height: 50%;
+  background-image: ${(props) =>
+    props.imgSrc ? `url(${props.imgSrc})` : null};
 `;
 
 const InformationWrapper = styled.div`
@@ -306,16 +276,6 @@ const ProfileBoxTitle = styled.div`
   font-weight: 700;
   line-height: normal;
   margin-bottom: 15px;
-`;
-
-const ProfileProjectsNumber = styled.div`
-  margin-left: 15px;
-  color: #747474;
-  font-family: Gotham Pro;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 `;
 
 const ProfileAboutContent = styled.div`

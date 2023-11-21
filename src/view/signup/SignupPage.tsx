@@ -12,15 +12,15 @@ const SignupPage = () => {
     email: string;
     password: string;
     passwordCheck: string;
+    name: string;
   }
 
   const [userInfo, setUserInfo] = useState<accountCheck>({
     email: "",
     password: "",
     passwordCheck: "",
+    name: "",
   });
-
-  const [signupCheck, setSignupCheck] = useState<string>("");
 
   const handleUserInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,9 +31,9 @@ const SignupPage = () => {
     const alertCheck = await UserViewModel.SignUp(
       userInfo.email,
       userInfo.password,
-      userInfo.passwordCheck
+      userInfo.passwordCheck,
+      userInfo.name
     );
-    setSignupCheck(alertCheck);
 
     if (alertCheck === "success") {
       alert("회원가입 성공!");
@@ -46,6 +46,8 @@ const SignupPage = () => {
       alert("비밀번호 형식을 다시 맞춰주세요");
     } else if (alertCheck === "passwordNotMatch") {
       alert("비밀번호 확인을 다시 입력해주세요.");
+    } else if (alertCheck === "nameNotPerfect") {
+      alert("이름을 다시 입력해주세요");
     }
   };
 
@@ -197,6 +199,13 @@ const FIELD_DATA = [
     type: "password",
     name: "passwordCheck",
     placeholder: "비밀번호를 한번 더 입력해주세요",
+    alt: "필수입력사항",
+  },
+  {
+    label: "이름",
+    type: "text",
+    name: "name",
+    placeholder: "이름을 입력해주세요",
     alt: "필수입력사항",
   },
 ];

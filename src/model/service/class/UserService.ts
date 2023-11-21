@@ -5,12 +5,14 @@ import BASE_API from "@/model/config";
 export class UserService {
   static async SignUp(
     email: string,
-    password: string
+    password: string,
+    name: string
   ): Promise<AxiosResponse<UserServiceInterface.SignUpServiceInterface>> {
     const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
       await axios.post(`${BASE_API}/user/signup`, {
         email,
         password,
+        name,
       });
     return response;
   }
@@ -24,6 +26,65 @@ export class UserService {
         email,
         password,
       });
+    return response;
+  }
+
+  // static async CheckProfileId(): Promise<any> {
+  //   const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
+  //     await axios.get(
+  //       `${BASE_API}/profile/profileId`,
+
+  //       {
+  //         headers: {
+  //           authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+  //         },
+  //       }
+  //     );
+
+  //   return response;
+  // }
+
+  // static async CreateProfile(): Promise<any> {
+  //   const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
+  //     await axios.post(
+  //       `${BASE_API}/profile`,
+
+  //       {
+  //         headers: {
+  //           authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //   return response;
+  // }
+
+  static async CheckProfileId(): Promise<any> {
+    const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
+      await axios.get(
+        `${BASE_API}/profile/profileId`,
+
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+    return response;
+  }
+
+  static async CreateProfile(): Promise<any> {
+    const response: AxiosResponse<UserServiceInterface.SignUpServiceInterface> =
+      await axios.post(
+        `${BASE_API}/profile`,
+        // 요청 본문이 필요한 경우 여기에 추가
+        {},
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      );
     return response;
   }
 }

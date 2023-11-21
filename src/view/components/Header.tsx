@@ -51,6 +51,7 @@ const Header: React.FC = () => {
     fetchData();
   }, [pathname]);
 
+
   const handleLogin = () => {
     router.push("/login");
   };

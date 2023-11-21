@@ -50,6 +50,46 @@ export class ProfileViewModel {
       throw error;
     }
   }
+
+  static putProfileTitle(userInfo: any): Promise<any> {
+    try {
+      const response = ProfileService.putTitle(userInfo);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static makeProject(userInfo: any): Promise<number> {
+    try {
+      const response = ProfileService.makeProject(userInfo);
+      return response.status;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static removeProject(id: number): Promise<number> {
+    try {
+      const response = ProfileService.removeProject(id);
+      return response.status;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
+
+  static updateProject(userInfo: any, id: number): Promise<number> {
+    try {
+      const response = ProfileService.updateProject(userInfo, id);
+      return response.status;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
 }
 
 export default ProfileViewModel;
