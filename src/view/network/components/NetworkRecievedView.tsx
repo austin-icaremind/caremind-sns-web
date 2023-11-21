@@ -10,6 +10,7 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
 }) => {
   const [currentData, setCurrentData] = useState(receivedData);
   const [selectedIdx, setSelectedIdx] = useState(0);
+  const [isSentData, setIsSentData] = useState(false);
 
   const BUTTON_DATA = [
     {
@@ -17,6 +18,7 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
       onClick: () => {
         setSelectedIdx(0);
         setCurrentData(receivedData);
+        setIsSentData(false);
       },
     },
     {
@@ -24,6 +26,7 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
       onClick: () => {
         setSelectedIdx(1);
         setCurrentData(sentData);
+        setIsSentData(true);
       },
     },
   ];
@@ -62,7 +65,7 @@ const NetworkRecievedView: React.FC<{ receivedData: any; sentData: any }> = ({
       </PaddingWrapper>
       <div>
         {currentData.map((data: any) => (
-          <NetworkRecievedItem data={data} />
+          <NetworkRecievedItem data={data} isSentData={isSentData} />
         ))}
       </div>
     </div>
@@ -123,7 +126,6 @@ const NewConnectionLetter = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 8px;
 `;
 
 const Black = styled.p`

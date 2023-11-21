@@ -22,7 +22,8 @@ export class HeaderService {
     id: number
   ): Promise<HeaderServiceInterface.HeaderProfileTitleData> {
     const response: AxiosResponse<HeaderServiceInterface.HeaderProfileTitleData> =
-      await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
+      await axios.get(`${BASE_API}/profile/6`);
+    // await axios.get(`${BASE_API}/profile/profileTitle1.json`);
     const result = response.data;
 
     return result;

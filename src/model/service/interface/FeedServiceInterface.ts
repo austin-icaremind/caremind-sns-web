@@ -40,6 +40,7 @@ export interface FeedListData {
   author: { id: number; name: string; profileImage: string; job: string };
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
   images: { imageUrl: string | null };
+  isLiked: boolean;
   video: string;
   comments: {
     id: number;

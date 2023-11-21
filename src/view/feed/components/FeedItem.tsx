@@ -9,16 +9,17 @@ import { ChangeEvent } from "react";
 import FeedCommentModal from "./FeedCommentModal";
 import FeedCommentItem from "./FeedCommentItem";
 
-const FeedItem: React.FC<{ data: any; myProfileData: any }> = ({
-  data,
-  myProfileData,
-}) => {
+const FeedItem: React.FC<{
+  data: any;
+  myProfileData: any;
+  clickFunction: any;
+}> = ({ data, myProfileData, clickFunction }) => {
   const id = data.id;
   const userId = data.author;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [likes, setLikes] = useState(data.likesCount);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(data.isLiked);
   const textareaRef = useRef(null);
   const [height, setHeight] = useState(40); // 최소 높이
   const [showComments, setShowComments] = useState(false);
@@ -28,7 +29,6 @@ const FeedItem: React.FC<{ data: any; myProfileData: any }> = ({
   const [commentText, setCommentText] = useState("");
   const [showPostButton, setShowPostButton] = useState(false);
 
-  console.log(data, "TLqkf");
   //댓글 더보기
   const handleShowMoreComments = () => {
     setShowAllComments(true);
@@ -99,9 +99,9 @@ const FeedItem: React.FC<{ data: any; myProfileData: any }> = ({
     setIsLiked(!isLiked);
   };
 
-  const handlePostComment = async () => {
-    FeedViewModel.postMyComment(id, commentText);
-  };
+  // const handlePostComment = async () => {
+  //   FeedViewModel.postMyComment(id, commentText);
+  // };
 
   return (
     <MapWrapper key={id}>
@@ -152,11 +152,15 @@ const FeedItem: React.FC<{ data: any; myProfileData: any }> = ({
       </FeedContentWrapper>
       <LikeAndCommentShareWrapper>
         <LikeAndCommentWrapper>
-          <LikeWrapper onClick={handleLike}>
+          <LikeWrapper
+            onClick={() => {
+              handleLike();
+            }}
+          >
             <LikeIcon
               alt="좋아요 아이콘"
               src={
-                !isLiked
+                isLiked === false
                   ? "/images/thumbs-up.png"
                   : "/images/filled-thumbs-up.png"
               }
@@ -223,7 +227,11 @@ const FeedItem: React.FC<{ data: any; myProfileData: any }> = ({
             </MyContentWrapper>
           </CommentClickWrapper>
           {showPostButton && commentText && commentText.trim().length > 0 && (
-            <PostCommentButton onClick={handlePostComment}>
+            <PostCommentButton
+              onClick={() => {
+                handlePostComment(), clickFunction();
+              }}
+            >
               올리기
             </PostCommentButton>
           )}

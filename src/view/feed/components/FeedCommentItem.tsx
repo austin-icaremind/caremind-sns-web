@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import FeedCommentModal from "./FeedCommentModal";
 
-const FeedCommentItem: React.FC<{ id: number; commenter: any }> = ({
+const FeedCommentItem: React.FC<{ id: any; commenter: any }> = ({
   id,
   commenter,
 }) => {
@@ -35,6 +35,7 @@ const FeedCommentItem: React.FC<{ id: number; commenter: any }> = ({
       document.removeEventListener("click", handleCommentOutsideClick);
     };
   }, [isCommentModalOpen]);
+
   return (
     <CommenterWrapper>
       <CommenterPaddingWrapper>
@@ -55,7 +56,10 @@ const FeedCommentItem: React.FC<{ id: number; commenter: any }> = ({
                 <HambergerIcon onClick={handleCommentModalOpen}>
                   <FeedLocation>
                     {isCommentModalOpen && (
-                      <FeedCommentModal id={id} userId={commenter.commenter} />
+                      <FeedCommentModal
+                        id={commenter.commenter.id}
+                        commentId={commenter.id}
+                      />
                     )}
                   </FeedLocation>
                 </HambergerIcon>

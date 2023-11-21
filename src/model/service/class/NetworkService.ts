@@ -9,10 +9,15 @@ export class NetworkService {
   static async getRecievedConnection(): Promise<
     NetworkInterface.NetworkRecievedConnection[]
   > {
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<
       NetworkServiceInterface.getRecievedConnectionData[]
-    > = await axios.get(`/data/network/RecievedConnection.json`);
-    //  > = await axios.get(`${BASE_API}/connection/received`);
+      // > = await axios.get(`/data/network/RecievedConnection.json`);
+    > = await axios.get(`${BASE_API}/connection/received`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     const result = response.data.map(
       (data) =>
         new Network.NetworkRecievedConnectionImp(
@@ -28,10 +33,15 @@ export class NetworkService {
   static async getSentConnection(): Promise<
     NetworkInterface.NetworkSentConnection[]
   > {
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<
       NetworkServiceInterface.getSentConnectionData[]
-    > = await axios.get(`/data/network/SentConnection.json`);
-    // > = await axios.get(`${BASE_API}/connection/sent`);
+      // > = await axios.get(`/data/network/SentConnection.json`);
+    > = await axios.get(`${BASE_API}/connection/sent`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     const result = response.data.map(
       (data) =>
         new Network.NetworkSentConnectionImp(
@@ -47,10 +57,16 @@ export class NetworkService {
   static async getMyConnection(): Promise<
     NetworkInterface.NetworkMyConnectionInterface[]
   > {
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<
       NetworkServiceInterface.getMyConnectionData[]
-    > = await axios.get(`/data/network/MyConnection.json`);
-    // > = await axios.get(`${BASE_API}/connection/connected`);
+
+      // > = await axios.get(`/data/network/MyConnection.json`);
+    > = await axios.get(`${BASE_API}/connection/connected`, {
+      headers: {
+        Authorization: token,
+      },
+    });
 
     const result = response.data.map(
       (data) =>
@@ -69,14 +85,14 @@ export class NetworkService {
     id: number
   ): Promise<AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData>> {
     const token = localStorage.getItem("token");
-
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
       await axios.patch(
-        `${BASE_API}connection/${id}`,
-        { id },
+        `${BASE_API}/connection/${id}`,
+        {},
+
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -91,7 +107,7 @@ export class NetworkService {
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
       await axios.delete(`${BASE_API}/connection/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
         },
       });
     return response;

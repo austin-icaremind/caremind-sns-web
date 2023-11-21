@@ -9,6 +9,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
   likes: { id: number; createdAt: string }; //어떤사람이 좋아요눌럿는지?
   images: { imageUrl: string | null };
   video: string;
+  isLiked: Boolean;
   comments: {
     id: number;
     content: string;
@@ -28,6 +29,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
     likes: { id: number; createdAt: string },
     images: { imageUrl: string | null },
     video: string,
+    isLiked: boolean,
     comments: {
       id: number;
       content: string;
@@ -44,6 +46,7 @@ export class FeedListImp implements FeedInterface.FeedListInterface {
     this.updatedAt = updatedAt;
     this.author = author;
     this.likes = likes;
+    this.isLiked = isLiked;
     this.images = images;
     this.video = video;
     this.comments = comments;
@@ -65,7 +68,6 @@ export class FeedMyProfileImp implements FeedInterface.FeedMyProfileInterface {
 
   constructor(
     id: number,
-
     profileBackImage: string,
     about: string,
     user: {
@@ -75,7 +77,6 @@ export class FeedMyProfileImp implements FeedInterface.FeedMyProfileInterface {
     }
   ) {
     this.id = id;
-
     this.profileBackImage = profileBackImage;
     this.user = user;
     this.about = about;

@@ -20,7 +20,7 @@ export class FeedService {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -37,7 +37,7 @@ export class FeedService {
 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -51,11 +51,11 @@ export class FeedService {
     const userId = localStorage.getItem("userId");
     const response: AxiosResponse<FeedServiceInterface.DeleteMyComment> =
       await axios.delete(
-        `${BASE_API}/feed/${id}/comment/${userId}`,
+        `${BASE_API}/feed/${userId}/comment/${id}`,
 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -69,13 +69,10 @@ export class FeedService {
     const response: AxiosResponse<FeedServiceInterface.PostLike> =
       await axios.post(
         `${BASE_API}/feed/${id}/like`,
-        {
-          id,
-        },
-
+        {},
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -95,7 +92,7 @@ export class FeedService {
 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -113,7 +110,7 @@ export class FeedService {
 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
@@ -122,9 +119,15 @@ export class FeedService {
   }
 
   static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-      await axios.get(`${BASE_API}/feed/Feed.json`);
-    // await axios.get(`${BASE_API}/feed`);
+      await axios.get(`${BASE_API}/feed/Feed.json`, {
+        // await axios.get(`${BASE_API}/feed`, {
+        // await axios.get(`${BASE_API}/feed?sort=${e.target.innerText}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
 
     const result = response.data.map(
       (feedList) =>
@@ -137,6 +140,7 @@ export class FeedService {
           feedList.likes,
           feedList.images,
           feedList.video,
+          feedList.isLiked,
           feedList.comments,
           feedList.likesCount,
           feedList.commentsCount
@@ -150,7 +154,8 @@ export class FeedService {
     id: number
   ): Promise<FeedInterface.FeedMyProfileInterface> {
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
+      await axios.get(`${BASE_API}/profile/6`);
+    // await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
       response.data.profileBackImage,

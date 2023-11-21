@@ -39,9 +39,6 @@ export class NetworkViewModel {
   }
 
   static async RecievedAccept(id: number) {
-    if (id === null) {
-      return "error occur";
-    }
     try {
       const response = await NetworkService.postAccept(id);
       if (response.status >= 200 && response.status < 300) {
@@ -53,11 +50,8 @@ export class NetworkViewModel {
   }
 
   static async RecievedDecline(id: number) {
-    if (id === null) {
-      return "error occur";
-    }
     try {
-      const response = await NetworkService.postAccept(id);
+      const response = await NetworkService.postDecline(id);
       if (response.status >= 200 && response.status < 300) {
         return response.data;
       }

@@ -3,9 +3,9 @@
 import styled from "styled-components";
 import Image from "next/image";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
-const FeedCommentModal: React.FC<{ id: any; userId: any }> = ({
+const FeedCommentModal: React.FC<{ id: any; commentId: any }> = ({
   id,
-  userId,
+  commentId,
 }) => {
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
@@ -13,13 +13,13 @@ const FeedCommentModal: React.FC<{ id: any; userId: any }> = ({
   );
 
   const handleDelete = async () => {
-    await FeedViewModel.deleteComment(id);
+    await FeedViewModel.deleteComment(commentId);
   };
 
   return (
     <ModalWrapper>
       <ContentWrapper>
-        {userId.id === localId ? (
+        {id === localId ? (
           <IconContainer>
             <IconWrapper>
               <Image

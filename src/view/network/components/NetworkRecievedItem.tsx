@@ -4,41 +4,42 @@ import styled from "styled-components";
 import Image from "next/image";
 import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
 
-const NetworkRecievedItem: React.FC<{ data: any }> = ({ data }) => {
-  const { id, connectedUser, message } = data;
-
-  const isSentData = data.isAccepted === false;
-
+const NetworkRecievedItem: React.FC<{ isSentData: boolean; data: any }> = ({
+  data,
+  isSentData,
+}) => {
   const handleAccept = async () => {
     await NetworkViewModel.RecievedAccept(data.id);
-    await NetworkViewModel.getRecievedConnection();
+
+    // await NetworkViewModel.getRecievedConnection();
   };
 
   const handledecline = async () => {
     await NetworkViewModel.RecievedDecline(data.id);
-    if (isSentData) {
-      await NetworkViewModel.getSentConnection();
-    } else {
-      await NetworkViewModel.getRecievedConnection();
-    }
+    // if (isSentData) {
+    //   await NetworkViewModel.getSentConnection();
+    // } else {
+    //   await NetworkViewModel.getRecievedConnection();
+    // }
   };
+
   // const router = useRouter();
   return (
-    <MapWrapper key={id}>
+    <MapWrapper key={data.id}>
       <NewConnectionUserWrapper>
         <PaddingWrapper>
           <UserImage
             alt="profileImage"
-            src={connectedUser.profileImage}
+            src={data.connectedUser.profileImage}
             width={52}
             height={52}
           ></UserImage>
           <UserNameInformationWrapper>
-            <FirstLine>{connectedUser.name}</FirstLine>
+            <FirstLine>{data.connectedUser.name}</FirstLine>
             <SecondLine></SecondLine>
             <ThirdLine>connections</ThirdLine>
           </UserNameInformationWrapper>
-          <UserIntroductionWrapper>{message}</UserIntroductionWrapper>
+          <UserIntroductionWrapper>{data.message}</UserIntroductionWrapper>
           <ButtonContainer>
             {isSentData ? null : (
               <AcceptButton onClick={handleAccept}>ACCEPT</AcceptButton>
