@@ -41,7 +41,6 @@ export class NetworkViewModel {
   static async RecievedAccept(id: number) {
     try {
       const response = await NetworkService.postAccept(id);
-      console.log(response);
       if (response.status >= 200 && response.status < 300) {
         const result = await this.getRecievedConnection();
         return result;

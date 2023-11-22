@@ -160,7 +160,7 @@ const FeedItem: React.FC<{
             {data.images.map((item: any) => (
               <FeedImage
                 key={item.id}
-                src={item.image}
+                src={item.imageUrl}
                 width={820}
                 height={300}
                 alt="피드 이미지"

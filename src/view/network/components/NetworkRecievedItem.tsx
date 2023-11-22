@@ -3,7 +3,6 @@
 import styled from "styled-components";
 import Image from "next/image";
 import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const NetworkRecievedItem: React.FC<{

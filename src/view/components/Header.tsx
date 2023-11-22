@@ -42,7 +42,6 @@ const Header: React.FC = () => {
           localStorage.getItem("userId") || "-1",
           10
         );
-        // const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
 
         const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
 
@@ -71,7 +70,7 @@ const Header: React.FC = () => {
   };
 
   if (headerFeedData === null || headerData === null) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (
@@ -130,13 +129,17 @@ const Header: React.FC = () => {
             </NetworkWrapper>
           </FeedAndNetworkWrapper>
           <SearchWrapper>
-            <SearchIcon
-              alt="검색아이콘"
-              src="/images/search.png"
-              width={24}
-              height={24}
-            />
-            <SearchInput placeholder="Search"></SearchInput>
+            {changeFeedColor && (
+              <div>
+                <SearchIcon
+                  alt="검색아이콘"
+                  src="/images/search.png"
+                  width={24}
+                  height={24}
+                />
+                <SearchInput placeholder="Search"></SearchInput>
+              </div>
+            )}
           </SearchWrapper>
           <ProfileWrapper key={headerData.id}>
             <ProfileImage
@@ -294,6 +297,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserNameWrapper = styled.div`
