@@ -37,7 +37,7 @@ const ProfileProjectsView: React.FC<{
           <ProfileProjectsCard>
             <ProfileProjectsPic
               alt="사진"
-              key={item.coverImage.id}
+              key={item.id}
               width={250}
               height={160}
               src={item.coverImage.image}
