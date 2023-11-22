@@ -99,7 +99,7 @@ const DashBoardInfo = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 150%; /* 21px */
+  line-height: 150%;
 `;
 
 export default ProfileDashBoardView;

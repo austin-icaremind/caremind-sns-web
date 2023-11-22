@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import UserViewModel from "@/view-model/user/class/UserViewModel";
-import { profile } from "console";
 
 const LoginPage: React.FC = () => {
   const router = useRouter();

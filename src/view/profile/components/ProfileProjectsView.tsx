@@ -120,7 +120,7 @@ const ProfileProjectsTitle = styled.div`
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 21px */
+  line-height: 150%;
   margin-bottom: 5px;
 `;
 
@@ -130,7 +130,7 @@ const ProfileProjectsDetail = styled.div`
   font-size: 10px;
   font-style: normal;
   font-weight: 300;
-  line-height: 150%; /* 15px */
+  line-height: 150%;
 `;
 
 export default ProfileProjectsView;

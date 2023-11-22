@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ProfileEducationInterface } from "@/model/entity/profile/ProfileInterface";
-import Modal from "@/view/components/ModalEdit";
 const ProfileEducationView: React.FC<{
   data: ProfileEducationInterface[];
   myProfile: boolean;
