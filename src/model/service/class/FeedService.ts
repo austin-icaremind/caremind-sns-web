@@ -119,12 +119,14 @@ export class FeedService {
     return response;
   }
 
-  static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
+  static async getFeedList(
+    searchValue
+  ): Promise<FeedInterface.FeedListInterface[]> {
     const token = localStorage.getItem("token");
+    console.log("BASE_API", BASE_API);
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-      // await axios.get(`${BASE_API}/feed/Feed.json`, {
-      await axios.get(`${BASE_API}/feed`, {
-        // await axios.get(`${BASE_API}/feed?sort=${e.target.innerText}`, {
+      await axios.get(`/feed?${searchValue}`, {
+        baseURL: `${BASE_API}`,
         headers: {
           Authorization: token,
         },

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
 import { ChangeEvent } from "react";
-const Header: React.FC = () => {
+const Header = () => {
   const router = useRouter();
   const handleRouting = (path: string) => {
     router.push(path);
@@ -49,12 +49,7 @@ const Header: React.FC = () => {
     };
     fetchData();
   }, [pathname]);
-  // const handleLogin = () => {
-  //   router.push("/login");
-  // };
-  // const handleSignUp = () => {
-  //   router.push("/signup");
-  // };
+
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -165,10 +160,7 @@ const Header: React.FC = () => {
           {isLogined && <LogOut onClick={handleLogOut}>로그아웃</LogOut>}
         </LogOutWrapper>
       ) : (
-        <SignUpAndLoginWrapper>
-          {/* <SignUp onClick={handleSignUp}>회원가입</SignUp>
-          <Login onClick={handleLogin}>로그인</Login> */}
-        </SignUpAndLoginWrapper>
+        <SignUpAndLoginWrapper></SignUpAndLoginWrapper>
       )}
     </HeaderWrapper>
   );
@@ -260,7 +252,6 @@ const SearchIcon = styled(Image)`
 `;
 const SearchInput = styled.input`
   margin-left: 20px;
-  color: #cecece;
   font-family: Gotham Pro;
   font-size: 16px;
   font-style: normal;

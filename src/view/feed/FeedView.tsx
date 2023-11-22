@@ -21,9 +21,11 @@ const FeedView = () => {
 
   const searchParams = new URLSearchParams(document.location.search);
 
+  const searchValue = searchParams.get("search");
+
   const fetchData = async () => {
     try {
-      const getFeedList = await FeedViewModel.getFeedListData();
+      const getFeedList = await FeedViewModel.getFeedListData(searchValue);
 
       setFeedListData(getFeedList);
 
@@ -82,10 +84,6 @@ const FeedView = () => {
       setFeedListData(res);
     });
   };
-
-  // const getProfileId = (id: number) => {
-  //   FeedViewModel.getProfileId;
-  // };
 
   return (
     <FeedWrapper>

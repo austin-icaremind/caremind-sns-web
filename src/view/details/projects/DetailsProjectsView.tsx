@@ -121,27 +121,6 @@ const BackIcon = styled(Image)`
   cursor: pointer;
 `;
 
-const InputBox = styled.div``;
-
-const Title = styled.div`
-  font-size: 16px;
-  margin-bottom: 15px;
-`;
-
-const InputStyle = styled.input`
-  width: 500px;
-  height: 30px;
-  border-radius: 4px;
-  border-width: 1px;
-  border-style: solid;
-  padding: 10px 16px 10px 16px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  &::placeholder {
-    color: #e0e0e0;
-  }
-`;
-
 const ProfileBoxTitleBox = styled.div`
   margin-top: 30px;
   display: flex;
@@ -204,48 +183,3 @@ const ProfileProjectsDetail = styled.div`
 `;
 
 export default DetailsProjectsView;
-
-const FIELD_DATA = [
-  {
-    label: "사진",
-    type: "text",
-    name: "image",
-    key: "coverImage.image",
-    placeholder: "사진 URL을 입력해주세요",
-    description: "사진 URL을 입력해주세요",
-    alt: "필수입력사항",
-  },
-  {
-    label: "프로젝트 이름",
-    type: "text",
-    name: "title",
-    key: "title",
-    placeholder: "프로젝트 이름을 입력해주세요",
-    description: "프로젝트 이름을 입력해주세요",
-    alt: "필수입력사항",
-  },
-  {
-    label: "설명",
-    type: "text",
-    name: "description",
-    key: "description",
-    placeholder: "설명을 써 주세요.",
-    alt: "필수입력사항",
-  },
-  {
-    label: "시작일 (예시 : 2023-11-16)",
-    type: "text",
-    name: "startDate",
-    key: "startDate",
-    placeholder: "2023-11-16 양식으로 해주세요",
-    alt: "필수입력사항",
-  },
-  {
-    label: "종료일 (예시 : 2023-11-17)",
-    type: "text",
-    name: "endDate",
-    key: "endDate",
-    placeholder: "진행중이라면 비워주셔도 됩니다.",
-    alt: "필수입력사항",
-  },
-];

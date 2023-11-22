@@ -11,10 +11,9 @@ export class ProfileService {
     const response: AxiosResponse<ProfileServiceInterface.ProfileTitleInterface> =
       await axios.get(`${BASE_API}/profile/${id}`, {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       });
-    // await axios.get(`${BASE_API}/profile/ProfileTitle${id}.json`);
     const result = new Profile.ProfileTitleImp(
       response.data.id,
       response.data.profileBackImage,
@@ -37,11 +36,10 @@ export class ProfileService {
 
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
-    // await axios.get(`${BASE_API}/profile/Projects${id}.json`);
 
     const result = response.data.map(
       (project) =>
@@ -65,10 +63,9 @@ export class ProfileService {
       ProfileServiceInterface.ProfileExperienceInterface[]
     > = await axios.get(`${BASE_API}/profile/${id}/experience`, {
       headers: {
-        authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        authorization: localStorage.getItem("token"),
       },
     });
-    // await axios.get(`${BASE_API}/profile/Experience${id}.json`);
 
     const result = response.data.map(
       (experience) =>
@@ -93,10 +90,9 @@ export class ProfileService {
       ProfileServiceInterface.ProfileEducationInterface[]
     > = await axios.get(`${BASE_API}/profile/${id}/education`, {
       headers: {
-        authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+        authorization: localStorage.getItem("token"),
       },
     });
-    // await axios.get(`${BASE_API}/profile/Education${id}.json`);
 
     const result = response.data.map(
       (education) =>
@@ -125,7 +121,7 @@ export class ProfileService {
       },
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
@@ -161,8 +157,6 @@ export class ProfileService {
         },
       }
     );
-
-    alert("삭제완료");
     return response;
   }
 
@@ -178,14 +172,12 @@ export class ProfileService {
       },
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
     return response;
   }
-
-  ///////////////////////////////////////////
 
   static async makeExperience(userInfo: any): Promise<any> {
     const response: AxiosResponse<any> = await axios.post(
@@ -223,7 +215,6 @@ export class ProfileService {
       }
     );
 
-    alert("삭제완료");
     return response;
   }
 
@@ -245,21 +236,19 @@ export class ProfileService {
       },
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
     return response;
   }
 
-  /////////////////////////////////////////////
-
   static async makeEducation(userInfo: any): Promise<any> {
     const response: AxiosResponse<any> = await axios.post(
       `${BASE_API}/profile/${localStorage.getItem("profileId")}/education`,
       {
-        course: userInfo.course, // 학과, 전공 설명 입력
-        description: userInfo.description, // 추가 정보
+        course: userInfo.course,
+        description: userInfo.description,
         startDate: userInfo.startDate,
         endDate: userInfo.endDate,
         educationInstitute: {
@@ -288,8 +277,6 @@ export class ProfileService {
         },
       }
     );
-
-    alert("삭제완료");
     return response;
   }
 
@@ -299,8 +286,8 @@ export class ProfileService {
         "profileId"
       )}/education/${id}`,
       {
-        course: userInfo.course, // 학과, 전공 설명 입력
-        description: userInfo.description, // 추가 정보
+        course: userInfo.course,
+        description: userInfo.description,
         startDate: userInfo.startDate,
         endDate: userInfo.endDate,
         educationInstitute: {
@@ -310,7 +297,7 @@ export class ProfileService {
       },
       {
         headers: {
-          authorization: localStorage.getItem("token"), // 헤더에 토큰 추가
+          authorization: localStorage.getItem("token"),
         },
       }
     );
