@@ -12,12 +12,12 @@ const FeedListView: React.FC<{
   deleteComment: any;
   deleteFeed: any;
 }> = ({ data, myProfileData, createComment, deleteComment, deleteFeed }) => {
-  console.log(data, "dsanflasnlfasdflknfknls");
   return (
     <FeedListWrapper>
       <ModalWrapper>
         {data.map((feed: GetFeedListData) => (
           <FeedItem
+            key={feed.id}
             data={feed}
             myProfileData={myProfileData}
             createComment={createComment}

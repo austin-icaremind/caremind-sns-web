@@ -5,8 +5,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
-import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import { pathToFileURL } from "url";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -57,11 +55,9 @@ const Header: React.FC = () => {
         setHeaderFeedData(1);
       } else {
         try {
-          console.log("발동0");
           const getHeaderFeedData = await HeaderViewModel.getHeaderData();
-          console.log("발동1");
+
           setHeaderFeedData(getHeaderFeedData);
-          console.log("발동2");
         } catch (error) {
           console.error(error);
         }
@@ -88,7 +84,7 @@ const Header: React.FC = () => {
   if (headerFeedData === null) {
     return <div></div>;
   }
-  console.log(headerFeedData, "123131312");
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -360,9 +356,8 @@ const LogOutWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
   height: 30px;
-  padding-right: 30px;
+  margin-right: 30px;
 `;
 
 const Login = styled.span`
