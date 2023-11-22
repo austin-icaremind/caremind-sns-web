@@ -13,12 +13,13 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.PostMyFeedData> =
       await axios.post(
-        `${BASE_API}/feed`,
+        `/feed`,
         {
           content,
           images,
         },
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -33,9 +34,10 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.DeleteMyFeed> =
       await axios.delete(
-        `${BASE_API}/feed/${id}`,
+        `/feed/${id}`,
 
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -52,9 +54,10 @@ export class FeedService {
 
     const response: AxiosResponse<FeedServiceInterface.DeleteMyComment> =
       await axios.delete(
-        `${BASE_API}/feed/${feedId}/comment/${id}`,
+        `/feed/${feedId}/comment/${id}`,
 
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -69,9 +72,10 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.PostLike> =
       await axios.post(
-        `${BASE_API}/feed/${id}/like`,
+        `/feed/${id}/like`,
         {},
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -88,10 +92,11 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.PostMyComment> =
       await axios.post(
-        `${BASE_API}/feed/${id}/comment`,
+        `/feed/${id}/comment`,
         { id, content },
 
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -107,9 +112,10 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.PostLike> =
       await axios.delete(
-        `${BASE_API}/feed/${id}/like`,
+        `/feed/${id}/like`,
 
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
