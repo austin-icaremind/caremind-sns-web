@@ -24,6 +24,7 @@ const nextConfig = {
       "search.pstatic.net",
       "avatars.githubusercontent.com",
       "cloudflare-ipfs.com",
+      "",
     ],
   },
 };

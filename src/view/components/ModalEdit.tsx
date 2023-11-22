@@ -467,6 +467,14 @@ const TITLE_MODAL_LAYOUT = [
     placeholder: "자기소개를 입력해주세요.",
     alt: "필수입력사항",
   },
+  {
+    label: "사진 예시",
+    type: "file",
+    name: "imagetest",
+    key: "imagetest",
+    placeholder: "이미지를 넣어주세요.",
+    alt: "필수입력사항",
+  },
 ];
 
 const PROJECTS_MODAL_LAYOUT = [
@@ -510,6 +518,14 @@ const PROJECTS_MODAL_LAYOUT = [
     name: "endDate",
     key: "endDate",
     placeholder: "진행중이라면 비워주셔도 됩니다.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "사진 예시",
+    type: "file",
+    name: "imagetest",
+    key: "imagetest",
+    placeholder: "이미지를 넣어주세요.",
     alt: "필수입력사항",
   },
 ];
@@ -575,6 +591,14 @@ const EXPERIENCE_MODAL_LAYOUT = [
     placeholder: "설명을 써주세요.",
     alt: "필수입력사항",
   },
+  {
+    label: "사진 예시",
+    type: "file",
+    name: "imagetest",
+    key: "imagetest",
+    placeholder: "이미지를 넣어주세요.",
+    alt: "필수입력사항",
+  },
 ];
 
 const EDUCATION_MODAL_LAYOUT = [
@@ -625,6 +649,14 @@ const EDUCATION_MODAL_LAYOUT = [
     name: "endDate",
     key: "endDate",
     placeholder: "재직중이라면 비워주셔도 됩니다.",
+    alt: "필수입력사항",
+  },
+  {
+    label: "사진 예시",
+    type: "file",
+    name: "imagetest",
+    key: "imagetest",
+    placeholder: "이미지를 넣어주세요.",
     alt: "필수입력사항",
   },
 ];
