@@ -100,11 +100,24 @@ export class NetworkService {
     return response;
   }
 
-  static async postDecline(
+  static async postSentDecline(
     id: number
   ): Promise<AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData>> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
+      await axios.delete(`${BASE_API}/connection/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+    return response;
+  }
+
+  static async postRecievedDecline(
+    id: number
+  ): Promise<AxiosResponse<NetworkServiceInterface.postAcceptDeclineData>> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<NetworkServiceInterface.postAcceptDeclineData> =
       await axios.delete(`${BASE_API}/connection/${id}`, {
         headers: {
           Authorization: token,

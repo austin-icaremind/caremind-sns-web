@@ -114,10 +114,11 @@ class FeedViewModel {
         return response.data;
       }
     } catch (error: any) {
-      if (error.response.status === 400) {
-        alert("이미 친구 신청을 보냈습니다");
-      } else {
-        alert("서버 오류");
+      // if (error.response.status === 400) {
+      //   alert("이미 친구 신청을 보냈습니다");
+      // }
+      if (error.response.data.message === "DUPLICATE_USER_CONNECTION") {
+        alert("이미 요청을 보낸 대상입니다");
       }
     }
   }
