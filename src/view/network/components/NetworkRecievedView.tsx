@@ -9,7 +9,14 @@ const NetworkRecievedView: React.FC<{
   sentData: any;
   postAccept: any;
   postdecline: any;
-}> = ({ receivedData, sentData, postAccept, postdecline }) => {
+  postRecievedDecline: any;
+}> = ({
+  receivedData,
+  sentData,
+  postAccept,
+  postdecline,
+  postRecievedDecline,
+}) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [isSentData, setIsSentData] = useState(false);
 
@@ -69,6 +76,7 @@ const NetworkRecievedView: React.FC<{
             isSentData={isSentData}
             postAccept={postAccept}
             postdecline={postdecline}
+            postRecievedDecline={postRecievedDecline}
           />
         ))}
       </div>

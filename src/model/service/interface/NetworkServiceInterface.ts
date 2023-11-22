@@ -35,6 +35,10 @@ export interface postAcceptOrDeclineData {
   id: number;
 }
 
+export interface postAcceptDeclineData {
+  id: number;
+}
+
 export interface ChangeUserId {
   id: number;
 }

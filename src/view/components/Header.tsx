@@ -5,8 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
-import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
-import { pathToFileURL } from "url";
+import { ChangeEvent } from "react";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -26,30 +25,21 @@ const Header: React.FC = () => {
   const changeFeedColor = pageGaFeed.includes(pathname);
   const changeNetworkColor = pageGaNetwork.includes(pathname);
   const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
+  const [search, setSearch] = useState<string>("");
 
   const profileId: string | null = localStorage.getItem("profileId");
   const isLogined: string | null = localStorage.getItem("token");
 
+  const saveSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSearch = () => {
+    router.push(`/feed?search=${search}`);
+  };
   const goToMyProfile = () => {
     router.push(`/profile/${profileId}`);
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (shouldHideHeader) {
-  //       setHeaderFeedData(1);
-  //     }
-  //     try {
-  //       const getHeaderFeedData = await HeaderViewModel.getHeaderData(
-  //         profileId
-  //       );
-  //       setHeaderFeedData(getHeaderFeedData);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [pathname]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,11 +47,8 @@ const Header: React.FC = () => {
         setHeaderFeedData(1);
       } else {
         try {
-          console.log("발동0");
           const getHeaderFeedData = await HeaderViewModel.getHeaderData();
-          console.log("발동1");
           setHeaderFeedData(getHeaderFeedData);
-          console.log("발동2");
         } catch (error) {
           console.error(error);
         }
@@ -70,13 +57,13 @@ const Header: React.FC = () => {
 
     fetchData();
   }, [pathname]);
-  const handleLogin = () => {
-    router.push("/login");
-  };
+  // const handleLogin = () => {
+  //   router.push("/login");
+  // };
 
-  const handleSignUp = () => {
-    router.push("/signup");
-  };
+  // const handleSignUp = () => {
+  //   router.push("/signup");
+  // };
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -88,7 +75,7 @@ const Header: React.FC = () => {
   if (headerFeedData === null) {
     return <div></div>;
   }
-  console.log(headerFeedData, "123131312");
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -152,8 +139,13 @@ const Header: React.FC = () => {
                   src="/images/search.png"
                   width={24}
                   height={24}
+                  onClick={handleSearch}
                 />
-                <SearchInput placeholder="Search"></SearchInput>
+                <SearchInput
+                  placeholder="Search"
+                  value={search}
+                  onChange={saveSearch}
+                ></SearchInput>
               </div>
             )}
           </SearchWrapper>
