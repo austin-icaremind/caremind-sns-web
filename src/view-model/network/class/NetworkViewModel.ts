@@ -41,7 +41,6 @@ export class NetworkViewModel {
   static async RecievedAccept(id: number) {
     try {
       const response = await NetworkService.postAccept(id);
-      console.log(response);
       if (response.status >= 200 && response.status < 300) {
         const result = await this.getRecievedConnection();
         return result;
@@ -60,6 +59,18 @@ export class NetworkViewModel {
       }
     } catch (error) {
       return "wrong";
+    }
+  }
+
+  static getProfileId(
+    id: number
+  ): Promise<NetworkViewModelInterface.getProfileIdData> {
+    try {
+      const response = NetworkService.getProfileId(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
     }
   }
 }

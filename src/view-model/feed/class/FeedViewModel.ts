@@ -121,6 +121,18 @@ class FeedViewModel {
       }
     }
   }
+
+  static getProfileId(
+    id: number
+  ): Promise<FeedViewModelInterface.getProfileIdData> {
+    try {
+      const response = FeedService.getProfileId(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
 }
 
 export default FeedViewModel;

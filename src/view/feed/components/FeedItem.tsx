@@ -9,6 +9,7 @@ import { useRef } from "react";
 import { ChangeEvent } from "react";
 import FeedCommentModal from "./FeedCommentModal";
 import FeedCommentItem from "./FeedCommentItem";
+import { useRouter } from "next/navigation";
 
 const FeedItem: React.FC<{
   data: any;
@@ -31,7 +32,7 @@ const FeedItem: React.FC<{
   const maxCommentsToShow = 2;
   const [commentText, setCommentText] = useState("");
   const [showPostButton, setShowPostButton] = useState(false);
-
+  const router = useRouter();
   //댓글 더보기
   const handleShowMoreComments = () => {
     setShowAllComments(true);
@@ -106,8 +107,14 @@ const FeedItem: React.FC<{
     createComment(id, commentText);
     setCommentText("");
   };
-  //완료
 
+  const getProfileId = async () => {
+    const ProfileId = await FeedViewModel.getProfileId(userInformation.id);
+
+    router.push(`/profile/${ProfileId.id}`);
+  };
+
+  //userInformation.id 가 유저의 아이디
   return (
     <MapWrapper key={id}>
       <RecommandedWrapper>
@@ -138,6 +145,7 @@ const FeedItem: React.FC<{
               src={userInformation.profileImage}
               width={52}
               height={52}
+              onClick={getProfileId}
             ></ProfileImage>
             <NameAndJobWrapper>
               <UserName>{userInformation.name}</UserName>
@@ -152,7 +160,7 @@ const FeedItem: React.FC<{
             {data.images.map((item: any) => (
               <FeedImage
                 key={item.id}
-                src={item.image}
+                src={item.imageUrl}
                 width={820}
                 height={300}
                 alt="피드 이미지"
@@ -587,6 +595,7 @@ const ProfileImageAndName = styled.div`
 
 const ProfileImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const NameAndJobWrapper = styled.div`

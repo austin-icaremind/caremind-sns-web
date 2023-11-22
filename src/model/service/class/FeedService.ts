@@ -153,8 +153,15 @@ export class FeedService {
   static async getMyProfile(
     id: number
   ): Promise<FeedInterface.FeedMyProfileInterface> {
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/12`);
+      await axios.get(`${BASE_API}/profile/${userId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+
     // await axios.get(`${BASE_API}/profile/ProfileTitle1.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
@@ -192,5 +199,20 @@ export class FeedService {
         }
       );
     return response;
+  }
+
+  static async getProfileId(
+    userId: number
+  ): Promise<FeedServiceInterface.ChangeUserId> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<FeedServiceInterface.ChangeUserId> =
+      await axios.get(`${BASE_API}/profile/user/${userId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+    const result = response.data;
+
+    return result;
   }
 }

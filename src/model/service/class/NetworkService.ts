@@ -112,4 +112,19 @@ export class NetworkService {
       });
     return response;
   }
+
+  static async getProfileId(
+    userId: number
+  ): Promise<NetworkServiceInterface.ChangeUserId> {
+    const token = localStorage.getItem("token");
+    const response: AxiosResponse<NetworkServiceInterface.ChangeUserId> =
+      await axios.get(`${BASE_API}/profile/user/${userId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+    const result = response.data;
+
+    return result;
+  }
 }

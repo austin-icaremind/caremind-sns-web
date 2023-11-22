@@ -76,6 +76,10 @@ const FeedView = () => {
     });
   };
 
+  // const getProfileId = (id: number) => {
+  //   FeedViewModel.getProfileId;
+  // };
+
   return (
     <FeedWrapper>
       <FeedLeftContent>

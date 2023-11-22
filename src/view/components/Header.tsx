@@ -26,9 +26,13 @@ const Header: React.FC = () => {
   const changeFeedColor = pageGaFeed.includes(pathname);
   const changeNetworkColor = pageGaNetwork.includes(pathname);
   const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
-  const mainPage: string[] = ["/"];
-  const mainPageHideHeader = mainPage.includes(pathname);
 
+  const profileId: string | null = localStorage.getItem("profileId");
+  const isLogined: string | null = localStorage.getItem("token");
+
+  const goToMyProfile = () => {
+    router.push(`/profile/${profileId}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +42,6 @@ const Header: React.FC = () => {
           localStorage.getItem("profileId") || "-1",
           10
         );
-        // const getHeaderFeedData = await HeaderViewModel.getHeaderData(userId);
 
         const getHeaderFeedData = await HeaderViewModel.getHeaderData(
           profileId
@@ -63,13 +66,17 @@ const Header: React.FC = () => {
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("profileId");
     router.push("/");
   };
 
-  // if (headerFeedData === null || headerData === null) {
-  //   return <div>Loading...</div>;
-  // }
-  const isLogined = localStorage.getItem("token");
+
+  if (headerFeedData === null || headerData === null) {
+    return <div></div>;
+  }
+
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -126,20 +133,25 @@ const Header: React.FC = () => {
             </NetworkWrapper>
           </FeedAndNetworkWrapper>
           <SearchWrapper>
-            <SearchIcon
-              alt="검색아이콘"
-              src="/images/search.png"
-              width={24}
-              height={24}
-            />
-            <SearchInput placeholder="Search"></SearchInput>
+            {changeFeedColor && (
+              <div>
+                <SearchIcon
+                  alt="검색아이콘"
+                  src="/images/search.png"
+                  width={24}
+                  height={24}
+                />
+                <SearchInput placeholder="Search"></SearchInput>
+              </div>
+            )}
           </SearchWrapper>
           <ProfileWrapper key={headerData.id}>
             <ProfileImage
               alt="프로필 이미지"
-              src={headerFeedData.user.profileImage} //data 프로필 이미지 넣기
+              src={headerFeedData.user.profileImage}
               height={42}
               width={42}
+              onClick={goToMyProfile}
             />
             <UserNameWrapper>
               <MyWrapper>
@@ -151,12 +163,6 @@ const Header: React.FC = () => {
                 <AddedNumber></AddedNumber>
               </VisitorWrapper>
             </UserNameWrapper>
-            {/* {main && (
-              <LoginAndSignUpWrapper>
-                <Login onClick={handleLogin}>로그인</Login>
-                <SignUp onClick={handleSignUp}>회원가입</SignUp>
-              </LoginAndSignUpWrapper>
-            )} */}
           </ProfileWrapper>
         </>
       )}
@@ -192,7 +198,7 @@ const HeaderWrapper = styled.div`
   flex-shrink: 0;
   align-items: center;
   background: #fff;
-  box-shadow: 0px 10px 40px 0pxrgba (89, 120, 150, 0.06);
+  box-shadow: 0px 10px 40px 0px rgba (89, 120, 150, 0.06);
 `;
 
 const IconWrapper = styled.div`
@@ -295,6 +301,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserNameWrapper = styled.div`
@@ -341,6 +348,7 @@ const LogOutWrapper = styled.div`
   justify-content: center;
   width: 60px;
   height: 30px;
+  padding-right: 30px;
 `;
 
 const Login = styled.span`
@@ -360,6 +368,7 @@ const Login = styled.span`
 
 const LogOut = styled.div`
   width: 100px;
+
   cursor: pointer;
   &:hover {
     background-color: #edf3f8;
@@ -369,6 +378,7 @@ const SignUpAndLoginWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 16px;
+  margin-right: 30px;
 `;
 
 const SignUp = styled.span`

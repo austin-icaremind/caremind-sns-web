@@ -27,7 +27,6 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
     await FeedViewModel.postConnectionData(id, "");
   };
 
-
   return (
     <ModalWrapper>
       <ContentWrapper>
@@ -41,11 +40,9 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
                 height={20}
               />
               수정
-              </IconWrapper>
-            <IconWrapper>
+            </IconWrapper>
 
             <IconWrapper onClick={handleDelete}>
-
               <Image
                 alt="삭제 아이콘"
                 src="/images/bin.png"

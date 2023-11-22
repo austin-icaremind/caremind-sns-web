@@ -34,3 +34,7 @@ export interface getMyConnectionData {
 export interface postAcceptOrDeclineData {
   id: number;
 }
+
+export interface ChangeUserId {
+  id: number;
+}

@@ -37,13 +37,12 @@ const FeedPostView: React.FC<{ postFeed: any }> = ({ postFeed }) => {
               height={24}
               width={24}
             ></ImageIcon>
-            <SentWrapper>
+            <SentWrapper onClick={handlePostClick}>
               <SentIcon
                 alt="보내기 아이콘"
                 src="/images/send.png"
                 height={16}
                 width={16}
-                onClick={handlePostClick}
               ></SentIcon>
             </SentWrapper>
           </PostIconWrapper>

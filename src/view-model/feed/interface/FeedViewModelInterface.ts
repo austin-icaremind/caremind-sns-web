@@ -44,3 +44,7 @@ export interface GetFeedMyHashtagData {
     content: string;
   }[];
 }
+
+export interface getProfileIdData {
+  id: number;
+}

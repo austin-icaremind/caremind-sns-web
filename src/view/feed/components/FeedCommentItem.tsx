@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import FeedCommentModal from "./FeedCommentModal";
+import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
+import { useRouter } from "next/navigation";
 
 const FeedCommentItem: React.FC<{
   id: any;
@@ -10,6 +12,7 @@ const FeedCommentItem: React.FC<{
 }> = ({ id, commenter, deleteComment }) => {
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [selectedCommentOption, setSelectedCommentOption] = useState(null);
+  const router = useRouter();
 
   const handleCommentModalOpen = (item: any) => {
     setSelectedCommentOption(item);
@@ -37,6 +40,12 @@ const FeedCommentItem: React.FC<{
     };
   }, [isCommentModalOpen]);
 
+  const getProfileId = async () => {
+    const ProfileId = await FeedViewModel.getProfileId(commenter.commenter.id);
+
+    router.push(`/profile/${ProfileId.id}`);
+  };
+
   return (
     <CommenterWrapper>
       <CommenterPaddingWrapper>
@@ -46,6 +55,7 @@ const FeedCommentItem: React.FC<{
             src={commenter.commenter.profileImage}
             width={40}
             height={40}
+            onClick={getProfileId}
           ></CommenterImage>
         </ProfileWrapper>
         <CommemnterContentContainer>
@@ -129,6 +139,7 @@ const CommemnterContentContainer = styled.div`
 
 const CommenterImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const CommenterPaddingWrapper = styled.div`

@@ -73,7 +73,7 @@ const LoginPage: React.FC = () => {
         const profileCheck = await UserViewModel.CheckProfileId();
         localStorage.setItem("profileId", profileCheck.id);
       }
-      router.push("/");
+      router.push("/feed");
     };
 
     fetchData();
