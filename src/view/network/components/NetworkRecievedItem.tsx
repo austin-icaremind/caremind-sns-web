@@ -10,7 +10,8 @@ const NetworkRecievedItem: React.FC<{
   data: any;
   postAccept: any;
   postdecline: any;
-}> = ({ data, isSentData, postAccept, postdecline }) => {
+  postRecievedDecline: any;
+}> = ({ data, isSentData, postAccept, postdecline, postRecievedDecline }) => {
   const router = useRouter();
   const handleAccept = async () => {
     postAccept(data.id);
@@ -20,6 +21,9 @@ const NetworkRecievedItem: React.FC<{
     postdecline(data.id);
   };
 
+  const handleRecievedDecline = async () => {
+    postRecievedDecline(data.id);
+  };
   const getProfileId = async () => {
     const ProfileId = await NetworkViewModel.getProfileId(
       data.connectedUser.id
@@ -48,9 +52,13 @@ const NetworkRecievedItem: React.FC<{
             {isSentData ? null : (
               <AcceptButton onClick={handleAccept}>ACCEPT</AcceptButton>
             )}
-            <DeclineButton onClick={handledecline}>
-              {isSentData ? "CANCLE" : "DECLINE"}
-            </DeclineButton>
+            {!isSentData ? (
+              <DeclineButton onClick={handleRecievedDecline}>
+                DECLINE
+              </DeclineButton>
+            ) : (
+              <DeclineButton onClick={handledecline}>CANCLE</DeclineButton>
+            )}
           </ButtonContainer>
         </PaddingWrapper>
       </NewConnectionUserWrapper>

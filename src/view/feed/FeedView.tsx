@@ -17,8 +17,9 @@ const FeedView = () => {
   const router = useRouter();
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIndex(e.target.value);
-    // router.push(`/?sort=${e.target.innerText}`);
   };
+
+  const searchParams = new URLSearchParams(document.location.search);
 
   const fetchData = async () => {
     try {
@@ -35,6 +36,12 @@ const FeedView = () => {
         10
       );
       const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
+
+      setMyProfileData(getMyProfile);
+
+      // const getSearchParams = await FeedViewModel.getFeedMyProfileData(
+      //   searchParams
+      // );
 
       setMyProfileData(getMyProfile);
     } catch (error) {

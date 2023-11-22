@@ -50,11 +50,27 @@ export class NetworkViewModel {
     }
   }
 
-  static async RecievedDecline(id: number) {
+  static async SentDecline(id: number) {
     try {
-      const response = await NetworkService.postDecline(id);
+      const response = await NetworkService.postSentDecline(id);
+
       if (response.status >= 200 && response.status < 300) {
         const result = await this.getSentConnection();
+
+        return result;
+      }
+    } catch (error) {
+      return "wrong";
+    }
+  }
+
+  static async RecievedDecline(id: number) {
+    try {
+      const response = await NetworkService.postRecievedDecline(id);
+
+      if (response.status >= 200 && response.status < 300) {
+        const result = await this.getRecievedConnection();
+
         return result;
       }
     } catch (error) {
