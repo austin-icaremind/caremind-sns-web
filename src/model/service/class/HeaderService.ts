@@ -18,12 +18,15 @@ export class HeaderService {
   //   );
   //   return result;
   // }
-  static async getHeaderProfileTitle(
-    id: number
-  ): Promise<HeaderServiceInterface.HeaderProfileTitleData> {
-    const userId = localStorage.getItem("userId");
+  static async getHeaderProfileTitle(): Promise<HeaderServiceInterface.HeaderProfileTitleData> {
+    const profileId = localStorage.getItem("profileId");
+    const token = localStorage.getItem("token");
     const response: AxiosResponse<HeaderServiceInterface.HeaderProfileTitleData> =
-      await axios.get(`${BASE_API}/profile/${userId}`);
+      await axios.get(`${BASE_API}/profile/${profileId}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
 
     // await axios.get(`${BASE_API}/profile/profileTitle1.json`);
     const result = response.data;

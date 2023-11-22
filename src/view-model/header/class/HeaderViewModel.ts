@@ -12,11 +12,9 @@ class HeaderViewModel {
   //   }
   // }
 
-  static async getHeaderData(
-    id: number
-  ): Promise<HeaderViewModelInterface.GetHeaderViewdata> {
+  static async getHeaderData(): Promise<HeaderViewModelInterface.GetHeaderViewdata> {
     try {
-      const response = await HeaderService.getHeaderProfileTitle(id);
+      const response = await HeaderService.getHeaderProfileTitle();
 
       return response;
     } catch (error) {

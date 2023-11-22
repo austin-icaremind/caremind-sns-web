@@ -153,10 +153,10 @@ export class FeedService {
   static async getMyProfile(
     id: number
   ): Promise<FeedInterface.FeedMyProfileInterface> {
-    const userId = localStorage.getItem("userId");
+    const profileId = localStorage.getItem("profileId");
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/${userId}`, {
+      await axios.get(`${BASE_API}/profile/${profileId}`, {
         headers: {
           authorization: token,
         },

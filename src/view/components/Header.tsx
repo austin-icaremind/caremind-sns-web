@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
+import { pathToFileURL } from "url";
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -32,28 +33,43 @@ const Header: React.FC = () => {
   const goToMyProfile = () => {
     router.push(`/profile/${profileId}`);
   };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (shouldHideHeader) {
+  //       setHeaderFeedData(1);
+  //     }
+  //     try {
+  //       const getHeaderFeedData = await HeaderViewModel.getHeaderData(
+  //         profileId
+  //       );
+  //       setHeaderFeedData(getHeaderFeedData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [pathname]);
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        // const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
-        // setHeaderData(getHeaderProfile);
-        // const profileId: number | null = parseInt(
-        //   localStorage.getItem("profileId") || "-1",
-        //   10
-        // );
-
-        const getHeaderFeedData = await HeaderViewModel.getHeaderData(
-          profileId
-        );
-        setHeaderFeedData(getHeaderFeedData);
-      } catch (error) {
-        console.error(error);
+      if (["/", "/login", "/signup"].includes(pathname)) {
+        setHeaderFeedData(1);
+      } else {
+        try {
+          console.log("발동0");
+          const getHeaderFeedData = await HeaderViewModel.getHeaderData();
+          console.log("발동1");
+          setHeaderFeedData(getHeaderFeedData);
+          console.log("발동2");
+        } catch (error) {
+          console.error(error);
+        }
       }
     };
 
     fetchData();
   }, [pathname]);
-
   const handleLogin = () => {
     router.push("/login");
   };
@@ -72,7 +88,7 @@ const Header: React.FC = () => {
   if (headerFeedData === null) {
     return <div></div>;
   }
-
+  console.log(headerFeedData, "123131312");
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -141,25 +157,27 @@ const Header: React.FC = () => {
               </div>
             )}
           </SearchWrapper>
-          <ProfileWrapper key={headerFeedData.id}>
-            <ProfileImage
-              alt="프로필 이미지"
-              src={headerFeedData.user.profileImage}
-              height={42}
-              width={42}
-              onClick={goToMyProfile}
-            />
-            <UserNameWrapper>
-              <MyWrapper>
-                <UserName>{headerFeedData.user.name}</UserName>
-                <YouLetter>YOU</YouLetter>
-              </MyWrapper>
-              <VisitorWrapper>
-                <TodayView></TodayView>
-                <AddedNumber></AddedNumber>
-              </VisitorWrapper>
-            </UserNameWrapper>
-          </ProfileWrapper>
+          {!shouldHideHeader && (
+            <ProfileWrapper key={headerFeedData.id}>
+              <ProfileImage
+                alt="프로필 이미지"
+                src={headerFeedData?.user?.profileImage}
+                height={42}
+                width={42}
+                onClick={goToMyProfile}
+              />
+              <UserNameWrapper>
+                <MyWrapper>
+                  <UserName>{headerFeedData?.user?.name}</UserName>
+                  <YouLetter>YOU</YouLetter>
+                </MyWrapper>
+                <VisitorWrapper>
+                  <TodayView></TodayView>
+                  <AddedNumber></AddedNumber>
+                </VisitorWrapper>
+              </UserNameWrapper>
+            </ProfileWrapper>
+          )}
         </>
       )}
       {isLogined ? (
@@ -168,8 +186,8 @@ const Header: React.FC = () => {
         </LogOutWrapper>
       ) : (
         <SignUpAndLoginWrapper>
-          <SignUp onClick={handleSignUp}>회원가입</SignUp>
-          <Login onClick={handleLogin}>로그인</Login>
+          {/* <SignUp onClick={handleSignUp}>회원가입</SignUp>
+          <Login onClick={handleLogin}>로그인</Login> */}
         </SignUpAndLoginWrapper>
       )}
     </HeaderWrapper>
