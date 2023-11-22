@@ -82,7 +82,7 @@ const DetailsExperienceView = ({ id }: { id: number }) => {
                   title="이력 수정"
                   layout="experience"
                   click={isChange}
-                  id={experienceData.id}
+                  id={item.id}
                 />
               )}
             </ModalPosition>

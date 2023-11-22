@@ -84,7 +84,7 @@ const DetailsProjectsView = ({ id }: { id: number }) => {
                   title="프로젝트 수정"
                   layout="projects"
                   click={isChange}
-                  id={projectsData.id}
+                  id={item.id}
                 />
               )}
 
@@ -174,6 +174,7 @@ const ProfileProjectsCard = styled.div`
 const ProfileProjectsPic = styled(Image)`
   flex-shrink: 0;
   display: block;
+  object-fit: cover;
 `;
 
 const ProfileProjectsInfoBox = styled.div`

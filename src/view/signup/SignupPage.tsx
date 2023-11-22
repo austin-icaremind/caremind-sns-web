@@ -77,7 +77,7 @@ const SignupPage = () => {
         </SignUpInfo>
         <SignupBtn
           onClick={(e: React.FormEvent) => {
-            e.preventDefault;
+            e.preventDefault();
             onClcikAlert();
           }}
         >

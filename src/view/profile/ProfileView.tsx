@@ -70,7 +70,7 @@ const ProfileView = ({ id }: { id: number }) => {
         <ProfileStyle>
           <ProfileLeft>
             <ProfileOutSideBox>
-              <ProfileTitleView data={titleData} id={id} />
+              <ProfileTitleView data={titleData} />
               {myProfileCheck && (
                 <ModalEdit
                   data={titleData}
@@ -183,4 +183,3 @@ const ModalPosition = styled.div`
 `;
 
 export default ProfileView;
-

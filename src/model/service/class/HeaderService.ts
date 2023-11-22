@@ -23,7 +23,9 @@ export class HeaderService {
   ): Promise<HeaderServiceInterface.HeaderProfileTitleData> {
     const userId = localStorage.getItem("userId");
     const response: AxiosResponse<HeaderServiceInterface.HeaderProfileTitleData> =
+
       await axios.get(`${BASE_API}/profile/${userId}`);
+
     // await axios.get(`${BASE_API}/profile/profileTitle1.json`);
     const result = response.data;
 

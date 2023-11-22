@@ -6,21 +6,9 @@ import ModalEdit from "@/view/components/ModalEdit";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
 import { userInfo } from "os";
 
-function getFieldValue(obj: any, field: string) {
-  const fields = field.split(".");
-  let value = obj;
-
-  for (const f of fields) {
-    value = value[f];
-  }
-  return value;
-}
-
 const ProfileTitleView: React.FC<{
   data: any;
-
-  profileId: number;
-}> = ({ data, profileId }) => {
+}> = ({ data }) => {
   return (
     <ProfileTitleStyle>
       <ProfileTitleWrapper>

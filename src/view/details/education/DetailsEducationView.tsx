@@ -36,7 +36,7 @@ const DetailsEducationView = ({ id }: { id: number }) => {
     };
 
     fetchData(id);
-  }, []);
+  }, [change]);
 
   if (titleData === null || educationData === null) {
     return <div>Loading...</div>;
@@ -83,7 +83,7 @@ const DetailsEducationView = ({ id }: { id: number }) => {
                   title="교육 수정"
                   layout="education"
                   click={isChange}
-                  id={educationData.id}
+                  id={item.id}
                 />
               )}
             </ModalPosition>
