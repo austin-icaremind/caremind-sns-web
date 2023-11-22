@@ -6,8 +6,6 @@ interface pageProps {
 }
 
 const Profile: NextPage<pageProps> = ({ params }) => {
-  // const name = async getName(parmas.id)
-
   return <ProfileView id={params.id} />;
 };
 

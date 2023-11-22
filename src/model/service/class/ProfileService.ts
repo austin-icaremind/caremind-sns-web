@@ -228,7 +228,6 @@ export class ProfileService {
   }
 
   static async updateExperience(userInfo: any, id: number): Promise<any> {
-    console.log("체크", id);
     const response: AxiosResponse<any> = await axios.put(
       `${BASE_API}/profile/${localStorage.getItem(
         "profileId"
