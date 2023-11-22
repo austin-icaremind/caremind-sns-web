@@ -60,9 +60,9 @@ class FeedViewModel {
     }
   }
 
-  static async deleteComment(id: number) {
+  static async deleteComment(feedId: number, id: number) {
     try {
-      const response = await FeedService.deleteComment(id);
+      const response = await FeedService.deleteComment(feedId, id);
       if (response.status >= 200 && response.status < 300) {
         const result = await this.getFeedListData();
         return result;

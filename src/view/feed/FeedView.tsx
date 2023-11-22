@@ -71,8 +71,8 @@ const FeedView = () => {
     });
   };
 
-  const deleteComment = (id: number) => {
-    FeedViewModel.deleteComment(id).then((res) => {
+  const deleteComment = (feedId: number, id: number) => {
+    FeedViewModel.deleteComment(feedId, id).then((res) => {
       setFeedListData(res);
     });
   };

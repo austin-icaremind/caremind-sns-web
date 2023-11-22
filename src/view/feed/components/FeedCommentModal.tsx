@@ -7,12 +7,14 @@ const FeedCommentModal: React.FC<{
   id: number;
   commentId: number;
   deleteComment: any;
+  feedId: any;
 }> = ({
   id,
   //commenter안에 id
   commentId,
   //comment게시글의 id
   deleteComment,
+  feedId,
 }) => {
   const localId: number | null = parseInt(
     localStorage.getItem("userId") || "-1",
@@ -20,11 +22,11 @@ const FeedCommentModal: React.FC<{
   );
 
   const handleDelete = async () => {
-    deleteComment(commentId);
+    deleteComment(feedId, commentId);
   };
 
   const handleAddConnection = async () => {
-    await FeedViewModel.deleteComment(id);
+    await FeedViewModel.postConnectionData(id, "");
   };
 
   return (

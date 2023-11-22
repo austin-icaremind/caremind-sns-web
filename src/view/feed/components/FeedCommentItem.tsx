@@ -68,6 +68,7 @@ const FeedCommentItem: React.FC<{
                   <FeedLocation>
                     {isCommentModalOpen && (
                       <FeedCommentModal
+                        feedId={id}
                         id={commenter.commenter.id}
                         commentId={commenter.id}
                         deleteComment={deleteComment}

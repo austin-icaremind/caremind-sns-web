@@ -28,6 +28,7 @@ export interface PostMyComment {
   content: string;
 }
 export interface DeleteMyComment {
+  feedId: number;
   id: number;
 }
 

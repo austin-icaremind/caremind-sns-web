@@ -45,13 +45,14 @@ export class FeedService {
   }
 
   static async deleteComment(
+    feedId: number,
     id: number
   ): Promise<AxiosResponse<FeedServiceInterface.DeleteMyComment>> {
     const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
+
     const response: AxiosResponse<FeedServiceInterface.DeleteMyComment> =
       await axios.delete(
-        `${BASE_API}/feed/${userId}/comment/${id}`,
+        `${BASE_API}/feed/${feedId}/comment/${id}`,
 
         {
           headers: {
