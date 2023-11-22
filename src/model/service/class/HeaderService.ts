@@ -6,29 +6,17 @@ import * as Header from "@/model/entity/header/Header";
 import BASE_API from "@/model/config";
 
 export class HeaderService {
-  // static async getHeaderProfile(): Promise<HeaderInterface.HeaderProfileInterface> {
-  //   const response: AxiosResponse<HeaderServiceInterface.HeaderProfileData> =
-  //     await axios.get(`/data/header/MyProfile.json`);
-  //   const result = new Header.HeaderProfileInf(
-  //     response.data.id,
-  //     response.data.profileImage,
-  //     response.data.myName,
-  //     response.data.todayView,
-  //     response.data.viewChange
-  //   );
-  //   return result;
-  // }
   static async getHeaderProfileTitle(): Promise<HeaderServiceInterface.HeaderProfileTitleData> {
     const profileId = localStorage.getItem("profileId");
     const token = localStorage.getItem("token");
     const response: AxiosResponse<HeaderServiceInterface.HeaderProfileTitleData> =
-      await axios.get(`${BASE_API}/profile/${profileId}`, {
+      await axios.get(`/profile/${profileId}`, {
+        baseURL: `${BASE_API}`,
         headers: {
           Authorization: token,
         },
       });
 
-    // await axios.get(`${BASE_API}/profile/profileTitle1.json`);
     const result = response.data;
 
     return result;

@@ -13,7 +13,8 @@ export class NetworkService {
     const response: AxiosResponse<
       NetworkServiceInterface.getRecievedConnectionData[]
       // > = await axios.get(`/data/network/RecievedConnection.json`);
-    > = await axios.get(`${BASE_API}/connection/received`, {
+    > = await axios.get(`/connection/received`, {
+      baseURL: `${BASE_API}`,
       headers: {
         Authorization: token,
       },
@@ -37,7 +38,8 @@ export class NetworkService {
     const response: AxiosResponse<
       NetworkServiceInterface.getSentConnectionData[]
       // > = await axios.get(`/data/network/SentConnection.json`);
-    > = await axios.get(`${BASE_API}/connection/sent`, {
+    > = await axios.get(`/connection/sent`, {
+      baseURL: `${BASE_API}`,
       headers: {
         Authorization: token,
       },
@@ -62,7 +64,8 @@ export class NetworkService {
       NetworkServiceInterface.getMyConnectionData[]
 
       // > = await axios.get(`/data/network/MyConnection.json`);
-    > = await axios.get(`${BASE_API}/connection/connected`, {
+    > = await axios.get(`/connection/connected`, {
+      baseURL: `${BASE_API}`,
       headers: {
         Authorization: token,
       },
@@ -87,10 +90,11 @@ export class NetworkService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
       await axios.patch(
-        `${BASE_API}/connection/${id}`,
+        `/connection/${id}`,
         {},
 
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -105,7 +109,8 @@ export class NetworkService {
   ): Promise<AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData>> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<NetworkServiceInterface.postAcceptOrDeclineData> =
-      await axios.delete(`${BASE_API}/connection/${id}`, {
+      await axios.delete(`/connection/${id}`, {
+        baseURL: `${BASE_API}`,
         headers: {
           Authorization: token,
         },
@@ -118,7 +123,8 @@ export class NetworkService {
   ): Promise<AxiosResponse<NetworkServiceInterface.postAcceptDeclineData>> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<NetworkServiceInterface.postAcceptDeclineData> =
-      await axios.delete(`${BASE_API}/connection/${id}`, {
+      await axios.delete(`/connection/${id}`, {
+        baseURL: `${BASE_API}`,
         headers: {
           Authorization: token,
         },
@@ -131,9 +137,10 @@ export class NetworkService {
   ): Promise<NetworkServiceInterface.ChangeUserId> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<NetworkServiceInterface.ChangeUserId> =
-      await axios.get(`${BASE_API}/profile/user/${userId}`, {
+      await axios.get(`/profile/user/${userId}`, {
+        baseURL: `${BASE_API}`,
         headers: {
-          authorization: token,
+          Authorization: token,
         },
       });
     const result = response.data;

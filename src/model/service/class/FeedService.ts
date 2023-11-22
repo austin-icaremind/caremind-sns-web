@@ -120,10 +120,10 @@ export class FeedService {
   }
 
   static async getFeedList(
-    searchValue
+    searchValue: any
   ): Promise<FeedInterface.FeedListInterface[]> {
     const token = localStorage.getItem("token");
-    console.log("BASE_API", BASE_API);
+
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
       await axios.get(`/feed?${searchValue}`, {
         baseURL: `${BASE_API}`,
@@ -159,13 +159,13 @@ export class FeedService {
     const profileId = localStorage.getItem("profileId");
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.MyProfileData> =
-      await axios.get(`${BASE_API}/profile/${profileId}`, {
+      await axios.get(`/profile/${profileId}`, {
+        baseURL: `${BASE_API}`,
         headers: {
-          authorization: token,
+          Authorization: token,
         },
       });
 
-    // await axios.get(`${BASE_API}/profile/ProfileTitle1.json`);
     const result = new Feed.FeedMyProfileImp(
       response.data.id,
       response.data.profileBackImage,
@@ -193,9 +193,10 @@ export class FeedService {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.PostConnection> =
       await axios.post(
-        `${BASE_API}/connection/user/${id}`,
+        `/connection/user/${id}`,
         { message },
         {
+          baseURL: `${BASE_API}`,
           headers: {
             Authorization: token,
           },
@@ -209,9 +210,10 @@ export class FeedService {
   ): Promise<FeedServiceInterface.ChangeUserId> {
     const token = localStorage.getItem("token");
     const response: AxiosResponse<FeedServiceInterface.ChangeUserId> =
-      await axios.get(`${BASE_API}/profile/user/${userId}`, {
+      await axios.get(`/profile/user/${userId}`, {
+        baseURL: `${BASE_API}`,
         headers: {
-          authorization: token,
+          Authorization: token,
         },
       });
     const result = response.data;
