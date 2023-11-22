@@ -17,7 +17,6 @@ const Header: React.FC = () => {
   const handleNetwork = () => handleRouting("/network");
   const handleHome = () => handleRouting("/");
 
-  const [headerData, setHeaderData] = useState<any | null>(null);
   const [headerFeedData, setHeaderFeedData] = useState<any | null>(null);
   const pathname = usePathname();
   const hideHeaderOnPaths: string[] = ["/login", "/signup", "/"];
@@ -36,17 +35,16 @@ const Header: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
-        setHeaderData(getHeaderProfile);
-        const profileId: number | null = parseInt(
-          localStorage.getItem("profileId") || "-1",
-          10
-        );
+        // const getHeaderProfile = await HeaderViewModel.getHeaderProfileData();
+        // setHeaderData(getHeaderProfile);
+        // const profileId: number | null = parseInt(
+        //   localStorage.getItem("profileId") || "-1",
+        //   10
+        // );
 
         const getHeaderFeedData = await HeaderViewModel.getHeaderData(
           profileId
         );
-
         setHeaderFeedData(getHeaderFeedData);
       } catch (error) {
         console.error(error);
@@ -71,11 +69,9 @@ const Header: React.FC = () => {
     router.push("/");
   };
 
-
-  if (headerFeedData === null || headerData === null) {
+  if (headerFeedData === null) {
     return <div></div>;
   }
-
 
   return (
     <HeaderWrapper>
@@ -145,7 +141,7 @@ const Header: React.FC = () => {
               </div>
             )}
           </SearchWrapper>
-          <ProfileWrapper key={headerData.id}>
+          <ProfileWrapper key={headerFeedData.id}>
             <ProfileImage
               alt="프로필 이미지"
               src={headerFeedData.user.profileImage}
