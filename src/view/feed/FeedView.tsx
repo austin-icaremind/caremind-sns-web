@@ -25,7 +25,10 @@ const FeedView = () => {
 
   const fetchData = async () => {
     try {
-      const getFeedList = await FeedViewModel.getFeedListData(searchValue);
+      const getFeedList = await FeedViewModel
+        .getFeedListData
+        // searchValue
+        ();
 
       setFeedListData(getFeedList);
 
