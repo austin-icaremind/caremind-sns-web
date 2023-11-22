@@ -5,10 +5,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useEffect } from "react";
 import HeaderViewModel from "@/view-model/header/class/HeaderViewModel";
-<<<<<<< HEAD
-=======
 import { ChangeEvent } from "react";
->>>>>>> feature/dev-295
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -51,10 +48,7 @@ const Header: React.FC = () => {
       } else {
         try {
           const getHeaderFeedData = await HeaderViewModel.getHeaderData();
-<<<<<<< HEAD
 
-=======
->>>>>>> feature/dev-295
           setHeaderFeedData(getHeaderFeedData);
         } catch (error) {
           console.error(error);
