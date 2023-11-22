@@ -26,9 +26,13 @@ const Header: React.FC = () => {
   const changeFeedColor = pageGaFeed.includes(pathname);
   const changeNetworkColor = pageGaNetwork.includes(pathname);
   const shouldHideHeader = hideHeaderOnPaths.includes(pathname);
-  const mainPage: string[] = ["/"];
-  const mainPageHideHeader = mainPage.includes(pathname);
 
+  const profileId: string | null = localStorage.getItem("profileId");
+  const isLogined: string | null = localStorage.getItem("token");
+
+  const goToMyProfile = () => {
+    router.push(`/profile/${profileId}`);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,7 +55,6 @@ const Header: React.FC = () => {
     fetchData();
   }, [pathname]);
 
-
   const handleLogin = () => {
     router.push("/login");
   };
@@ -64,14 +67,13 @@ const Header: React.FC = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("profileId");
-
     router.push("/");
   };
 
   if (headerFeedData === null || headerData === null) {
     return <div>Loading...</div>;
   }
-  const isLogined = localStorage.getItem("token");
+
   return (
     <HeaderWrapper>
       <IconWrapper onClick={handleHome}>
@@ -139,9 +141,10 @@ const Header: React.FC = () => {
           <ProfileWrapper key={headerData.id}>
             <ProfileImage
               alt="프로필 이미지"
-              src={headerFeedData.user.profileImage} //data 프로필 이미지 넣기
+              src={headerFeedData.user.profileImage}
               height={42}
               width={42}
+              onClick={goToMyProfile}
             />
             <UserNameWrapper>
               <MyWrapper>
@@ -153,12 +156,6 @@ const Header: React.FC = () => {
                 <AddedNumber></AddedNumber>
               </VisitorWrapper>
             </UserNameWrapper>
-            {/* {main && (
-              <LoginAndSignUpWrapper>
-                <Login onClick={handleLogin}>로그인</Login>
-                <SignUp onClick={handleSignUp}>회원가입</SignUp>
-              </LoginAndSignUpWrapper>
-            )} */}
           </ProfileWrapper>
         </>
       )}

@@ -13,6 +13,7 @@ const nextConfig = {
     //   },
     // ],
     domains: [
+      "littledeep.com",
       "picsum.photos",
       "loremflickr.com",
       "upload.wikimedia.org",

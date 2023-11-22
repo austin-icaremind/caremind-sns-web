@@ -62,6 +62,18 @@ export class NetworkViewModel {
       return "wrong";
     }
   }
+
+  static getProfileId(
+    id: number
+  ): Promise<NetworkViewModelInterface.getProfileIdData> {
+    try {
+      const response = NetworkService.getProfileId(id);
+      return response;
+    } catch (error) {
+      console.error("Error getting profile title data:", error);
+      throw error;
+    }
+  }
 }
 
 export default NetworkViewModel;

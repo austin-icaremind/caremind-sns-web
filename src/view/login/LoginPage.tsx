@@ -55,10 +55,6 @@ const LoginPage: React.FC = () => {
     }
 
     alert("로그인 성공");
-<<<<<<< HEAD:src/view/login/page.tsx
-    router.push("/feed");
-=======
->>>>>>> feature/dev-232:src/view/login/LoginPage.tsx
   };
 
   useEffect(() => {

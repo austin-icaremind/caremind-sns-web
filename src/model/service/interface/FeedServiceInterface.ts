@@ -36,6 +36,10 @@ export interface PostConnection {
   message: string | null;
 }
 
+export interface ChangeUserId {
+  id: number;
+}
+
 //피드 리스트 get//
 export interface FeedListData {
   id: number;

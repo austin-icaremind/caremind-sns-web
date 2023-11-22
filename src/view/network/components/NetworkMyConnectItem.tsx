@@ -1,7 +1,17 @@
 import styled from "styled-components";
 import Image from "next/image";
+import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
+import { useRouter } from "next/navigation";
 
 const NetworkMyConnectItem: React.FC<{ data: any }> = ({ data }) => {
+  const router = useRouter();
+
+  const getProfileId = async () => {
+    const ProfileId = await NetworkViewModel.getProfileId(
+      data.connectedUser.id
+    );
+    router.push(`/profile/${ProfileId.id}`);
+  };
   return (
     <ItemWrapper key={data.id}>
       <PaddinWrapper>
@@ -11,6 +21,7 @@ const NetworkMyConnectItem: React.FC<{ data: any }> = ({ data }) => {
             src={data.connectedUser.profileImage}
             width={52}
             height={52}
+            onClick={getProfileId}
           ></UserImage>
           <InformationWrapper>
             <Name>{data.connectedUser.name}</Name>
@@ -42,6 +53,7 @@ const PaddinWrapper = styled.div`
 `;
 const UserImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const ContentWrapper = styled.div`

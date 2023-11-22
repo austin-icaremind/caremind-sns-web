@@ -4,10 +4,16 @@ import React from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { GetFeedMyProfileData } from "@/view-model/feed/interface/FeedViewModelInterface";
+import { useRouter } from "next/navigation";
 
 const FeedMyProfileView: React.FC<{ data: GetFeedMyProfileData }> = ({
   data,
 }) => {
+  const profileId = localStorage.getItem("profileId");
+  const router = useRouter();
+  const goToMyProfile = () => {
+    router.push(`/profile/${profileId}`);
+  };
   return (
     <div>
       <FeedMyProfileViewWrapper>
@@ -23,6 +29,7 @@ const FeedMyProfileView: React.FC<{ data: GetFeedMyProfileData }> = ({
             src={data.user.profileImage}
             width={100}
             height={100}
+            onClick={goToMyProfile}
           ></ProfileImage>
         </ProfileImageWrapper>
         <UserNameWrapper>
@@ -82,6 +89,7 @@ const ProfileImage = styled(Image)`
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserNameWrapper = styled.div`

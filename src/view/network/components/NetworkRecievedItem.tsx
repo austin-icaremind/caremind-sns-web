@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import NetworkViewModel from "@/view-model/network/class/NetworkViewModel";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const NetworkRecievedItem: React.FC<{
   isSentData: boolean;
@@ -11,6 +12,7 @@ const NetworkRecievedItem: React.FC<{
   postAccept: any;
   postdecline: any;
 }> = ({ data, isSentData, postAccept, postdecline }) => {
+  const router = useRouter();
   const handleAccept = async () => {
     postAccept(data.id);
   };
@@ -19,6 +21,13 @@ const NetworkRecievedItem: React.FC<{
     postdecline(data.id);
   };
 
+  const getProfileId = async () => {
+    const ProfileId = await NetworkViewModel.getProfileId(
+      data.connectedUser.id
+    );
+
+    router.push(`/profile/${ProfileId.id}`);
+  };
   return (
     <MapWrapper key={data.id}>
       <NewConnectionUserWrapper>
@@ -28,6 +37,7 @@ const NetworkRecievedItem: React.FC<{
             src={data.connectedUser.profileImage}
             width={52}
             height={52}
+            onClick={getProfileId}
           ></UserImage>
           <UserNameInformationWrapper>
             <FirstLine>{data.connectedUser.name}</FirstLine>
@@ -77,6 +87,7 @@ const PaddingWrapper = styled.div`
 `;
 const UserImage = styled(Image)`
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const UserNameInformationWrapper = styled.div`

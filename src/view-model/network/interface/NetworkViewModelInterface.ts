@@ -28,3 +28,7 @@ export interface NetworkMyConnectionInterface {
     profileImage: string;
   };
 }
+
+export interface getProfileIdData {
+  id: number;
+}
