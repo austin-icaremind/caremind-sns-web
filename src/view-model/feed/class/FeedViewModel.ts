@@ -72,11 +72,10 @@ class FeedViewModel {
     }
   }
 
-  static async getFeedListData(
-    searchValue
-  ): Promise<FeedViewModelInterface.GetFeedListData[]> {
+  static async getFeedListData(): // searchValue
+  Promise<FeedViewModelInterface.GetFeedListData[]> {
     try {
-      const response = FeedService.getFeedList(searchValue);
+      const response = FeedService.getFeedList();
 
       return response;
     } catch (error) {
@@ -110,13 +109,9 @@ class FeedViewModel {
 
       if ((response.status = 201)) {
         alert("친구 신청을 보냈습니다");
-
         return response.data;
       }
-    } catch (error: any) {
-      // if (error.response.status === 400) {
-      //   alert("이미 친구 신청을 보냈습니다");
-      // }
+    } catch (error) {
       if (error.response.data.message === "DUPLICATE_USER_CONNECTION") {
         alert("이미 요청을 보낸 대상입니다");
       }
