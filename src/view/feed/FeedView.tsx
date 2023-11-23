@@ -22,12 +22,15 @@ const FeedView = () => {
     setIndex(e.target.value);
   };
 
+
   const searchParams = useSearchParams();
   FeedViewModel.setSearchParam(searchParams);
+
 
   const fetchData = async () => {
     try {
       const getFeedList = await FeedViewModel.getFeedListData();
+
       setFeedListData(getFeedList);
 
       const getMyHashtag = await FeedViewModel.getFeedMyHashtagData();
@@ -35,6 +38,7 @@ const FeedView = () => {
 
       const userId = parseInt(localStorage.getItem("userId") || "-1", 10);
       const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
+
       setMyProfileData(getMyProfile);
     } catch (error) {
       console.error(error);
