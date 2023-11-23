@@ -126,7 +126,6 @@ export class ProfileService {
     const result = response.data.map(
       (experience) =>
         new Profile.ProfileExperienceImp(
-          experience.imgSrc,
           experience.position,
           experience.startDate,
           experience.endDate,
@@ -161,7 +160,6 @@ export class ProfileService {
 
     const result: ProfileInterface.ProfileExperienceInterface =
       new Profile.ProfileExperienceImp(
-        experience.imgSrc,
         experience.position,
         experience.startDate,
         experience.endDate,
