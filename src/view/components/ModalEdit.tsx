@@ -287,6 +287,8 @@ const ModalEdit: React.FC<ModalProps> = ({
     "education_null",
   ];
 
+  console.log("확인", userInfo);
+
   return (
     <ModalEditStyle>
       <ModalBox active={modalCheck}>
