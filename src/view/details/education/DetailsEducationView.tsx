@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
@@ -68,6 +67,7 @@ const DetailsEducationView = ({ id }: { id: number }) => {
             title="교육 생성"
             layout="education_null"
             click={isChange}
+            profileId={id}
           />
         )}
 
@@ -83,6 +83,7 @@ const DetailsEducationView = ({ id }: { id: number }) => {
                   title="교육 수정"
                   layout="education"
                   click={isChange}
+                  profileId={id}
                   id={item.id}
                 />
               )}
