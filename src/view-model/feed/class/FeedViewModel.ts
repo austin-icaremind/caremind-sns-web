@@ -72,11 +72,11 @@ class FeedViewModel {
     }
   }
 
-  static async getFeedListData(
-    searchValue
-  ): Promise<FeedViewModelInterface.GetFeedListData[]> {
+  static async getFeedListData(): Promise<
+    FeedViewModelInterface.GetFeedListData[]
+  > {
     try {
-      const response = FeedService.getFeedList(searchValue);
+      const response = FeedService.getFeedList();
 
       return response;
     } catch (error) {

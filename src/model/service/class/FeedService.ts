@@ -125,20 +125,16 @@ export class FeedService {
     return response;
   }
 
-  static async getFeedList(): // searchValue: any
-  Promise<FeedInterface.FeedListInterface[]> {
+  static async getFeedList(): Promise<FeedInterface.FeedListInterface[]> {
     const token = localStorage.getItem("token");
 
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-      await axios.get(
-        `/feed`,
-        /*${searchValue}*/ {
-          baseURL: `${BASE_API}`,
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      await axios.get(`/feed`, {
+        baseURL: `${BASE_API}`,
+        headers: {
+          Authorization: token,
+        },
+      });
 
     const result = response.data.map(
       (feedList) =>
