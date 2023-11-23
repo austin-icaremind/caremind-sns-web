@@ -228,4 +228,40 @@ export class FeedService {
 
     return result;
   }
+
+  static async getSearchList(searchValue: string): // searchValue: any
+  Promise<FeedInterface.FeedListInterface[]> {
+    const token = localStorage.getItem("token");
+
+    const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
+      await axios.get(
+        `/feed?search=${searchValue}`,
+        /*${searchValue}*/ {
+          baseURL: `${BASE_API}`,
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+    const result = response.data.map(
+      (feedList) =>
+        new Feed.FeedListImp(
+          feedList.id,
+          feedList.content,
+          feedList.createdAt,
+          feedList.updatedAt,
+          feedList.author,
+          feedList.likes,
+          feedList.images,
+          feedList.video,
+          feedList.isLiked,
+          feedList.comments,
+          feedList.likesCount,
+          feedList.commentsCount
+        )
+    );
+
+    return result;
+  }
 }

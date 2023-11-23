@@ -1,6 +1,5 @@
 import { FeedService } from "@/model/service/class/FeedService";
 import * as FeedViewModelInterface from "../interface/FeedViewModelInterface";
-import { AxiosError, AxiosResponse } from "axios";
 
 class FeedViewModel {
   static async postFeedData(content: string, images: string | null) {
@@ -129,6 +128,31 @@ class FeedViewModel {
       throw error;
     }
   }
+  static async getSearchListData(searchValue: string): // searchValue
+  Promise<FeedViewModelInterface.GetFeedListData[]> {
+    try {
+      const response = FeedService.getSearchList(searchValue);
+      if (response.status >= 200 && response.status < 300) {
+        const result = await this.getSearchListData(searchValue);
+        return result;
+      }
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
+// // class FeedViewModel {
+//   static async postFeedData(content: string, images: string | null) {
+//     try {
+//       const response = await FeedService.postFeed(content, images);
+//       if (response.status >= 200 && response.status < 300) {
+//         const result = await this.getFeedListData();
+//         return result;
+//       }
+//     } catch (error) {
+//       throw error;
+//     }
+//   }
 export default FeedViewModel;
