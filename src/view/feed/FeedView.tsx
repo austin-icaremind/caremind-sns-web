@@ -21,11 +21,9 @@ const FeedView = () => {
 
   const searchParams = new URLSearchParams(document.location.search);
 
-  const searchValue = searchParams.get("search");
-
   const fetchData = async () => {
     try {
-      const getFeedList = await FeedViewModel.getFeedListData(searchValue);
+      const getFeedList = await FeedViewModel.getFeedListData();
 
       setFeedListData(getFeedList);
 
@@ -40,10 +38,6 @@ const FeedView = () => {
       const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
 
       setMyProfileData(getMyProfile);
-
-      // const getSearchParams = await FeedViewModel.getFeedMyProfileData(
-      //   searchParams
-      // );
 
       setMyProfileData(getMyProfile);
     } catch (error) {

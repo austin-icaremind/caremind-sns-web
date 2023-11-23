@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-// import { useRouter } from "next/router";
 import Image from "next/image";
 import styled from "styled-components";
 import ProfileViewModel from "@/view-model/profile/class/ProfileViewModel";
