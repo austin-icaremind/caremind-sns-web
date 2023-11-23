@@ -147,9 +147,7 @@ export class FeedService {
 
     const paramsString = params.join("&");
     const response: AxiosResponse<FeedServiceInterface.FeedListData[]> =
-
       await axios.get(`/feed?${paramsString ? paramsString : ""}`, {
-
         baseURL: `${BASE_API}`,
         headers: {
           Authorization: token,
@@ -244,3 +242,4 @@ export class FeedService {
 
     return result;
   }
+}

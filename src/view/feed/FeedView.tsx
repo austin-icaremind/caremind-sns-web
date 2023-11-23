@@ -22,10 +22,8 @@ const FeedView = () => {
     setIndex(e.target.value);
   };
 
-
   const searchParams = useSearchParams();
   FeedViewModel.setSearchParam(searchParams);
-
 
   const fetchData = async () => {
     try {
@@ -89,15 +87,7 @@ const FeedView = () => {
     <FeedWrapper>
       <FeedLeftContent>
         <FeedPostView postFeed={createFeed} />
-        <SortContainer>
-          <SortLine />
-          <SortLetterContainer>
-            <SortBy>Sort By:</SortBy>
-            <SortSection value={index} onChange={onSelect}>
-              <option value="0">recent</option>
-            </SortSection>
-          </SortLetterContainer>
-        </SortContainer>
+        <SortContainer></SortContainer>
         <FeedListView
           data={feedListData}
           myProfileData={myProfileData}

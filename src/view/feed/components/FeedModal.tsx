@@ -29,16 +29,6 @@ const FeedModal: React.FC<{ userId: any; feedId: any; deleteFeed: any }> = ({
       <ContentWrapper>
         {id === localId ? (
           <IconContainer>
-            <IconWrapper>
-              <Image
-                alt="수정 아이콘"
-                src="/images/pencil.png"
-                width={20}
-                height={20}
-              />
-              수정
-            </IconWrapper>
-
             <IconWrapper onClick={handleDelete}>
               <Image
                 alt="삭제 아이콘"

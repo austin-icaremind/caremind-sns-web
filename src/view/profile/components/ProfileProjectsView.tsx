@@ -112,6 +112,7 @@ const ProfileProjectsPic = styled(Image)`
   flex-shrink: 0;
   display: block;
   margin-bottom: 15px;
+  object-fit: cover;
 `;
 
 const ProfileProjectsTitle = styled.div`

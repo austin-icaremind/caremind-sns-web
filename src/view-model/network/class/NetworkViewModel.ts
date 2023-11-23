@@ -75,9 +75,7 @@ export class NetworkViewModel {
       if (response.status >= 200 && response.status < 300) {
         const result = await this.getRecievedConnection();
 
-        return {
-          received: result,
-        };
+        return result;
       }
     } catch (error) {
       return "wrong";
