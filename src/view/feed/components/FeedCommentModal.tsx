@@ -7,12 +7,12 @@ const FeedCommentModal: React.FC<{
   id: number;
   commentId: number;
   deleteComment: any;
-  feedId: any;
+  feedId: number;
 }> = ({
   id,
-  //commenter안에 id
+
   commentId,
-  //comment게시글의 id
+
   deleteComment,
   feedId,
 }) => {
