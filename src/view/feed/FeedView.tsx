@@ -4,7 +4,7 @@ import FeedPostView from "./components/FeedPostView";
 import FeedListView from "./components/FeedListView";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import FeedMyProfileView from "./components/FeedMyProfileView";
 import FeedHashTagView from "./components/FeedHashTagView";
 import FeedViewModel from "@/view-model/feed/class/FeedViewModel";
@@ -18,14 +18,11 @@ const FeedView = () => {
   );
   const [myHashtagData, setMyHashtagData] = useState<HashTagData | null>(null);
   const [feedListData, setFeedListData] = useState<any | null>(null);
-  const [feedsearchList, setFeedsearchList] = useState<any | null>(null);
-  const router = useRouter();
   const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setIndex(e.target.value);
   };
 
-  const searchParams = new URLSearchParams(document.location.search);
-
+  const searchParams = useSearchParams();
   FeedViewModel.setSearchParam(searchParams);
 
   const fetchData = async () => {
@@ -39,21 +36,13 @@ const FeedView = () => {
       const userId = parseInt(localStorage.getItem("userId") || "-1", 10);
       const getMyProfile = await FeedViewModel.getFeedMyProfileData(userId);
       setMyProfileData(getMyProfile);
-
-      if (searchValue) {
-        const getSearchList = await FeedViewModel.getSearchListData(
-          searchValue
-        );
-
-        setFeedListData(getSearchList); // Update feed list with search results
-      }
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   if (
     myProfileData === null ||
@@ -86,7 +75,7 @@ const FeedView = () => {
     });
   };
 
-  // const serachFeed = (searchValue:string) => {
+  // const serachFeed = (searchValue: string) => {
   //   FeedViewModel.getSearchListData(searchValue).then((res) => {
   //     setFeedListData(res);
   //   });

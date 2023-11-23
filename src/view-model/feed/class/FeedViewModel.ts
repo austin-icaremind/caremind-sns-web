@@ -2,6 +2,9 @@ import { FeedService } from "@/model/service/class/FeedService";
 import * as FeedViewModelInterface from "../interface/FeedViewModelInterface";
 
 class FeedViewModel {
+  static setSearchParam(searchParams: URLSearchParams) {
+    FeedService.setSearchParam(searchParams);
+  }
   static async postFeedData(content: string, images: string | null) {
     try {
       const response = await FeedService.postFeed(content, images);
@@ -71,8 +74,9 @@ class FeedViewModel {
     }
   }
 
-  static async getFeedListData(): // searchValue
-  Promise<FeedViewModelInterface.GetFeedListData[]> {
+  static async getFeedListData(): Promise<
+    FeedViewModelInterface.GetFeedListData[]
+  > {
     try {
       const response = FeedService.getFeedList();
 
@@ -128,31 +132,19 @@ class FeedViewModel {
       throw error;
     }
   }
-  static async getSearchListData(searchValue: string): // searchValue
-  Promise<FeedViewModelInterface.GetFeedListData[]> {
-    try {
-      const response = FeedService.getSearchList(searchValue);
-      if (response.status >= 200 && response.status < 300) {
-        const result = await this.getSearchListData(searchValue);
-        return result;
-      }
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }
+  // static async getSearchListData(searchValue: string): // searchValue
+  // Promise<FeedViewModelInterface.GetFeedListData[]> {
+  //   try {
+  //     const response = FeedService.getSearchList(searchValue);
+  //     if (response.status >= 200 && response.status < 300) {
+  //       const result = await this.getSearchListData(searchValue);
+  //       return result;
+  //     }
+  //     return response;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
-// // class FeedViewModel {
-//   static async postFeedData(content: string, images: string | null) {
-//     try {
-//       const response = await FeedService.postFeed(content, images);
-//       if (response.status >= 200 && response.status < 300) {
-//         const result = await this.getFeedListData();
-//         return result;
-//       }
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
 export default FeedViewModel;
