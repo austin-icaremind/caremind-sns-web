@@ -37,7 +37,8 @@ const NetworkView = () => {
 
   const postAccept = (id: number) => {
     NetworkViewModel.RecievedAccept(id).then((res) => {
-      setRecievedData(res);
+      setRecievedData(res.received);
+      setMyConnectionData(res.connected);
     });
   };
 
